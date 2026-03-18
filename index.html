@@ -21,6 +21,19 @@
     --red: #cc3333;
   }
 
+  :root.light {
+    --black: #f5f5f5;
+    --dark: #ffffff;
+    --panel: #f0f0f0;
+    --border: #d8d8d8;
+    --mid: #b0b0b0;
+    --muted: #888888;
+    --silver: #555555;
+    --light: #1a1a1a;
+    --white: #0a0a0a;
+    --accent: #222222;
+  }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
@@ -338,10 +351,11 @@
   }
 
   .match-time.tbd {
-    color: var(--mid);
-    font-size: 11px;
-    letter-spacing: 2px;
-    font-weight: 600;
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    text-transform: uppercase;
   }
 
   .match-teams {
@@ -381,7 +395,25 @@
     color: var(--muted);
     text-align: right;
     white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
   }
+
+  .match-multi.gm::before,
+  .match-multi.gw::before,
+  .match-multi.gmix::before {
+    content: '';
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .match-multi.gm::before  { background: #6aafd4; }
+  .match-multi.gw::before  { background: #d47aaa; }
+  .match-multi.gmix::before { background: var(--silver); }
 
   /* ── LEGEND ── */
   .legend {
@@ -442,6 +474,19 @@
     margin-top: 4px;
   }
 
+  /* ── TEAM COLORS ── */
+  .t-sihm  { color: #e05252; }
+  .t-sohs  { color: #52b05c; }
+  .t-ciste { color: #5bb4d4; }
+  .t-sba   { color: #d4aa45; }
+  .t-sohe  { color: #e07832; }
+
+  .match-row:has(.t-sihm)::before  { background: #e05252; }
+  .match-row:has(.t-sohs)::before  { background: #52b05c; }
+  .match-row:has(.t-ciste)::before { background: #5bb4d4; }
+  .match-row:has(.t-sba)::before   { background: #d4aa45; }
+  .match-row:has(.t-sohe)::before  { background: #e07832; }
+
   /* ── HIDDEN ── */
   .hidden { display: none !important; }
 
@@ -474,6 +519,38 @@
     color: var(--border);
     letter-spacing: 1px;
     text-transform: uppercase;
+  }
+
+  /* ── THEME TOGGLE ── */
+  .theme-toggle {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    cursor: pointer;
+    padding: 6px 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--silver);
+    color: var(--light);
+  }
+
+  .theme-toggle svg {
+    width: 13px;
+    height: 13px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.8;
+    stroke-linecap: round;
   }
 
   /* ── SCROLLBAR ── */
@@ -568,7 +645,23 @@
       <h1>SITE<span>Game Schedule</span></h1>
     </div>
     <div class="header-right">
-      <div class="team-badge">Team SITE</div>
+      <div style="display:flex;align-items:center;gap:10px;justify-content:flex-end;margin-bottom:8px">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle light mode">
+          <svg id="themeIcon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="4"/>
+            <line x1="12" y1="2" x2="12" y2="5"/>
+            <line x1="12" y1="19" x2="12" y2="22"/>
+            <line x1="2" y1="12" x2="5" y2="12"/>
+            <line x1="19" y1="12" x2="22" y2="12"/>
+            <line x1="4.93" y1="4.93" x2="7.05" y2="7.05"/>
+            <line x1="16.95" y1="16.95" x2="19.07" y2="19.07"/>
+            <line x1="4.93" y1="19.07" x2="7.05" y2="16.95"/>
+            <line x1="16.95" y1="7.05" x2="19.07" y2="4.93"/>
+          </svg>
+          <span id="themeLabel">Light</span>
+        </button>
+        <div class="team-badge">Team SITE</div>
+      </div>
       <div class="season-tag">March 18 – 25, 2026</div>
     </div>
   </header>
@@ -619,14 +712,14 @@
     <div class="sport-section" data-sport="basketball">
       <div class="sport-label">
         <span class="sport-icon"><svg class="sport-svg"><use href="#ico-basketball"/></svg></span>
-        <span class="sport-name">Basketball</span>
+        <span class="sport-name">Basketball — Men (5v5)</span>
         <span class="sport-venue">Leisure Coast Gym</span>
       </div>
       <div class="matches">
         <div class="match-row">
           <div class="match-time">2:30 PM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
-          <div class="match-multi"></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
+          <div class="match-multi gm">Men</div>
         </div>
       </div>
     </div>
@@ -639,14 +732,14 @@
       </div>
       <div class="matches">
         <div class="match-row">
-          <div class="match-time tbd">TBD</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
-          <div class="match-multi">Men · Court 1</div>
+          <div class="match-time tbd">2nd Game PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
+          <div class="match-multi gm">Men · Court 1</div>
         </div>
         <div class="match-row">
-          <div class="match-time tbd">TBD</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
-          <div class="match-multi">Women · Court 2</div>
+          <div class="match-time tbd">2nd Game PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
+          <div class="match-multi gw">Women · Court 2</div>
         </div>
       </div>
     </div>
@@ -659,14 +752,14 @@
       </div>
       <div class="matches">
         <div class="match-row">
-          <div class="match-time tbd">TBD</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
-          <div class="match-multi"></div>
+          <div class="match-time tbd">2nd Game PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
+          <div class="match-multi gm">Men</div>
         </div>
         <div class="match-row">
-          <div class="match-time tbd">TBD</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
-          <div class="match-multi"></div>
+          <div class="match-time tbd">6th Game PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohe">SOHE</span></div>
+          <div class="match-multi gm">Men</div>
         </div>
       </div>
     </div>
@@ -686,19 +779,19 @@
     <div class="sport-section" data-sport="basketball">
       <div class="sport-label">
         <span class="sport-icon"><svg class="sport-svg"><use href="#ico-basketball"/></svg></span>
-        <span class="sport-name">Basketball (5v5)</span>
+        <span class="sport-name">Basketball — Men (5v5)</span>
         <span class="sport-venue">UDD Quadrangle</span>
       </div>
       <div class="matches">
         <div class="match-row">
           <div class="match-time">11:00 AM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
-          <div class="match-multi"></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohe">SOHE</span></div>
+          <div class="match-multi gm">Men</div>
         </div>
         <div class="match-row">
           <div class="match-time">4:00 PM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
-          <div class="match-multi"></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohs">SOHS</span></div>
+          <div class="match-multi gm">Men</div>
         </div>
       </div>
     </div>
@@ -706,34 +799,34 @@
     <div class="sport-section" data-sport="basketball">
       <div class="sport-label">
         <span class="sport-icon"><svg class="sport-svg"><use href="#ico-basketball"/></svg></span>
-        <span class="sport-name">3×3 Basketball</span>
+        <span class="sport-name">Basketball — Women (3v3)</span>
         <span class="sport-venue">LCR Gym Court #1</span>
       </div>
       <div class="matches">
         <div class="match-row">
           <div class="match-time">8:15 AM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
-          <div class="match-multi"></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
+          <div class="match-multi gw">Women</div>
         </div>
         <div class="match-row">
           <div class="match-time">9:15 AM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
-          <div class="match-multi"></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohe">SOHE</span></div>
+          <div class="match-multi gw">Women</div>
         </div>
         <div class="match-row">
           <div class="match-time">10:00 AM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
-          <div class="match-multi"></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohs">SOHS</span></div>
+          <div class="match-multi gw">Women</div>
         </div>
         <div class="match-row">
           <div class="match-time">10:30 AM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
-          <div class="match-multi"></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sba">SBA</span></div>
+          <div class="match-multi gw">Women</div>
         </div>
         <div class="match-row">
           <div class="match-time">11:00 AM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SIHM</span></div>
-          <div class="match-multi"></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sihm">SIHM</span></div>
+          <div class="match-multi gw">Women</div>
         </div>
       </div>
     </div>
@@ -746,14 +839,24 @@
       </div>
       <div class="matches">
         <div class="match-row">
-          <div class="match-time tbd">TBD</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
-          <div class="match-multi"></div>
+          <div class="match-time tbd">3rd Game AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohe">SOHE</span></div>
+          <div class="match-multi gm">Men · Court 1</div>
         </div>
         <div class="match-row">
-          <div class="match-time tbd">TBD</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
-          <div class="match-multi"></div>
+          <div class="match-time tbd">3rd Game AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohe">SOHE</span></div>
+          <div class="match-multi gw">Women · Court 2</div>
+        </div>
+        <div class="match-row">
+          <div class="match-time tbd">3rd Game PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohs">SOHS</span></div>
+          <div class="match-multi gm">Men · Court 1</div>
+        </div>
+        <div class="match-row">
+          <div class="match-time tbd">3rd Game PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohs">SOHS</span></div>
+          <div class="match-multi gw">Women · Court 2</div>
         </div>
       </div>
     </div>
@@ -761,29 +864,29 @@
     <div class="sport-section" data-sport="beach">
       <div class="sport-label">
         <span class="sport-icon"><svg class="sport-svg"><use href="#ico-beach"/></svg></span>
-        <span class="sport-name">Beach Volleyball</span>
+        <span class="sport-name">Beach Volleyball — Men &amp; Women</span>
         <span class="sport-venue">Sand Area</span>
       </div>
       <div class="matches">
         <div class="match-row">
-          <div class="match-time tbd">TBD</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
-          <div class="match-multi"></div>
+          <div class="match-time tbd">2nd Game AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
+          <div class="match-multi gw">Women</div>
         </div>
         <div class="match-row">
-          <div class="match-time tbd">TBD</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
-          <div class="match-multi"></div>
+          <div class="match-time tbd">6th Game AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohe">SOHE</span></div>
+          <div class="match-multi gw">Women</div>
         </div>
         <div class="match-row">
-          <div class="match-time tbd">TBD</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
-          <div class="match-multi"></div>
+          <div class="match-time tbd">3rd Game PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohs">SOHS</span></div>
+          <div class="match-multi gm">Men</div>
         </div>
         <div class="match-row">
-          <div class="match-time tbd">TBD</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
-          <div class="match-multi"></div>
+          <div class="match-time tbd">5th Game PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sba">SBA</span></div>
+          <div class="match-multi gm">Men</div>
         </div>
       </div>
     </div>
@@ -791,33 +894,33 @@
     <div class="sport-section" data-sport="chess">
       <div class="sport-label">
         <span class="sport-icon"><svg class="sport-svg"><use href="#ico-chess"/></svg></span>
-        <span class="sport-name">Chess</span>
+        <span class="sport-name">Chess — Individual</span>
         <span class="sport-venue">Library · VPA Building</span>
       </div>
       <div class="matches">
         <div class="match-row">
           <div class="match-time">8:30 AM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
           <div class="match-multi"></div>
         </div>
         <div class="match-row">
           <div class="match-time">10:30 AM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohe">SOHE</span></div>
           <div class="match-multi"></div>
         </div>
         <div class="match-row">
           <div class="match-time">1:00 PM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohs">SOHS</span></div>
           <div class="match-multi"></div>
         </div>
         <div class="match-row">
           <div class="match-time">2:00 PM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sba">SBA</span></div>
           <div class="match-multi"></div>
         </div>
         <div class="match-row">
           <div class="match-time">3:00 PM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SIHM</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sihm">SIHM</span></div>
           <div class="match-multi"></div>
         </div>
       </div>
@@ -838,19 +941,19 @@
     <div class="sport-section" data-sport="basketball">
       <div class="sport-label">
         <span class="sport-icon"><svg class="sport-svg"><use href="#ico-basketball"/></svg></span>
-        <span class="sport-name">Basketball</span>
+        <span class="sport-name">Basketball — Men (5v5)</span>
         <span class="sport-venue">UDD Quadrangle</span>
       </div>
       <div class="matches">
         <div class="match-row">
           <div class="match-time">9:30 AM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
-          <div class="match-multi"></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sba">SBA</span></div>
+          <div class="match-multi gm">Men</div>
         </div>
         <div class="match-row">
           <div class="match-time">1:00 PM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SIHM</span></div>
-          <div class="match-multi"></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sihm">SIHM</span></div>
+          <div class="match-multi gm">Men</div>
         </div>
       </div>
     </div>
@@ -863,14 +966,24 @@
       </div>
       <div class="matches">
         <div class="match-row">
-          <div class="match-time tbd">TBD</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
-          <div class="match-multi"></div>
+          <div class="match-time tbd">2nd Game AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sba">SBA</span></div>
+          <div class="match-multi gm">Men · Court 1</div>
+        </div>
+        <div class="match-row">
+          <div class="match-time tbd">2nd Game AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sba">SBA</span></div>
+          <div class="match-multi gw">Women · Court 2</div>
         </div>
         <div class="match-row">
           <div class="match-time">1:00 PM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SIHM</span></div>
-          <div class="match-multi"></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sihm">SIHM</span></div>
+          <div class="match-multi gm">Men · Court 1</div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">1:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sihm">SIHM</span></div>
+          <div class="match-multi gw">Women · Court 2</div>
         </div>
       </div>
     </div>
@@ -878,24 +991,29 @@
     <div class="sport-section" data-sport="beach">
       <div class="sport-label">
         <span class="sport-icon"><svg class="sport-svg"><use href="#ico-beach"/></svg></span>
-        <span class="sport-name">Beach Volleyball</span>
+        <span class="sport-name">Beach Volleyball — Men &amp; Women</span>
         <span class="sport-venue">Sand Area</span>
       </div>
       <div class="matches">
         <div class="match-row">
-          <div class="match-time tbd">TBD</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
-          <div class="match-multi"></div>
+          <div class="match-time tbd">3rd Game AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohs">SOHS</span></div>
+          <div class="match-multi gw">Women</div>
         </div>
         <div class="match-row">
-          <div class="match-time tbd">TBD</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
-          <div class="match-multi"></div>
+          <div class="match-time tbd">5th Game AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sba">SBA</span></div>
+          <div class="match-multi gw">Women</div>
         </div>
         <div class="match-row">
-          <div class="match-time">1:00 / 3:00 PM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SIHM</span></div>
-          <div class="match-multi">2 games</div>
+          <div class="match-time">1:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sihm">SIHM</span></div>
+          <div class="match-multi gm">Men</div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">3:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sihm">SIHM</span></div>
+          <div class="match-multi gw">Women</div>
         </div>
       </div>
     </div>
@@ -909,28 +1027,53 @@
       <div class="matches">
         <div class="match-row">
           <div class="match-time">8:30 AM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
-          <div class="match-multi"></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
+          <div class="match-multi gm">Men</div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">8:30 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
+          <div class="match-multi gw">Women</div>
         </div>
         <div class="match-row">
           <div class="match-time">9:55 AM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
-          <div class="match-multi"></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohe">SOHE</span></div>
+          <div class="match-multi gm">Men</div>
         </div>
         <div class="match-row">
-          <div class="match-time">10:55 / 11:55 AM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
-          <div class="match-multi">2 games</div>
+          <div class="match-time">9:55 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohe">SOHE</span></div>
+          <div class="match-multi gw">Women</div>
         </div>
         <div class="match-row">
-          <div class="match-time">11:30 / 1:30 PM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
-          <div class="match-multi">2 games</div>
+          <div class="match-time">10:55 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohs">SOHS</span></div>
+          <div class="match-multi gm">Men</div>
         </div>
         <div class="match-row">
-          <div class="match-time">1:00 / 2:00 PM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SIHM</span></div>
-          <div class="match-multi">2 games</div>
+          <div class="match-time">11:55 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohs">SOHS</span></div>
+          <div class="match-multi gw">Women</div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">11:30 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sba">SBA</span></div>
+          <div class="match-multi gm">Men</div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">1:30 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sba">SBA</span></div>
+          <div class="match-multi gw">Women</div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">1:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sihm">SIHM</span></div>
+          <div class="match-multi gm">Men</div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">2:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sihm">SIHM</span></div>
+          <div class="match-multi gw">Women</div>
         </div>
       </div>
     </div>
@@ -944,17 +1087,17 @@
       <div class="matches">
         <div class="match-row">
           <div class="match-time">3:30 PM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
           <div class="match-multi"></div>
         </div>
         <div class="match-row">
           <div class="match-time">3:55 PM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohe">SOHE</span></div>
           <div class="match-multi"></div>
         </div>
         <div class="match-row">
           <div class="match-time">4:55 PM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohs">SOHS</span></div>
           <div class="match-multi"></div>
         </div>
       </div>
@@ -975,18 +1118,18 @@
     <div class="sport-section" data-sport="scrabble">
       <div class="sport-label">
         <span class="sport-icon"><svg class="sport-svg"><use href="#ico-scrabble"/></svg></span>
-        <span class="sport-name">Scrabble — Doubles (cont.)</span>
+        <span class="sport-name">Scrabble — Doubles</span>
         <span class="sport-venue">Library</span>
       </div>
       <div class="matches">
         <div class="match-row">
           <div class="match-time">8:30 AM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sba">SBA</span></div>
           <div class="match-multi"></div>
         </div>
         <div class="match-row">
           <div class="match-time">8:00 AM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SIHM</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sihm">SIHM</span></div>
           <div class="match-multi"></div>
         </div>
       </div>
@@ -995,33 +1138,33 @@
     <div class="sport-section" data-sport="tabletennis">
       <div class="sport-label">
         <span class="sport-icon"><svg class="sport-svg"><use href="#ico-tabletennis"/></svg></span>
-        <span class="sport-name">Table Tennis</span>
+        <span class="sport-name">Table Tennis — Individual</span>
         <span class="sport-venue">Nikki's Garden</span>
       </div>
       <div class="matches">
         <div class="match-row">
           <div class="match-time">8:30 AM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
           <div class="match-multi"></div>
         </div>
         <div class="match-row">
           <div class="match-time">10:30 AM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohe">SOHE</span></div>
           <div class="match-multi"></div>
         </div>
         <div class="match-row">
           <div class="match-time">1:00 PM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohs">SOHS</span></div>
           <div class="match-multi"></div>
         </div>
         <div class="match-row">
           <div class="match-time">2:00 PM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sba">SBA</span></div>
           <div class="match-multi"></div>
         </div>
         <div class="match-row">
           <div class="match-time">3:00 PM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SIHM</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sihm">SIHM</span></div>
           <div class="match-multi"></div>
         </div>
       </div>
@@ -1042,33 +1185,33 @@
     <div class="sport-section" data-sport="badminton">
       <div class="sport-label">
         <span class="sport-icon"><svg class="sport-svg"><use href="#ico-badminton"/></svg></span>
-        <span class="sport-name">Badminton</span>
+        <span class="sport-name">Badminton — Men, Women &amp; Mixed</span>
         <span class="sport-venue">Nikki's Garden / LCR Gym</span>
       </div>
       <div class="matches">
         <div class="match-row">
           <div class="match-time">8:30 AM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
           <div class="match-multi"></div>
         </div>
         <div class="match-row">
           <div class="match-time">10:30 AM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohe">SOHE</span></div>
           <div class="match-multi"></div>
         </div>
         <div class="match-row">
           <div class="match-time">1:00 PM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohs">SOHS</span></div>
           <div class="match-multi"></div>
         </div>
         <div class="match-row">
           <div class="match-time">2:00 PM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sba">SBA</span></div>
           <div class="match-multi"></div>
         </div>
         <div class="match-row">
           <div class="match-time">3:00 PM</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SIHM</span></div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sihm">SIHM</span></div>
           <div class="match-multi"></div>
         </div>
       </div>
@@ -1078,13 +1221,13 @@
   <!-- LEGEND -->
   <div class="legend">
     <div class="legend-item"><div class="legend-dot" style="background:#f5f5f5"></div> SITE</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#a0a0a0"></div> CISTE</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#a0a0a0"></div> SOHE</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#a0a0a0"></div> SOHS</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#a0a0a0"></div> SBA</div>
-    <div class="legend-item"><div class="legend-dot" style="background:#a0a0a0"></div> SIHM</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#5bb4d4"></div> CISTE</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#e07832"></div> SOHE</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#52b05c"></div> SOHS</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#d4aa45"></div> SBA</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#e05252"></div> SIHM</div>
   </div>
-
+  
   <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-credit">Made for <strong>Team SITE</strong> &mdash; UDD Intramurals 2026</div>
@@ -1095,6 +1238,19 @@
 </div>
 
 <script>
+  // Theme toggle
+  const themeToggle = document.getElementById('themeToggle');
+  const themeLabel  = document.getElementById('themeLabel');
+  const moonIcon = `<circle cx="12" cy="12" r="5"/><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/>`;
+  const sunIcon  = `<circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="7.05" y2="7.05"/><line x1="16.95" y1="16.95" x2="19.07" y2="19.07"/><line x1="4.93" y1="19.07" x2="7.05" y2="16.95"/><line x1="16.95" y1="7.05" x2="19.07" y2="4.93"/>`;
+
+  themeToggle.addEventListener('click', () => {
+    const isLight = document.documentElement.classList.toggle('light');
+    document.getElementById('themeIcon').innerHTML = isLight ? moonIcon : sunIcon;
+    themeLabel.textContent = isLight ? 'Dark' : 'Light';
+  });
+
+  // Filter
   const filterBtns = document.querySelectorAll('.filter-btn');
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
