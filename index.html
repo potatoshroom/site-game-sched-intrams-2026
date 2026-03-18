@@ -445,6 +445,37 @@
   /* ── HIDDEN ── */
   .hidden { display: none !important; }
 
+  /* ── FOOTER ── */
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 28px 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .footer-credit {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .footer-credit strong {
+    color: var(--silver);
+  }
+
+  .footer-meta {
+    font-size: 11px;
+    color: var(--border);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
   /* ── SCROLLBAR ── */
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--black); }
@@ -630,6 +661,11 @@
         <div class="match-row">
           <div class="match-time tbd">TBD</div>
           <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time tbd">TBD</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
           <div class="match-multi"></div>
         </div>
       </div>
@@ -1048,6 +1084,13 @@
     <div class="legend-item"><div class="legend-dot" style="background:#a0a0a0"></div> SBA</div>
     <div class="legend-item"><div class="legend-dot" style="background:#a0a0a0"></div> SIHM</div>
   </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-credit">Made for <strong>Team SITE</strong> &mdash; UDD Intramurals 2026</div>
+    <div class="footer-credit">By <strong>Marc France P. Cabiles</strong></div>
+    <div class="footer-meta">March 18&ndash;25, 2026</div>
+  </footer>
 
 </div>
 
