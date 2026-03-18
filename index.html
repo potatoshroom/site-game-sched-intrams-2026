@@ -553,6 +553,211 @@
     stroke-linecap: round;
   }
 
+  /* ── CALENDAR ── */
+  .view-tabs {
+    display: flex;
+    margin-bottom: 32px;
+    border: 1px solid var(--border);
+    width: fit-content;
+  }
+
+  .view-tab {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    padding: 8px 18px; border: none; background: transparent; color: var(--muted);
+    cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 6px;
+  }
+
+  .view-tab + .view-tab { border-left: 1px solid var(--border); }
+
+  .view-tab.active { background: var(--white); color: var(--black); }
+
+  .view-tab svg {
+    width: 13px; height: 13px; stroke: currentColor; fill: none;
+    stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+  }
+
+  .cal-wrap { display: none; }
+  .cal-wrap.visible { display: block; animation: fadeUp 0.3s ease both; }
+
+  .cal-month-hd {
+    display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+  }
+
+  .cal-month-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px; font-weight: 800; letter-spacing: 5px; text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .cal-dow-row {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; margin-bottom: 2px;
+  }
+
+  .cal-dow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); text-align: center; padding: 6px 0;
+  }
+
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+
+  .cal-cell {
+    min-height: 88px; background: var(--dark); border: 1px solid var(--border);
+    padding: 8px 8px 6px; transition: border-color 0.15s;
+  }
+
+  .cal-cell.empty { background: transparent; border-color: transparent; }
+  .cal-cell.game-day { cursor: pointer; }
+  .cal-cell.game-day:hover { border-color: var(--silver); }
+  .cal-cell.selected { border-color: var(--silver); background: var(--panel); }
+
+  .cal-cell-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px; font-weight: 700; color: var(--muted);
+    width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;
+    margin-bottom: 6px;
+  }
+
+  .cal-cell.game-day .cal-cell-num { color: var(--light); }
+
+  .cal-cell.today .cal-cell-num { background: var(--white); color: var(--black); border-radius: 50%; }
+
+  .cal-chips { display: flex; flex-direction: column; gap: 2px; }
+
+  .cal-chip {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.3px;
+    padding: 2px 5px; border-radius: 2px;
+    display: flex; align-items: center; gap: 3px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    color: rgba(0,0,0,0.8);
+  }
+
+  .cal-chip svg {
+    width: 9px; height: 9px; stroke: currentColor; fill: none;
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0;
+  }
+
+  .cal-chip-more {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 1px;
+    padding: 1px 4px;
+  }
+
+  /* Agenda panel */
+  .cal-agenda {
+    margin-top: 16px; border: 1px solid var(--border); background: var(--dark);
+    overflow: hidden; animation: fadeUp 0.2s ease both;
+  }
+
+  .agenda-hd {
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 20px; border-bottom: 1px solid var(--border); background: var(--panel);
+  }
+
+  .agenda-hd-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 44px; font-weight: 900; line-height: 1; color: var(--border);
+    min-width: 56px; text-align: right;
+  }
+
+  .agenda-hd-info { flex: 1; }
+
+  .agenda-hd-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 20px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--light); line-height: 1;
+  }
+
+  .agenda-hd-date {
+    font-size: 11px; color: var(--muted); letter-spacing: 2px;
+    text-transform: uppercase; margin-top: 4px;
+  }
+
+  .agenda-count {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); background: var(--border); padding: 4px 10px; border-radius: 2px;
+  }
+
+  .agenda-close {
+    background: transparent; border: 1px solid var(--border); color: var(--muted);
+    cursor: pointer; width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center; transition: all 0.15s;
+  }
+
+  .agenda-close:hover { border-color: var(--silver); color: var(--light); }
+  .agenda-close svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+  .agenda-sections { padding: 16px 20px; display: flex; flex-direction: column; gap: 16px; }
+
+  .agenda-sport-hd {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--muted); padding-bottom: 8px; border-bottom: 1px solid var(--border);
+    margin-bottom: 4px;
+  }
+
+  .agenda-sport-hd svg {
+    width: 13px; height: 13px; stroke: currentColor; fill: none;
+    stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; color: var(--silver);
+  }
+
+  .agenda-sport-venue {
+    margin-left: auto; font-size: 10px; color: var(--border);
+    letter-spacing: 1px; font-style: italic; font-weight: 400; font-family: 'Barlow', sans-serif;
+  }
+
+  .agenda-match {
+    display: grid; grid-template-columns: 90px 1fr auto;
+    align-items: center; gap: 12px;
+    padding: 9px 12px; border: 1px solid transparent;
+    position: relative; overflow: hidden; transition: all 0.15s;
+  }
+
+  .agenda-match::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+  .agenda-match:hover { border-color: var(--border); background: var(--panel); }
+
+  .agenda-match.opp-ciste::before { background: #5bb4d4; }
+  .agenda-match.opp-sohe::before  { background: #e07832; }
+  .agenda-match.opp-sohs::before  { background: #52b05c; }
+  .agenda-match.opp-sba::before   { background: #d4aa45; }
+  .agenda-match.opp-sihm::before  { background: #e05252; }
+
+  .agenda-time {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px; font-weight: 700; letter-spacing: 1px; color: var(--silver); white-space: nowrap;
+  }
+
+  .agenda-time.tbd {
+    font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px;
+  }
+
+  .agenda-teams { display: flex; align-items: center; gap: 8px; }
+
+  .agenda-gender {
+    font-size: 11px; color: var(--muted); white-space: nowrap;
+    display: flex; align-items: center; gap: 5px;
+  }
+
+  .agenda-gender.gm::before, .agenda-gender.gw::before, .agenda-gender.gmix::before {
+    content: ''; display: inline-block; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0;
+  }
+  .agenda-gender.gm::before   { background: #6aafd4; }
+  .agenda-gender.gw::before   { background: #d47aaa; }
+  .agenda-gender.gmix::before { background: var(--silver); }
+
+  @media (max-width: 600px) {
+    .cal-cell { min-height: 64px; padding: 5px; }
+    .cal-chip { font-size: 9px; padding: 1px 4px; }
+    .cal-chip svg { display: none; }
+    .agenda-match { grid-template-columns: 75px 1fr; }
+    .agenda-gender { display: none; }
+    .agenda-sport-venue { display: none; }
+  }
+
   /* ── SCROLLBAR ── */
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--black); }
@@ -696,6 +901,36 @@
     <button class="filter-btn" data-filter="scrabble"><svg class="sport-svg"><use href="#ico-scrabble"/></svg> Scrabble</button>
     <button class="filter-btn" data-filter="tabletennis"><svg class="sport-svg"><use href="#ico-tabletennis"/></svg> Table Tennis</button>
     <button class="filter-btn" data-filter="badminton"><svg class="sport-svg"><use href="#ico-badminton"/></svg> Badminton</button>
+  </div>
+
+  <!-- VIEW TABS -->
+  <div class="view-tabs">
+    <button class="view-tab" id="tabCal">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Calendar
+    </button>
+    <button class="view-tab active" id="tabSched">
+      <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      Schedule
+    </button>
+  </div>
+
+  <!-- CALENDAR VIEW -->
+  <div class="cal-wrap" id="calWrap">
+    <div class="cal-month-hd">
+      <div class="cal-month-title">March &nbsp; 2026</div>
+    </div>
+    <div class="cal-dow-row">
+      <div class="cal-dow">Sun</div>
+      <div class="cal-dow">Mon</div>
+      <div class="cal-dow">Tue</div>
+      <div class="cal-dow">Wed</div>
+      <div class="cal-dow">Thu</div>
+      <div class="cal-dow">Fri</div>
+      <div class="cal-dow">Sat</div>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div id="calAgenda"></div>
   </div>
 
   <!-- ═══════════════ MARCH 18 ═══════════════ -->
@@ -1238,7 +1473,288 @@
 </div>
 
 <script>
-  // Theme toggle
+  // ── CALENDAR DATA ──
+  const CAL_DATA = {
+    18: {
+      name: 'Wednesday', date: 'March 18, 2026',
+      sections: [
+        { sport:'basketball', icon:'#ico-basketball', label:'Basketball — Men (5v5)', venue:'Leisure Coast Gym',
+          matches:[{ time:'2:30 PM', opp:'CISTE', oCls:'ciste', gLabel:'Men', gCls:'gm' }]},
+        { sport:'volleyball', icon:'#ico-volleyball', label:'Volleyball — Men & Women', venue:'Leisure Coast Court 1 & 2',
+          matches:[
+            { time:'2nd Game PM', opp:'CISTE', oCls:'ciste', gLabel:'Men · Court 1',   gCls:'gm', tbd:true },
+            { time:'2nd Game PM', opp:'CISTE', oCls:'ciste', gLabel:'Women · Court 2', gCls:'gw', tbd:true }]},
+        { sport:'beach', icon:'#ico-beach', label:'Beach Volleyball — Men', venue:'Sand Area',
+          matches:[
+            { time:'2nd Game PM', opp:'CISTE', oCls:'ciste', gLabel:'Men', gCls:'gm', tbd:true },
+            { time:'6th Game PM', opp:'SOHE',  oCls:'sohe',  gLabel:'Men', gCls:'gm', tbd:true }]}
+      ]},
+    19: {
+      name: 'Thursday', date: 'March 19, 2026',
+      sections: [
+        { sport:'basketball', icon:'#ico-basketball', label:'Basketball — Men (5v5)', venue:'UDD Quadrangle',
+          matches:[
+            { time:'11:00 AM', opp:'SOHE', oCls:'sohe', gLabel:'Men', gCls:'gm' },
+            { time:'4:00 PM',  opp:'SOHS', oCls:'sohs', gLabel:'Men', gCls:'gm' }]},
+        { sport:'basketball', icon:'#ico-basketball', label:'Basketball — Women (3v3)', venue:'LCR Gym Court #1',
+          matches:[
+            { time:'8:15 AM',  opp:'CISTE', oCls:'ciste', gLabel:'Women', gCls:'gw' },
+            { time:'9:15 AM',  opp:'SOHE',  oCls:'sohe',  gLabel:'Women', gCls:'gw' },
+            { time:'10:00 AM', opp:'SOHS',  oCls:'sohs',  gLabel:'Women', gCls:'gw' },
+            { time:'10:30 AM', opp:'SBA',   oCls:'sba',   gLabel:'Women', gCls:'gw' },
+            { time:'11:00 AM', opp:'SIHM',  oCls:'sihm',  gLabel:'Women', gCls:'gw' }]},
+        { sport:'volleyball', icon:'#ico-volleyball', label:'Volleyball — Men & Women', venue:'Leisure Coast',
+          matches:[
+            { time:'3rd Game AM', opp:'SOHE', oCls:'sohe', gLabel:'Men · Court 1',   gCls:'gm', tbd:true },
+            { time:'3rd Game AM', opp:'SOHE', oCls:'sohe', gLabel:'Women · Court 2', gCls:'gw', tbd:true },
+            { time:'3rd Game PM', opp:'SOHS', oCls:'sohs', gLabel:'Men · Court 1',   gCls:'gm', tbd:true },
+            { time:'3rd Game PM', opp:'SOHS', oCls:'sohs', gLabel:'Women · Court 2', gCls:'gw', tbd:true }]},
+        { sport:'beach', icon:'#ico-beach', label:'Beach Volleyball — Men & Women', venue:'Sand Area',
+          matches:[
+            { time:'2nd Game AM', opp:'CISTE', oCls:'ciste', gLabel:'Women', gCls:'gw', tbd:true },
+            { time:'6th Game AM', opp:'SOHE',  oCls:'sohe',  gLabel:'Women', gCls:'gw', tbd:true },
+            { time:'3rd Game PM', opp:'SOHS',  oCls:'sohs',  gLabel:'Men',   gCls:'gm', tbd:true },
+            { time:'5th Game PM', opp:'SBA',   oCls:'sba',   gLabel:'Men',   gCls:'gm', tbd:true }]},
+        { sport:'chess', icon:'#ico-chess', label:'Chess — Individual', venue:'Library · VPA Building',
+          matches:[
+            { time:'8:30 AM',  opp:'CISTE', oCls:'ciste', gLabel:'', gCls:'' },
+            { time:'10:30 AM', opp:'SOHE',  oCls:'sohe',  gLabel:'', gCls:'' },
+            { time:'1:00 PM',  opp:'SOHS',  oCls:'sohs',  gLabel:'', gCls:'' },
+            { time:'2:00 PM',  opp:'SBA',   oCls:'sba',   gLabel:'', gCls:'' },
+            { time:'3:00 PM',  opp:'SIHM',  oCls:'sihm',  gLabel:'', gCls:'' }]}
+      ]},
+    23: {
+      name: 'Monday', date: 'March 23, 2026',
+      sections: [
+        { sport:'basketball', icon:'#ico-basketball', label:'Basketball — Men (5v5)', venue:'UDD Quadrangle',
+          matches:[
+            { time:'9:30 AM', opp:'SBA',  oCls:'sba',  gLabel:'Men', gCls:'gm' },
+            { time:'1:00 PM', opp:'SIHM', oCls:'sihm', gLabel:'Men', gCls:'gm' }]},
+        { sport:'volleyball', icon:'#ico-volleyball', label:'Volleyball — Men & Women', venue:'Leisure Coast',
+          matches:[
+            { time:'2nd Game AM', opp:'SBA',  oCls:'sba',  gLabel:'Men · Court 1',   gCls:'gm', tbd:true },
+            { time:'2nd Game AM', opp:'SBA',  oCls:'sba',  gLabel:'Women · Court 2', gCls:'gw', tbd:true },
+            { time:'1:00 PM',     opp:'SIHM', oCls:'sihm', gLabel:'Men · Court 1',   gCls:'gm' },
+            { time:'1:00 PM',     opp:'SIHM', oCls:'sihm', gLabel:'Women · Court 2', gCls:'gw' }]},
+        { sport:'beach', icon:'#ico-beach', label:'Beach Volleyball — Men & Women', venue:'Sand Area',
+          matches:[
+            { time:'3rd Game AM', opp:'SOHS', oCls:'sohs', gLabel:'Women', gCls:'gw', tbd:true },
+            { time:'5th Game AM', opp:'SBA',  oCls:'sba',  gLabel:'Women', gCls:'gw', tbd:true },
+            { time:'1:00 PM',     opp:'SIHM', oCls:'sihm', gLabel:'Men',   gCls:'gm' },
+            { time:'3:00 PM',     opp:'SIHM', oCls:'sihm', gLabel:'Women', gCls:'gw' }]},
+        { sport:'scrabble', icon:'#ico-scrabble', label:'Scrabble — Singles', venue:'Library',
+          matches:[
+            { time:'8:30 AM',  opp:'CISTE', oCls:'ciste', gLabel:'Men',   gCls:'gm' },
+            { time:'8:30 AM',  opp:'CISTE', oCls:'ciste', gLabel:'Women', gCls:'gw' },
+            { time:'9:55 AM',  opp:'SOHE',  oCls:'sohe',  gLabel:'Men',   gCls:'gm' },
+            { time:'9:55 AM',  opp:'SOHE',  oCls:'sohe',  gLabel:'Women', gCls:'gw' },
+            { time:'10:55 AM', opp:'SOHS',  oCls:'sohs',  gLabel:'Men',   gCls:'gm' },
+            { time:'11:55 AM', opp:'SOHS',  oCls:'sohs',  gLabel:'Women', gCls:'gw' },
+            { time:'11:30 AM', opp:'SBA',   oCls:'sba',   gLabel:'Men',   gCls:'gm' },
+            { time:'1:30 PM',  opp:'SBA',   oCls:'sba',   gLabel:'Women', gCls:'gw' },
+            { time:'1:00 PM',  opp:'SIHM',  oCls:'sihm',  gLabel:'Men',   gCls:'gm' },
+            { time:'2:00 PM',  opp:'SIHM',  oCls:'sihm',  gLabel:'Women', gCls:'gw' }]},
+        { sport:'scrabble', icon:'#ico-scrabble', label:'Scrabble — Doubles', venue:'Library',
+          matches:[
+            { time:'3:30 PM', opp:'CISTE', oCls:'ciste', gLabel:'', gCls:'' },
+            { time:'3:55 PM', opp:'SOHE',  oCls:'sohe',  gLabel:'', gCls:'' },
+            { time:'4:55 PM', opp:'SOHS',  oCls:'sohs',  gLabel:'', gCls:'' }]}
+      ]},
+    24: {
+      name: 'Tuesday', date: 'March 24, 2026',
+      sections: [
+        { sport:'scrabble', icon:'#ico-scrabble', label:'Scrabble — Doubles', venue:'Library',
+          matches:[
+            { time:'8:00 AM', opp:'SIHM', oCls:'sihm', gLabel:'', gCls:'' },
+            { time:'8:30 AM', opp:'SBA',  oCls:'sba',  gLabel:'', gCls:'' }]},
+        { sport:'tabletennis', icon:'#ico-tabletennis', label:'Table Tennis — Men, Women & Mixed', venue:"Nikki's Garden",
+          matches:[
+            { time:'8:30 AM',  opp:'CISTE', oCls:'ciste', gLabel:'Men, Women & Mixed', gCls:'gmix' },
+            { time:'10:30 AM', opp:'SOHE',  oCls:'sohe',  gLabel:'Men, Women & Mixed', gCls:'gmix' },
+            { time:'1:00 PM',  opp:'SOHS',  oCls:'sohs',  gLabel:'Men, Women & Mixed', gCls:'gmix' },
+            { time:'2:00 PM',  opp:'SBA',   oCls:'sba',   gLabel:'Men, Women & Mixed', gCls:'gmix' },
+            { time:'3:00 PM',  opp:'SIHM',  oCls:'sihm',  gLabel:'Men, Women & Mixed', gCls:'gmix' }]}
+      ]},
+    25: {
+      name: 'Wednesday', date: 'March 25, 2026',
+      sections: [
+        { sport:'badminton', icon:'#ico-badminton', label:'Badminton — Men, Women & Mixed', venue:"Nikki's Garden / LCR Gym",
+          matches:[
+            { time:'8:30 AM',  opp:'CISTE', oCls:'ciste', gLabel:'Men, Women & Mixed', gCls:'gmix' },
+            { time:'10:30 AM', opp:'SOHE',  oCls:'sohe',  gLabel:'Men, Women & Mixed', gCls:'gmix' },
+            { time:'1:00 PM',  opp:'SOHS',  oCls:'sohs',  gLabel:'Men, Women & Mixed', gCls:'gmix' },
+            { time:'2:00 PM',  opp:'SBA',   oCls:'sba',   gLabel:'Men, Women & Mixed', gCls:'gmix' },
+            { time:'3:00 PM',  opp:'SIHM',  oCls:'sihm',  gLabel:'Men, Women & Mixed', gCls:'gmix' }]}
+      ]}
+  };
+
+  const SPORT_CHIP_CLR = {
+    basketball:'#e8843a', volleyball:'#4a90d9', beach:'#3ab8c8',
+    chess:'#9b72cf', scrabble:'#4aba7a', tabletennis:'#e05555', badminton:'#d4a83a'
+  };
+
+  function buildCalGrid(activeFilter) {
+    const grid = document.getElementById('calGrid');
+    const gameDays = new Set([18,19,23,24,25]);
+    const startDow = new Date(2026, 2, 1).getDay(); // 0 = Sunday
+    let html = '';
+
+    for (let i = 0; i < startDow; i++) html += '<div class="cal-cell empty"></div>';
+
+    for (let d = 1; d <= 31; d++) {
+      const isGame = gameDays.has(d);
+      const isToday = d === 18;
+      let cls = 'cal-cell';
+      if (isGame) cls += ' game-day';
+      if (isToday) cls += ' today';
+
+      html += `<div class="${cls}"${isGame ? ` data-day="${d}" onclick="openAgenda(${d})"` : ''}>`;
+      html += `<div class="cal-cell-num">${d}</div>`;
+
+      if (isGame && CAL_DATA[d]) {
+        const secs = activeFilter === 'all'
+          ? CAL_DATA[d].sections
+          : CAL_DATA[d].sections.filter(s => s.sport === activeFilter);
+
+        // One chip per unique sport type
+        const seen = new Set(), chips = [];
+        for (const sec of secs) {
+          if (!seen.has(sec.sport)) { seen.add(sec.sport); chips.push(sec); }
+        }
+
+        html += '<div class="cal-chips">';
+        const visible = chips.slice(0, 3);
+        const overflow = chips.length - 3;
+        for (const sec of visible) {
+          const bg = SPORT_CHIP_CLR[sec.sport] || '#888';
+          html += `<div class="cal-chip" style="background:${bg}">`;
+          html += `<svg viewBox="0 0 24 24"><use href="${sec.icon}"/></svg>`;
+          html += `${sec.label.split(' — ')[0]}`;
+          html += `</div>`;
+        }
+        if (overflow > 0) html += `<div class="cal-chip-more">+${overflow} more</div>`;
+        html += '</div>';
+      }
+      html += '</div>';
+    }
+
+    const totalCells = startDow + 31;
+    const rem = totalCells % 7;
+    if (rem !== 0) for (let i = 0; i < 7 - rem; i++) html += '<div class="cal-cell empty"></div>';
+
+    grid.innerHTML = html;
+  }
+
+  function openAgenda(day) {
+    const agendaEl = document.getElementById('calAgenda');
+    const dayData  = CAL_DATA[day];
+    if (!dayData) return;
+
+    document.querySelectorAll('.cal-cell.selected').forEach(c => c.classList.remove('selected'));
+    const cell = document.querySelector(`.cal-cell[data-day="${day}"]`);
+    if (cell) cell.classList.add('selected');
+
+    // Toggle if same day clicked again
+    if (agendaEl.dataset.openDay == day && agendaEl.style.display !== 'none') {
+      agendaEl.style.display = 'none';
+      agendaEl.dataset.openDay = '';
+      if (cell) cell.classList.remove('selected');
+      return;
+    }
+    agendaEl.dataset.openDay = day;
+
+    const af = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+    const sections = af === 'all' ? dayData.sections : dayData.sections.filter(s => s.sport === af);
+    const total = sections.reduce((n, s) => n + s.matches.length, 0);
+
+    let html = `
+      <div class="agenda-hd">
+        <div class="agenda-hd-num">${day}</div>
+        <div class="agenda-hd-info">
+          <div class="agenda-hd-name">${dayData.name}</div>
+          <div class="agenda-hd-date">${dayData.date}</div>
+        </div>
+        <div class="agenda-count">${total} match${total !== 1 ? 'es' : ''}</div>
+        <button class="agenda-close" onclick="closeAgenda()" aria-label="Close">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="agenda-sections">`;
+
+    for (const sec of sections) {
+      html += `<div class="agenda-sport-group">
+        <div class="agenda-sport-hd">
+          <svg viewBox="0 0 24 24"><use href="${sec.icon}"/></svg>
+          ${sec.label}
+          <span class="agenda-sport-venue">${sec.venue}</span>
+        </div>`;
+      for (const m of sec.matches) {
+        html += `
+        <div class="agenda-match opp-${m.oCls}">
+          <div class="agenda-time${m.tbd ? ' tbd' : ''}">${m.time}</div>
+          <div class="agenda-teams">
+            <span class="team site">SITE</span>
+            <span class="vs-tag">VS</span>
+            <span class="team opp t-${m.oCls}">${m.opp}</span>
+          </div>
+          ${m.gLabel ? `<div class="agenda-gender ${m.gCls}">${m.gLabel}</div>` : '<div></div>'}
+        </div>`;
+      }
+      html += `</div>`;
+    }
+
+    if (!sections.length) {
+      html += `<div style="color:var(--muted);font-size:12px;letter-spacing:2px;text-transform:uppercase">No events match the current filter.</div>`;
+    }
+
+    html += `</div>`;
+    agendaEl.innerHTML = html;
+    agendaEl.style.display = 'block';
+    setTimeout(() => agendaEl.scrollIntoView({ behavior:'smooth', block:'nearest' }), 50);
+  }
+
+  function closeAgenda() {
+    const el = document.getElementById('calAgenda');
+    el.style.display = 'none';
+    el.dataset.openDay = '';
+    document.querySelectorAll('.cal-cell.selected').forEach(c => c.classList.remove('selected'));
+  }
+
+  // View tab switching
+  document.getElementById('tabCal').addEventListener('click', () => {
+    document.getElementById('tabCal').classList.add('active');
+    document.getElementById('tabSched').classList.remove('active');
+    document.getElementById('calWrap').classList.add('visible');
+    document.querySelectorAll('.day-block').forEach(d => d.style.display = 'none');
+    buildCalGrid(document.querySelector('.filter-btn.active')?.dataset.filter || 'all');
+  });
+
+  document.getElementById('tabSched').addEventListener('click', () => {
+    document.getElementById('tabSched').classList.add('active');
+    document.getElementById('tabCal').classList.remove('active');
+    document.getElementById('calWrap').classList.remove('visible');
+    const af = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+    document.querySelectorAll('.day-block').forEach(day => {
+      const vis = [...day.querySelectorAll('.sport-section')].some(s => !s.classList.contains('hidden'));
+      day.style.display = vis ? '' : 'none';
+    });
+  });
+
+  // Refresh calendar when filter changes (if calendar tab is active)
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (document.getElementById('calWrap').classList.contains('visible')) {
+        setTimeout(() => {
+          const af = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+          buildCalGrid(af);
+          const openDay = document.getElementById('calAgenda').dataset.openDay;
+          if (openDay) openAgenda(parseInt(openDay));
+        }, 10);
+      }
+    });
+  });
+
+  // ── Theme toggle
   const themeToggle = document.getElementById('themeToggle');
   const themeLabel  = document.getElementById('themeLabel');
   const moonIcon = `<circle cx="12" cy="12" r="5"/><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/>`;
