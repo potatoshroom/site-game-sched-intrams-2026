@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SITE Sports Schedule 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --dark: #111111;
+    --panel: #1a1a1a;
+    --border: #2a2a2a;
+    --mid: #3a3a3a;
+    --muted: #6b6b6b;
+    --silver: #a0a0a0;
+    --light: #d4d4d4;
+    --white: #f5f5f5;
+    --accent: #e8e8e8;
+    --gold: #c9a84c;
+    --red: #cc3333;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--black);
+    color: var(--light);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 60px,
+        rgba(255,255,255,0.018) 60px,
+        rgba(255,255,255,0.018) 61px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 60px,
+        rgba(255,255,255,0.018) 60px,
+        rgba(255,255,255,0.018) 61px
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: -40%;
+    left: -20%;
+    width: 80vw;
+    height: 80vw;
+    background: radial-gradient(circle, rgba(255,255,255,0.025) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    padding: 56px 0 40px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .header-left {}
+
+  .eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(52px, 8vw, 88px);
+    font-weight: 900;
+    line-height: 0.9;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    color: var(--white);
+  }
+
+  h1 span {
+    display: block;
+    color: var(--muted);
+    font-size: 0.55em;
+    font-weight: 400;
+    letter-spacing: 2px;
+    margin-top: 6px;
+  }
+
+  .header-right {
+    text-align: right;
+  }
+
+  .team-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--white);
+    padding: 6px 16px;
+    display: inline-block;
+    margin-bottom: 8px;
+  }
+
+  .season-tag {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* ── SPORT FILTER ── */
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+  }
+
+  .filter-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--silver);
+    color: var(--light);
+  }
+
+  .filter-btn.active {
+    background: var(--white);
+    border-color: var(--white);
+    color: var(--black);
+  }
+
+  /* ── DAY BLOCK ── */
+  .day-block {
+    margin-bottom: 56px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .day-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--border);
+    min-width: 90px;
+    text-align: right;
+    user-select: none;
+  }
+
+  .day-info {}
+
+  .day-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--light);
+    line-height: 1;
+  }
+
+  .day-date {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .day-rule {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+
+  /* ── SPORT SECTION ── */
+  .sport-section {
+    margin-bottom: 28px;
+  }
+
+  .sport-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .sport-icon {
+    font-size: 16px;
+    width: 28px;
+    text-align: center;
+  }
+
+  .sport-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--silver);
+  }
+
+  .sport-venue {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-left: auto;
+    font-style: italic;
+  }
+
+  /* ── MATCH ROW ── */
+  .matches {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-left: 40px;
+  }
+
+  .match-row {
+    display: grid;
+    grid-template-columns: 90px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    background: var(--dark);
+    transition: all 0.15s ease;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .match-row::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--mid);
+    transition: background 0.15s ease;
+  }
+
+  .match-row:hover {
+    border-color: var(--mid);
+    background: var(--panel);
+    transform: translateX(3px);
+  }
+
+  .match-row:hover::before {
+    background: var(--silver);
+  }
+
+  .match-time {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--silver);
+    white-space: nowrap;
+  }
+
+  .match-time.tbd {
+    color: var(--mid);
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 600;
+  }
+
+  .match-teams {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .team {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .team.site {
+    color: var(--white);
+  }
+
+  .team.opp {
+    color: var(--silver);
+  }
+
+  .vs-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--muted);
+    padding: 2px 6px;
+    border: 1px solid var(--border);
+  }
+
+  .match-multi {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    margin-top: 16px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--silver);
+  }
+
+  /* ── SUMMARY STRIP ── */
+  .summary-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 56px;
+  }
+
+  .stat-cell {
+    background: var(--dark);
+    padding: 20px 24px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 40px;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* ── HIDDEN ── */
+  .hidden { display: none !important; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--border); }
+
+  @media (max-width: 600px) {
+    .match-row { grid-template-columns: 80px 1fr; }
+    .match-multi { display: none; }
+    .day-num { font-size: 50px; min-width: 64px; }
+    h1 { font-size: 44px; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-left">
+      <div class="eyebrow">Intramural Sports Championship</div>
+      <h1>SITE<span>Game Schedule · 2026</span></h1>
+    </div>
+    <div class="header-right">
+      <div class="team-badge">Team SITE</div>
+      <div class="season-tag">March 18 – 25, 2026</div>
+    </div>
+  </header>
+
+  <!-- STATS STRIP -->
+  <div class="summary-strip">
+    <div class="stat-cell">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Game Days</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">5</div>
+      <div class="stat-label">Sports</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">5</div>
+      <div class="stat-label">Opponents</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">40+</div>
+      <div class="stat-label">Matches</div>
+    </div>
+  </div>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All Sports</button>
+    <button class="filter-btn" data-filter="basketball">🏀 Basketball</button>
+    <button class="filter-btn" data-filter="volleyball">🏐 Volleyball</button>
+    <button class="filter-btn" data-filter="beach">🏖 Beach Volleyball</button>
+    <button class="filter-btn" data-filter="chess">♟ Chess</button>
+    <button class="filter-btn" data-filter="scrabble">🔡 Scrabble</button>
+    <button class="filter-btn" data-filter="tabletennis">🏓 Table Tennis</button>
+    <button class="filter-btn" data-filter="badminton">🏸 Badminton</button>
+  </div>
+
+  <!-- ═══════════════ MARCH 18 ═══════════════ -->
+  <div class="day-block" style="animation-delay:0.05s">
+    <div class="day-header">
+      <div class="day-num">18</div>
+      <div class="day-info">
+        <div class="day-name">Wednesday</div>
+        <div class="day-date">March 18, 2026</div>
+      </div>
+      <div class="day-rule"></div>
+    </div>
+
+    <div class="sport-section" data-sport="basketball">
+      <div class="sport-label">
+        <span class="sport-icon">🏀</span>
+        <span class="sport-name">Basketball</span>
+        <span class="sport-venue">Leisure Coast Gym</span>
+      </div>
+      <div class="matches">
+        <div class="match-row">
+          <div class="match-time">2:30 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
+          <div class="match-multi"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sport-section" data-sport="volleyball">
+      <div class="sport-label">
+        <span class="sport-icon">🏐</span>
+        <span class="sport-name">Volleyball — Men &amp; Women</span>
+        <span class="sport-venue">Leisure Coast Court 1 &amp; 2</span>
+      </div>
+      <div class="matches">
+        <div class="match-row">
+          <div class="match-time tbd">TBD</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
+          <div class="match-multi">Men · Court 1</div>
+        </div>
+        <div class="match-row">
+          <div class="match-time tbd">TBD</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
+          <div class="match-multi">Women · Court 2</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sport-section" data-sport="beach">
+      <div class="sport-label">
+        <span class="sport-icon">🏖</span>
+        <span class="sport-name">Beach Volleyball — Men</span>
+        <span class="sport-venue">Sand Area</span>
+      </div>
+      <div class="matches">
+        <div class="match-row">
+          <div class="match-time tbd">TBD</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
+          <div class="match-multi"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ MARCH 19 ═══════════════ -->
+  <div class="day-block" style="animation-delay:0.1s">
+    <div class="day-header">
+      <div class="day-num">19</div>
+      <div class="day-info">
+        <div class="day-name">Thursday</div>
+        <div class="day-date">March 19, 2026</div>
+      </div>
+      <div class="day-rule"></div>
+    </div>
+
+    <div class="sport-section" data-sport="basketball">
+      <div class="sport-label">
+        <span class="sport-icon">🏀</span>
+        <span class="sport-name">Basketball (5v5)</span>
+        <span class="sport-venue">UDD Quadrangle</span>
+      </div>
+      <div class="matches">
+        <div class="match-row">
+          <div class="match-time">11:00 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">4:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
+          <div class="match-multi"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sport-section" data-sport="basketball">
+      <div class="sport-label">
+        <span class="sport-icon">🏀</span>
+        <span class="sport-name">3×3 Basketball</span>
+        <span class="sport-venue">LCR Gym Court #1</span>
+      </div>
+      <div class="matches">
+        <div class="match-row">
+          <div class="match-time">8:15 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">9:15 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">10:00 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">10:30 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">11:00 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SIHM</span></div>
+          <div class="match-multi"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sport-section" data-sport="volleyball">
+      <div class="sport-label">
+        <span class="sport-icon">🏐</span>
+        <span class="sport-name">Volleyball — Men &amp; Women</span>
+        <span class="sport-venue">Leisure Coast</span>
+      </div>
+      <div class="matches">
+        <div class="match-row">
+          <div class="match-time tbd">TBD</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time tbd">TBD</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
+          <div class="match-multi"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sport-section" data-sport="beach">
+      <div class="sport-label">
+        <span class="sport-icon">🏖</span>
+        <span class="sport-name">Beach Volleyball</span>
+        <span class="sport-venue">Sand Area</span>
+      </div>
+      <div class="matches">
+        <div class="match-row">
+          <div class="match-time tbd">TBD</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time tbd">TBD</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time tbd">TBD</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time tbd">TBD</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
+          <div class="match-multi"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sport-section" data-sport="chess">
+      <div class="sport-label">
+        <span class="sport-icon">♟</span>
+        <span class="sport-name">Chess</span>
+        <span class="sport-venue">Library · VPA Building</span>
+      </div>
+      <div class="matches">
+        <div class="match-row">
+          <div class="match-time">8:30 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">10:30 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">1:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">2:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">3:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SIHM</span></div>
+          <div class="match-multi"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ MARCH 23 ═══════════════ -->
+  <div class="day-block" style="animation-delay:0.15s">
+    <div class="day-header">
+      <div class="day-num">23</div>
+      <div class="day-info">
+        <div class="day-name">Monday</div>
+        <div class="day-date">March 23, 2026</div>
+      </div>
+      <div class="day-rule"></div>
+    </div>
+
+    <div class="sport-section" data-sport="basketball">
+      <div class="sport-label">
+        <span class="sport-icon">🏀</span>
+        <span class="sport-name">Basketball</span>
+        <span class="sport-venue">UDD Quadrangle</span>
+      </div>
+      <div class="matches">
+        <div class="match-row">
+          <div class="match-time">9:30 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">1:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SIHM</span></div>
+          <div class="match-multi"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sport-section" data-sport="volleyball">
+      <div class="sport-label">
+        <span class="sport-icon">🏐</span>
+        <span class="sport-name">Volleyball — Men &amp; Women</span>
+        <span class="sport-venue">Leisure Coast</span>
+      </div>
+      <div class="matches">
+        <div class="match-row">
+          <div class="match-time tbd">TBD</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">1:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SIHM</span></div>
+          <div class="match-multi"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sport-section" data-sport="beach">
+      <div class="sport-label">
+        <span class="sport-icon">🏖</span>
+        <span class="sport-name">Beach Volleyball</span>
+        <span class="sport-venue">Sand Area</span>
+      </div>
+      <div class="matches">
+        <div class="match-row">
+          <div class="match-time tbd">TBD</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time tbd">TBD</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">1:00 / 3:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SIHM</span></div>
+          <div class="match-multi">2 games</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sport-section" data-sport="scrabble">
+      <div class="sport-label">
+        <span class="sport-icon">🔡</span>
+        <span class="sport-name">Scrabble — Singles</span>
+        <span class="sport-venue">Library</span>
+      </div>
+      <div class="matches">
+        <div class="match-row">
+          <div class="match-time">8:30 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">9:55 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">10:55 / 11:55 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
+          <div class="match-multi">2 games</div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">11:30 / 1:30 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
+          <div class="match-multi">2 games</div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">1:00 / 2:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SIHM</span></div>
+          <div class="match-multi">2 games</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sport-section" data-sport="scrabble">
+      <div class="sport-label">
+        <span class="sport-icon">🔡</span>
+        <span class="sport-name">Scrabble — Doubles</span>
+        <span class="sport-venue">Library</span>
+      </div>
+      <div class="matches">
+        <div class="match-row">
+          <div class="match-time">3:30 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">3:55 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">4:55 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
+          <div class="match-multi"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ MARCH 24 ═══════════════ -->
+  <div class="day-block" style="animation-delay:0.2s">
+    <div class="day-header">
+      <div class="day-num">24</div>
+      <div class="day-info">
+        <div class="day-name">Tuesday</div>
+        <div class="day-date">March 24, 2026</div>
+      </div>
+      <div class="day-rule"></div>
+    </div>
+
+    <div class="sport-section" data-sport="scrabble">
+      <div class="sport-label">
+        <span class="sport-icon">🔡</span>
+        <span class="sport-name">Scrabble — Doubles (cont.)</span>
+        <span class="sport-venue">Library</span>
+      </div>
+      <div class="matches">
+        <div class="match-row">
+          <div class="match-time">8:30 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">8:00 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SIHM</span></div>
+          <div class="match-multi"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sport-section" data-sport="tabletennis">
+      <div class="sport-label">
+        <span class="sport-icon">🏓</span>
+        <span class="sport-name">Table Tennis</span>
+        <span class="sport-venue">Nikki's Garden</span>
+      </div>
+      <div class="matches">
+        <div class="match-row">
+          <div class="match-time">8:30 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">10:30 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">1:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">2:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">3:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SIHM</span></div>
+          <div class="match-multi"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ MARCH 25 ═══════════════ -->
+  <div class="day-block" style="animation-delay:0.25s">
+    <div class="day-header">
+      <div class="day-num">25</div>
+      <div class="day-info">
+        <div class="day-name">Wednesday</div>
+        <div class="day-date">March 25, 2026</div>
+      </div>
+      <div class="day-rule"></div>
+    </div>
+
+    <div class="sport-section" data-sport="badminton">
+      <div class="sport-label">
+        <span class="sport-icon">🏸</span>
+        <span class="sport-name">Badminton</span>
+        <span class="sport-venue">Nikki's Garden / LCR Gym</span>
+      </div>
+      <div class="matches">
+        <div class="match-row">
+          <div class="match-time">8:30 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">CISTE</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">10:30 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHE</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">1:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SOHS</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">2:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SBA</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">3:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp">SIHM</span></div>
+          <div class="match-multi"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#f5f5f5"></div> SITE</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#a0a0a0"></div> CISTE</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#a0a0a0"></div> SOHE</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#a0a0a0"></div> SOHS</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#a0a0a0"></div> SBA</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#a0a0a0"></div> SIHM</div>
+  </div>
+
+</div>
+
+<script>
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('.sport-section').forEach(sec => {
+        if (f === 'all' || sec.dataset.sport === f) {
+          sec.classList.remove('hidden');
+        } else {
+          sec.classList.add('hidden');
+        }
+      });
+      // Hide day blocks that become empty
+      document.querySelectorAll('.day-block').forEach(day => {
+        const visible = [...day.querySelectorAll('.sport-section')].some(s => !s.classList.contains('hidden'));
+        day.style.display = visible ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>
