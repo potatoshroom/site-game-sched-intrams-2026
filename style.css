@@ -1050,10 +1050,7 @@ h1 span {
   padding: 2px 7px;
   border-radius: 2px;
   text-transform: uppercase;
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
+  flex-shrink: 0;
 }
 
 .match-stage-semis  { background: rgba(212, 168, 58, 0.15); color: #d4a83a; border: 1px solid rgba(212, 168, 58, 0.35); }
@@ -1271,31 +1268,91 @@ h1 span {
 ::-webkit-scrollbar-thumb { background: var(--border); }
 
 @media (max-width: 600px) {
-
-
   .day-num { font-size: 50px; min-width: 64px; }
   h1 { font-size: 44px; }
 
+  /* Allow win/lose badge to overflow below */
   .results-visible .match-row.win,
   .results-visible .match-row.lose { overflow: visible; }
 
+  /* Win/lose badge: below the row, full width */
   .results-visible .match-row.win::after,
   .results-visible .match-row.lose::after {
     position: static;
     transform: none;
     grid-column: 1 / -1;
     width: fit-content;
-    margin-top: 2px;
-  }
-
-  .match-row:has(.match-stage-badge) { overflow: visible; }
-
-  .match-stage-badge {
-    position: static;
-    transform: none;
-    grid-column: 1 / -1;
-    width: fit-content;
     margin-top: 4px;
-    margin-left: 6px;
   }
+}
+
+@media (max-width: 420px) {
+  /* ── Header ── */
+  header { padding: 32px 0 24px; margin-bottom: 28px; }
+  h1 { font-size: 36px; }
+  h1 span { font-size: 0.5em; }
+  .eyebrow { font-size: 9px; letter-spacing: 2px; }
+  .team-badge { font-size: 11px; padding: 4px 10px; }
+  .season-tag { font-size: 10px; }
+
+  /* ── Page padding ── */
+  .page-wrap { padding: 0 12px 60px; }
+
+  /* ── Stats strip ── */
+  .stat-num { font-size: 28px; }
+  .stat-label { font-size: 9px; letter-spacing: 1px; }
+  .stat-cell { padding: 12px 10px; }
+
+  /* ── Filter bar ── */
+  .filter-btn { font-size: 10px; letter-spacing: 1px; padding: 5px 10px; }
+  .filter-bar { gap: 5px; margin-bottom: 28px; }
+
+  /* ── View tabs ── */
+  .view-tab { font-size: 10px; letter-spacing: 1px; padding: 6px 12px; }
+
+  /* ── Day block ── */
+  .day-num { font-size: 38px; min-width: 50px; }
+  .day-name { font-size: 20px; }
+  .day-date { font-size: 10px; }
+
+  /* ── Sport section ── */
+  .sport-name { font-size: 11px; letter-spacing: 2px; }
+  .sport-venue { font-size: 10px; }
+
+  /* ── Match row ── */
+  .match-row { grid-template-columns: 70px 1fr; padding: 8px 10px; }
+  .matches { padding-left: 20px; }
+  .match-time { font-size: 12px; }
+  .team { font-size: 13px; letter-spacing: 1px; }
+  .vs-tag { font-size: 9px; padding: 1px 4px; }
+  .team-logo { width: 16px; height: 16px; }
+  .match-stage-badge { font-size: 8px; padding: 1px 5px; letter-spacing: 1px; }
+
+  /* ── Calendar ── */
+  .cal-cell { min-height: 52px; padding: 3px; }
+  .cal-cell-num { font-size: 11px; width: 18px; height: 18px; }
+  .cal-dow { font-size: 9px; }
+  .cal-month-title { font-size: 15px; letter-spacing: 3px; }
+  .cal-chip { font-size: 8px; }
+  .agenda-hd { padding: 10px 12px; gap: 10px; }
+  .agenda-hd-num { font-size: 32px; min-width: 42px; }
+  .agenda-hd-name { font-size: 16px; }
+  .agenda-sections { padding: 10px 12px; gap: 10px; }
+  .agenda-match { grid-template-columns: 60px 1fr; padding: 7px 8px; }
+  .agenda-time { font-size: 12px; }
+
+  /* ── Legend ── */
+  .legend { gap: 12px; }
+  .legend-item { font-size: 10px; }
+
+  /* ── Floating buttons ── */
+  #floatingFabs { bottom: 16px; right: 14px; }
+  #floatingResults, #floatingTheme { font-size: 10px; letter-spacing: 1px; padding: 8px 12px; }
+  #floatingHint { font-size: 9px; letter-spacing: 1px; padding: 5px 10px; }
+
+  /* ── Tally ── */
+  .tally-score { font-size: 11px; padding: 2px 4px; }
+  .tally-table th, .tally-cell, .tally-game-label { padding: 5px 6px; }
+  .tally-th-stat, .tally-cell-stat { min-width: 48px; }
+  .sport-name { font-size: 10px; letter-spacing: 1px; }
 }

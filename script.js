@@ -39,8 +39,7 @@ function renderSchedule(data) {
         const stageBadge  = m.stage ? `<span class="match-stage-badge match-stage-${m.stage}">${STAGE_LABELS[m.stage] || m.stage}</span>` : '';
         html += `<div class="match-row${resultCls}"${splashAttrs}>
           <div class="match-time${tbdCls}">${esc(m.time)}</div>
-          <div class="match-teams"><img class="team-logo" src="public/images/site.png" alt="SITE"><span class="team site">SITE</span><span class="vs-tag">VS</span>${oppLogoHtml}<span class="team opp${isTbd ? '' : ` t-${oppLower}`}">${esc(m.opp)}</span></div>
-          ${stageBadge}
+          <div class="match-teams"><img class="team-logo" src="public/images/site.png" alt="SITE"><span class="team site">SITE</span><span class="vs-tag">VS</span>${oppLogoHtml}<span class="team opp${isTbd ? '' : ` t-${oppLower}`}">${esc(m.opp)}</span>${stageBadge}</div>
         </div>`;
       });
       html += `</div></div>`;
