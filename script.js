@@ -294,11 +294,11 @@ function renderTally() {
       const entry = sectionMap.get(sec.label);
       for (const m of sec.matches) {
         if (m.stage) {
-          entry.stages.set(m.stage, { result: m.result || null, opp: m.opp });
+          entry.stages.set(m.stage, { result: m.result || null, opp: m.opp, time: m.time, date: day.date, venue: sec.venue, stage: m.stage, score: m.score });
         } else {
           const oppKey = m.opp.toUpperCase();
           if (!entry.matches.has(oppKey)) entry.matches.set(oppKey, []);
-          entry.matches.get(oppKey).push({ result: m.result || null, score: m.score });
+          entry.matches.get(oppKey).push({ result: m.result || null, score: m.score, time: m.time, date: day.date, venue: sec.venue });
         }
       }
     }
@@ -314,10 +314,20 @@ function renderTally() {
     return '';
   }
 
-  function resultStageCell(val) {
-    if (val === 'win')  return `<div class="tally-score tally-win">WIN</div>`;
-    if (val === 'lose') return `<div class="tally-score tally-lose">LOSE</div>`;
-    return `<span class="tally-dash">—</span>`;
+  function splashAttrs(opp, oppName, result, label, time, date, venue, score, stage) {
+    const scoreAttrs = (score?.site != null && score?.opp != null) ? ` data-score-site="${score.site}" data-score-opp="${score.opp}"` : '';
+    const stageAttr  = stage ? ` data-stage="${stage}"` : '';
+    return `data-opp="${esc(opp)}" data-opp-name="${esc(oppName)}" data-result="${esc(result || '')}" data-label="${esc(label)}" data-time="${esc(time || '')}" data-date="${esc(date || '')}" data-venue="${esc(venue || '')}"${scoreAttrs}${stageAttr}`;
+  }
+
+  function resultStageCell(sd, label) {
+    if (!sd) return `<span class="tally-dash">—</span>`;
+    const val = sd.result;
+    if (val === 'win' || val === 'lose') {
+      const cls = val === 'win' ? 'tally-win' : 'tally-lose';
+      return `<div class="tally-score ${cls} tally-clickable" ${splashAttrs(sd.opp.toLowerCase(), sd.opp, val, label, sd.time, sd.date, sd.venue, sd.score, sd.stage)}>${val === 'win' ? 'WIN' : 'LOSE'}</div>`;
+    }
+    return `<div class="tally-score tally-pending tally-clickable" ${splashAttrs((sd.opp || 'tbd').toLowerCase(), sd.opp || 'TBD', '', label, sd.time, sd.date, sd.venue, sd.score, sd.stage)}>TBD</div>`;
   }
 
   function resultBadge(val) {
@@ -383,9 +393,9 @@ function renderTally() {
             } else {
               scoreStr = m.result === 'win' ? 'WIN' : 'LOSE';
             }
-            cellHtml += `<div class="tally-score ${cls}">${scoreStr}</div>`;
+            cellHtml += `<div class="tally-score ${cls} tally-clickable" ${splashAttrs(opp.toLowerCase(), opp, m.result, label, m.time, m.date, m.venue, m.score)}>${scoreStr}</div>`;
           } else {
-            cellHtml += `<div class="tally-score tally-pending">TBD</div>`;
+            cellHtml += `<div class="tally-score tally-pending tally-clickable" ${splashAttrs(opp.toLowerCase(), opp, '', label, m.time, m.date, m.venue, m.score)}>TBD</div>`;
           }
         }
         html += `<td class="tally-cell">${cellHtml}</td>`;
@@ -399,12 +409,9 @@ function renderTally() {
     html += `<td class="tally-cell tally-cell-stat">${wlHtml}</td>`;
 
     // Semis / Finals / Battle for 3rd / Result — derived from stage-marked matches in SCHEDULE_DATA
-    const semisResult  = data.stages.get('semis')?.result ?? null;
-    const finalsResult = data.stages.get('finals')?.result ?? null;
-    const thirdResult  = data.stages.get('3rd')?.result ?? null;
-    html += `<td class="tally-cell tally-cell-stat">${resultStageCell(semisResult)}</td>`;
-    html += `<td class="tally-cell tally-cell-stat">${resultStageCell(thirdResult)}</td>`;
-    html += `<td class="tally-cell tally-cell-stat">${resultStageCell(finalsResult)}</td>`;
+    html += `<td class="tally-cell tally-cell-stat">${resultStageCell(data.stages.get('semis') ?? null, label)}</td>`;
+    html += `<td class="tally-cell tally-cell-stat">${resultStageCell(data.stages.get('3rd') ?? null, label)}</td>`;
+    html += `<td class="tally-cell tally-cell-stat">${resultStageCell(data.stages.get('finals') ?? null, label)}</td>`;
     html += `<td class="tally-cell tally-cell-stat tally-cell-result">${resultBadge(meta.result ?? null)}</td>`;
 
     html += `</tr>`;
@@ -574,6 +581,29 @@ document.getElementById('scheduleRoot').addEventListener('click', e => {
     scoreSite: row.dataset.scoreSite,
     scoreOpp:  row.dataset.scoreOpp,
     stage:     row.dataset.stage || null
+  };
+  if (ds.result) {
+    showResultSplash(ds);
+  } else {
+    showMatchSplash(ds);
+  }
+});
+
+document.getElementById('tallyRoot').addEventListener('click', e => {
+  const cell = e.target.closest('.tally-clickable');
+  if (!cell) return;
+  const ds = {
+    result:    cell.dataset.result,
+    opp:       cell.dataset.opp,
+    oppName:   cell.dataset.oppName,
+    time:      cell.dataset.time,
+    date:      cell.dataset.date,
+    label:     cell.dataset.label,
+    venue:     cell.dataset.venue,
+    tbd:       false,
+    scoreSite: cell.dataset.scoreSite,
+    scoreOpp:  cell.dataset.scoreOpp,
+    stage:     cell.dataset.stage || null
   };
   if (ds.result) {
     showResultSplash(ds);

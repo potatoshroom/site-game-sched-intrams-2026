@@ -1156,6 +1156,9 @@ h1 span {
   margin: 2px 0;
 }
 
+.tally-clickable { cursor: pointer; }
+.tally-clickable:hover { filter: brightness(1.2); }
+
 .tally-win {
   color: #2ea84a;
   background: rgba(46, 168, 74, 0.12);
