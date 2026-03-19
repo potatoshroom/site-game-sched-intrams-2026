@@ -929,6 +929,22 @@ h1 span {
 
 .splash-vs { display: none; }
 
+.splash-score {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(28px, 6vw, 48px);
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: var(--light);
+}
+
+.splash-score-sep {
+  color: var(--muted);
+  font-weight: 400;
+}
+
 .splash-result {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: clamp(64px, 15vw, 128px);

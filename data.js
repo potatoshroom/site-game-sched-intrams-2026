@@ -15,7 +15,7 @@ const SCHEDULE_DATA = {
           icon: "ico-basketball",
           label: "Basketball — Men (5v5)",
           venue: "Leisure Coast Gym",
-          matches: [{ time: "2:30 PM", opp: "CISTE", result: "lose" }],
+          matches: [{ time: "2:30 PM", opp: "CISTE", result: "lose", score: { site: 70, opp: 83 } }],
         },
         {
           sport: "volleyball",

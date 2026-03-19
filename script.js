@@ -30,7 +30,8 @@ function renderSchedule(data) {
         const resultCls = m.result ? ` ${m.result}` : '';
         const tbdCls    = m.tbd ? ' tbd' : '';
         const oppLower  = m.opp.toLowerCase();
-        const splashAttrs = ` data-opp="${oppLower}" data-opp-name="${esc(m.opp)}" data-time="${esc(m.time)}" data-date="${esc(day.date)}" data-label="${esc(sec.label)}" data-venue="${esc(sec.venue)}"${m.result ? ` data-result="${m.result}"` : ''}`;
+        const scoreAttrs  = (m.score != null) ? ` data-score-site="${m.score.site}" data-score-opp="${m.score.opp}"` : '';
+        const splashAttrs = ` data-opp="${oppLower}" data-opp-name="${esc(m.opp)}" data-time="${esc(m.time)}" data-date="${esc(day.date)}" data-label="${esc(sec.label)}" data-venue="${esc(sec.venue)}"${m.result ? ` data-result="${m.result}"` : ''}${scoreAttrs}`;
         html += `<div class="match-row${resultCls}"${splashAttrs}>
           <div class="match-time${tbdCls}">${esc(m.time)}</div>
           <div class="match-teams"><img class="team-logo" src="public/images/site.png" alt="SITE"><span class="team site">SITE</span><span class="vs-tag">VS</span><img class="team-logo" src="public/images/${oppLower}.png" alt="${esc(m.opp)}"><span class="team opp t-${oppLower}">${esc(m.opp)}</span></div>
@@ -344,6 +345,7 @@ function showResultSplash(ds) {
       </div>
       <div class="splash-center">
         <div class="splash-vs">VS</div>
+        ${ds.scoreSite != null && ds.scoreOpp != null ? `<div class="splash-score"><span class="splash-score-site">${ds.scoreSite}</span><span class="splash-score-sep">–</span><span class="splash-score-opp">${ds.scoreOpp}</span></div>` : ''}
         <div class="splash-result" style="color:${resClr}">${resText}</div>
         <div class="splash-meta">${ds.label}</div>
         <div class="splash-meta-time">${ds.date} &nbsp;·&nbsp; ${ds.time} &nbsp;·&nbsp; ${ds.venue}</div>
@@ -405,7 +407,9 @@ document.getElementById('scheduleRoot').addEventListener('click', e => {
     date:    row.dataset.date,
     label:   row.dataset.label,
     venue:   row.dataset.venue,
-    tbd:     row.querySelector('.match-time.tbd') !== null
+    tbd:       row.querySelector('.match-time.tbd') !== null,
+    scoreSite: row.dataset.scoreSite,
+    scoreOpp:  row.dataset.scoreOpp
   };
   if (ds.result) {
     showResultSplash(ds);
