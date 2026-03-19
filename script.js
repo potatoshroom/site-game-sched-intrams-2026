@@ -345,9 +345,7 @@ function showResultSplash(ds) {
   overlay.id = 'splashOverlay';
   overlay.innerHTML = `
     <div class="splash-bg splash-bg-${ds.result}"></div>
-    <button class="splash-close" aria-label="Close">
-      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
+
     <div class="splash-inner">
       <div class="splash-team splash-team-left">
         <img src="public/images/site.png" alt="SITE" class="splash-logo">
@@ -384,9 +382,7 @@ function showMatchSplash(ds) {
   overlay.id = 'splashOverlay';
   overlay.innerHTML = `
     <div class="splash-bg splash-bg-pending"></div>
-    <button class="splash-close" aria-label="Close">
-      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
+
     <div class="splash-inner">
       <div class="splash-team splash-team-left">
         <img src="public/images/site.png" alt="SITE" class="splash-logo">

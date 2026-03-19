@@ -894,25 +894,6 @@ h1 span {
 .splash-bg-lose    { background: rgba(0,0,0,0.92); }
 .splash-bg-pending { background: rgba(0,0,0,0.85); }
 
-.splash-close {
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.5);
-  cursor: pointer;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.15s;
-  z-index: 1;
-}
-
-.splash-close:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
-.splash-close svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
 
 .splash-inner {
   position: relative;
@@ -1041,7 +1022,7 @@ h1 span {
   .splash-team-left { order: 1; }
   .splash-center { order: 2; }
   .splash-team-right { order: 3; }
-  .splash-logo { width: 56px; height: 56px; }
+  .splash-logo { width: 100px; height: 100px; }
   .splash-team-name { font-size: 18px; }
 }
 
