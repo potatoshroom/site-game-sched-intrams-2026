@@ -1,3 +1,7 @@
+// ── BADMINTON HIGHLIGHT KILL SWITCH ──
+// Set to false to disable all gold nebula effects on badminton rows and calendar cell.
+const BADMINTON_HIGHLIGHT = true;
+
 // ── SCHEDULE DATA (loaded from schedule.json) ──
 let CAL_DATA = {};
 
@@ -20,7 +24,7 @@ function renderSchedule(data) {
         <div class="day-rule"></div>
       </div>`;
     day.sections.forEach(sec => {
-      const hlCls = sec.highlight ? ' highlight-section' : '';
+      const hlCls = (BADMINTON_HIGHLIGHT && sec.highlight) ? ' highlight-section' : '';
       html += `<div class="sport-section${hlCls}" data-sport="${sec.sport}">
         <div class="sport-label">
           <span class="sport-icon"><svg class="sport-svg"><use href="#${sec.icon}"/></svg></span>
@@ -54,6 +58,7 @@ function buildCalData(data) {
   for (const day of data.days) {
     out[day.day] = {
       name: day.name, date: day.date,
+      highlight: BADMINTON_HIGHLIGHT && day.sections.some(s => s.highlight),
       sections: day.sections.map(sec => {
         return {
           sport: sec.sport, icon: `#${sec.icon}`,
@@ -71,6 +76,9 @@ function buildCalData(data) {
 
 CAL_DATA = buildCalData(SCHEDULE_DATA);
 renderSchedule(SCHEDULE_DATA);
+if (!BADMINTON_HIGHLIGHT) {
+  document.querySelector('.filter-btn[data-filter="badminton"]')?.classList.add('no-highlight');
+}
 
 // ── Calendar month title from data
 (function () {
@@ -122,11 +130,13 @@ function buildCalGrid(activeFilter) {
   for (let i = 0; i < startDow; i++) html += '<div class="cal-cell empty"></div>';
 
   for (let d = 1; d <= daysInMonth; d++) {
-    const isGame  = gameDays.has(d);
-    const isToday = d === todayNum;
+    const isGame      = gameDays.has(d);
+    const isToday     = d === todayNum;
+    const isHighlight = isGame && CAL_DATA[d]?.highlight;
     let cls = 'cal-cell';
-    if (isGame) cls += ' game-day';
-    if (isToday) cls += ' today';
+    if (isGame)      cls += ' game-day';
+    if (isToday)     cls += ' today';
+    if (isHighlight) cls += ' gold-highlight';
 
     html += `<div class="${cls}"${isGame ? ` data-day="${d}" onclick="openAgenda(${d})"` : ''}>`;
     html += `<div class="cal-cell-num">${d}</div>`;

@@ -178,6 +178,53 @@ h1 span {
   color: var(--black);
 }
 
+.filter-btn[data-filter="badminton"]:not(.no-highlight) {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-color: rgba(220,170,40,0.45);
+  color: #d4aa40;
+  text-shadow: 0 0 8px rgba(255,200,50,0.4);
+}
+.filter-btn[data-filter="badminton"]:not(.no-highlight)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255,180,30,0.55), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 20%, rgba(220,140,10,0.40), transparent 55%),
+    radial-gradient(ellipse 45% 35% at 20% 80%, rgba(255,210,80,0.35), transparent 55%);
+  filter: blur(14px);
+  animation: nebulaDrift 12s ease-in-out infinite, goldPulse 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+.filter-btn[data-filter="badminton"]:not(.no-highlight)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 55% at 40% 60%, rgba(230,150,20,0.30), transparent 60%),
+    radial-gradient(ellipse 40% 35% at 70% 30%, rgba(255,180,40,0.25), transparent 55%);
+  filter: blur(20px);
+  animation: goldShimmer 18s ease-in-out infinite, goldPulse 6s ease-in-out infinite reverse;
+  pointer-events: none;
+  z-index: -1;
+}
+.filter-btn[data-filter="badminton"]:not(.no-highlight):hover {
+  border-color: rgba(220,170,40,0.8);
+  color: #f0d060;
+  text-shadow: 0 0 12px rgba(255,200,50,0.7);
+  background: rgba(220,170,40,0.08);
+}
+.filter-btn[data-filter="badminton"]:not(.no-highlight).active {
+  background: #c9a830;
+  border-color: #f0d060;
+  color: #1a1200;
+  text-shadow: none;
+  box-shadow: 0 0 14px rgba(220,170,40,0.6);
+}
+
 /* ── DAY BLOCK ── */
 .day-block {
   margin-bottom: 56px;
@@ -744,11 +791,97 @@ h1 span {
   .agenda-match { grid-template-columns: 75px 1fr; }
 }
 
-/* ── HIGHLIGHT SECTION ── */
-.highlight-section .sport-label {
-  border-left: 2px solid var(--gold);
-  padding-left: 10px;
+/* ── GOLD NEBULA ANIMATIONS ── */
+@keyframes nebulaDrift {
+  0%   { transform: translate(0%,  0%)  scale(1);    }
+  25%  { transform: translate(5%,  4%)  scale(1.08); }
+  50%  { transform: translate(-4%, 7%)  scale(0.96); }
+  75%  { transform: translate(4%,  -5%) scale(1.05); }
+  100% { transform: translate(0%,  0%)  scale(1);    }
 }
+
+@keyframes goldPulse {
+  0%,100% { opacity: 1;    }
+  50%     { opacity: 0.65; }
+}
+
+@keyframes goldShimmer {
+  0%   { transform: translate(-10%,  5%) scale(1.1) rotate(-8deg); }
+  50%  { transform: translate( 10%, -5%) scale(0.95) rotate(8deg); }
+  100% { transform: translate(-10%,  5%) scale(1.1) rotate(-8deg); }
+}
+
+/* ── HIGHLIGHT SECTION — GOLD NEBULA ── */
+.highlight-section {
+  border-radius: 2px;
+}
+
+/* Each row gets its own contained nebula */
+.highlight-section .match-row {
+  overflow: hidden;
+  border-color: rgba(220, 170, 40, 0.35);
+}
+
+.highlight-section .match-row > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ::before is taken by the left color bar — use ::after for the nebula */
+.highlight-section .match-row::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 55%, rgba(255, 200, 50,  0.50), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 72% 35%, rgba(240, 160, 20,  0.40), transparent 58%),
+    radial-gradient(ellipse 50% 42% at 20% 65%, rgba(255, 220, 80,  0.35), transparent 56%),
+    radial-gradient(ellipse 40% 35% at 80% 75%, rgba(200, 130, 10,  0.30), transparent 55%),
+    radial-gradient(ellipse 60% 50% at 60% 45%, rgba(255, 240, 100, 0.25), transparent 65%);
+  filter: blur(20px);
+  animation: nebulaDrift 12s ease-in-out infinite, goldPulse 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.highlight-section .match-row:hover {
+  border-color: rgba(255, 200, 60, 0.6) !important;
+}
+
+/* Sport label: thick glowing gold left bar */
+.highlight-section .sport-label {
+  border-left: 3px solid #c9a84c;
+  padding-left: 10px;
+  filter: drop-shadow(0 0 6px rgba(255, 200, 50, 0.5));
+}
+
+/* ── CALENDAR CELL — GOLD NEBULA ── */
+.cal-cell.gold-highlight {
+  position: relative;
+  isolation: isolate;
+  border-color: rgba(220, 170, 40, 0.7) !important;
+  box-shadow: 0 0 14px rgba(220, 170, 40, 0.25), inset 0 0 12px rgba(200, 150, 20, 0.1);
+  overflow: hidden;
+}
+
+.cal-cell.gold-highlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 50%, rgba(255, 200, 50,  0.50), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 75% 30%, rgba(240, 160, 20,  0.40), transparent 58%),
+    radial-gradient(ellipse 50% 40% at 20% 75%, rgba(255, 220, 80,  0.35), transparent 55%);
+  filter: blur(12px);
+  animation: nebulaDrift 12s ease-in-out infinite, goldPulse 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cal-cell.gold-highlight .cal-cell-num,
+.cal-cell.gold-highlight .cal-chips { position: relative; z-index: 1; }
+
+.cal-cell.gold-highlight .cal-cell-num { color: #f0d060; font-weight: 900; }
 
 /* ── GENDER GRADIENT HEADINGS ── */
 [data-gender="men"] .sport-name {
