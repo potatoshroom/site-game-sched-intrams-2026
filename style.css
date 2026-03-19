@@ -476,6 +476,16 @@ h1 span {
 .results-visible .match-row.win:hover::before  { background: #2ea84a; }
 .results-visible .match-row.lose:hover::before { background: #cc3333; }
 
+/* Incomplete rows lose team color when results are visible */
+.results-visible .match-row:not(.win):not(.lose)::before { background: var(--mid); }
+
+/* Team name colors hidden when results are visible */
+.results-visible .t-ciste,
+.results-visible .t-sohe,
+.results-visible .t-sohs,
+.results-visible .t-sba,
+.results-visible .t-sihm { color: var(--silver); }
+
 .results-visible .match-row.win::after,
 .results-visible .match-row.lose::after {
   position: absolute;
