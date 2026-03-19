@@ -32,7 +32,7 @@ function renderSchedule(data) {
         const oppLower  = m.opp.toLowerCase();
         html += `<div class="match-row${resultCls}">
           <div class="match-time${tbdCls}">${esc(m.time)}</div>
-          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-${oppLower}">${esc(m.opp)}</span></div>
+          <div class="match-teams"><img class="team-logo" src="public/images/site.png" alt="SITE"><span class="team site">SITE</span><span class="vs-tag">VS</span><img class="team-logo" src="public/images/${oppLower}.png" alt="${esc(m.opp)}"><span class="team opp t-${oppLower}">${esc(m.opp)}</span></div>
           <div class="match-multi"></div>
         </div>`;
       });
@@ -201,9 +201,9 @@ function openAgenda(day) {
       <div class="agenda-match opp-${m.oCls}">
         <div class="agenda-time${m.tbd ? ' tbd' : ''}">${m.time}</div>
         <div class="agenda-teams">
-          <span class="team site">SITE</span>
+          <img class="team-logo" src="public/images/site.png" alt="SITE"><span class="team site">SITE</span>
           <span class="vs-tag">VS</span>
-          <span class="team opp t-${m.oCls}">${m.opp}</span>
+          <img class="team-logo" src="public/images/${m.oCls}.png" alt="${m.opp}"><span class="team opp t-${m.oCls}">${m.opp}</span>
         </div>
         ${m.gLabel ? `<div class="agenda-gender ${m.gCls}">${m.gLabel}</div>` : '<div></div>'}
       </div>`;
