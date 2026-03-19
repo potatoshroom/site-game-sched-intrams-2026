@@ -50,19 +50,12 @@ function buildCalData(data) {
     out[day.day] = {
       name: day.name, date: day.date,
       sections: day.sections.map(sec => {
-        const hasMen    = /\bMen\b/.test(sec.label);
-        const hasWomen  = /\bWomen\b/.test(sec.label);
-        const isDoubles = /\bDoubles\b/.test(sec.label);
-        let gLabel = '', gCls = '';
-        if ((hasMen && hasWomen) || isDoubles) { gLabel = 'Mixed'; gCls = 'gmix'; }
-        else if (hasWomen) { gLabel = 'Women'; gCls = 'gw'; }
-        else if (hasMen)   { gLabel = 'Men';   gCls = 'gm'; }
         return {
           sport: sec.sport, icon: `#${sec.icon}`,
           label: sec.label, venue: sec.venue,
           matches: sec.matches.map(m => ({
             time: m.time, opp: m.opp, oCls: m.opp.toLowerCase(),
-            tbd: m.tbd || false, gLabel, gCls
+            tbd: m.tbd || false, result: m.result || null
           }))
         };
       })
@@ -73,6 +66,13 @@ function buildCalData(data) {
 
 CAL_DATA = buildCalData(SCHEDULE_DATA);
 renderSchedule(SCHEDULE_DATA);
+
+// ── Calendar month title from data
+(function () {
+  const d = new Date(SCHEDULE_DATA.days[0].date);
+  const title = d.toLocaleString('en-US', { month: 'long' }) + '\u00a0\u00a0' + d.getFullYear();
+  document.getElementById('calMonthTitle').textContent = title;
+})();
 
 // ── Stats strip
 (function() {
@@ -104,15 +104,21 @@ const SPORT_CHIP_CLR = {
 
 function buildCalGrid(activeFilter) {
   const grid = document.getElementById('calGrid');
-  const gameDays = new Set([18,19,23,24,25]);
-  const startDow = new Date(2026, 2, 1).getDay(); // 0 = Sunday
+  const gameDays  = new Set(SCHEDULE_DATA.days.map(d => d.day));
+  const firstDate = new Date(SCHEDULE_DATA.days[0].date);
+  const year      = firstDate.getFullYear();
+  const month     = firstDate.getMonth();
+  const startDow  = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const now       = new Date();
+  const todayNum  = now.getFullYear() === year && now.getMonth() === month ? now.getDate() : -1;
   let html = '';
 
   for (let i = 0; i < startDow; i++) html += '<div class="cal-cell empty"></div>';
 
-  for (let d = 1; d <= 31; d++) {
-    const isGame = gameDays.has(d);
-    const isToday = d === 18;
+  for (let d = 1; d <= daysInMonth; d++) {
+    const isGame  = gameDays.has(d);
+    const isToday = d === todayNum;
     let cls = 'cal-cell';
     if (isGame) cls += ' game-day';
     if (isToday) cls += ' today';
@@ -147,7 +153,7 @@ function buildCalGrid(activeFilter) {
     html += '</div>';
   }
 
-  const totalCells = startDow + 31;
+  const totalCells = startDow + daysInMonth;
   const rem = totalCells % 7;
   if (rem !== 0) for (let i = 0; i < 7 - rem; i++) html += '<div class="cal-cell empty"></div>';
 
@@ -206,7 +212,7 @@ function openAgenda(day) {
           <span class="vs-tag">VS</span>
           <img class="team-logo" src="public/images/${m.oCls}.png" alt="${m.opp}"><span class="team opp t-${m.oCls}">${m.opp}</span>
         </div>
-        ${m.gLabel ? `<div class="agenda-gender ${m.gCls}">${m.gLabel}</div>` : '<div></div>'}
+        ${m.result ? `<div class="agenda-result ${m.result}">${m.result === 'win' ? 'WIN' : 'LOSE'}</div>` : '<div></div>'}
       </div>`;
     }
     html += `</div>`;

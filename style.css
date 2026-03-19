@@ -780,17 +780,14 @@ h1 span {
 
 .agenda-teams { display: flex; align-items: center; gap: 8px; }
 
-.agenda-gender {
-  font-size: 11px; color: var(--muted); white-space: nowrap;
-  display: flex; align-items: center; gap: 5px;
+.agenda-result {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 900; letter-spacing: 2px;
+  padding: 2px 8px; border-radius: 2px; white-space: nowrap;
 }
 
-.agenda-gender.gm::before, .agenda-gender.gw::before, .agenda-gender.gmix::before {
-  content: ''; display: inline-block; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0;
-}
-.agenda-gender.gm::before   { background: #6aafd4; }
-.agenda-gender.gw::before   { background: #d47aaa; }
-.agenda-gender.gmix::before { background: var(--silver); }
+.agenda-result.win  { color: #2ea84a; background: rgba(46,168,74,0.12); border: 1px solid rgba(46,168,74,0.3); }
+.agenda-result.lose { color: #cc3333; background: rgba(204,60,60,0.12); border: 1px solid rgba(204,60,60,0.3); }
 
 @media (max-width: 600px) {
   .cal-cell { min-height: 64px; padding: 5px; }
