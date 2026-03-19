@@ -58,7 +58,7 @@ const SCHEDULE_DATA = {
           label: "Basketball — Men (5v5)",
           venue: "UDD Quadrangle",
           matches: [
-            { time: "11:00 AM", opp: "SOHE" },
+            { time: "11:00 AM", opp: "SOHE", result: "win" },
             { time: "4:00 PM", opp: "SOHS" },
           ],
         },
