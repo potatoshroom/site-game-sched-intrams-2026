@@ -30,7 +30,8 @@ function renderSchedule(data) {
         const resultCls = m.result ? ` ${m.result}` : '';
         const tbdCls    = m.tbd ? ' tbd' : '';
         const oppLower  = m.opp.toLowerCase();
-        html += `<div class="match-row${resultCls}">
+        const splashAttrs = ` data-opp="${oppLower}" data-opp-name="${esc(m.opp)}" data-time="${esc(m.time)}" data-date="${esc(day.date)}" data-label="${esc(sec.label)}" data-venue="${esc(sec.venue)}"${m.result ? ` data-result="${m.result}"` : ''}`;
+        html += `<div class="match-row${resultCls}"${splashAttrs}>
           <div class="match-time${tbdCls}">${esc(m.time)}</div>
           <div class="match-teams"><img class="team-logo" src="public/images/site.png" alt="SITE"><span class="team site">SITE</span><span class="vs-tag">VS</span><img class="team-logo" src="public/images/${oppLower}.png" alt="${esc(m.opp)}"><span class="team opp t-${oppLower}">${esc(m.opp)}</span></div>
           <div class="match-multi"></div>
@@ -326,4 +327,102 @@ filterBtns.forEach(btn => {
       day.style.display = visible ? '' : 'none';
     });
   });
+});
+
+// ── Result Splash ──
+const TEAM_COLORS = {
+  ciste: '#5bb4d4', sohe: '#e07832', sohs: '#52b05c',
+  sba: '#d4aa45', sihm: '#e05252'
+};
+
+function showResultSplash(ds) {
+  const isWin   = ds.result === 'win';
+  const oppClr  = TEAM_COLORS[ds.opp] || '#888';
+  const resClr  = isWin ? '#2ea84a' : '#cc3333';
+  const resText = isWin ? 'WIN' : 'LOSE';
+
+  const overlay = document.createElement('div');
+  overlay.id = 'splashOverlay';
+  overlay.innerHTML = `
+    <div class="splash-bg splash-bg-${ds.result}"></div>
+    <button class="splash-close" aria-label="Close">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="splash-inner">
+      <div class="splash-team splash-team-left">
+        <img src="public/images/site.png" alt="SITE" class="splash-logo">
+        <div class="splash-team-name">SITE</div>
+      </div>
+      <div class="splash-center">
+        <div class="splash-vs">VS</div>
+        <div class="splash-result" style="color:${resClr}">${resText}</div>
+        <div class="splash-meta">${ds.label}</div>
+        <div class="splash-meta-time">${ds.date} &nbsp;·&nbsp; ${ds.time} &nbsp;·&nbsp; ${ds.venue}</div>
+      </div>
+      <div class="splash-team splash-team-right">
+        <img src="public/images/${ds.opp}.png" alt="${ds.oppName}" class="splash-logo">
+        <div class="splash-team-name" style="color:${oppClr}">${ds.oppName}</div>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  requestAnimationFrame(() => overlay.classList.add('splash-visible'));
+  overlay.addEventListener('click', closeResultSplash);
+}
+
+function closeResultSplash() {
+  const el = document.getElementById('splashOverlay');
+  if (!el) return;
+  el.classList.remove('splash-visible');
+  el.addEventListener('transitionend', () => el.remove(), { once: true });
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeResultSplash(); });
+
+function showMatchSplash(ds) {
+  const oppClr = TEAM_COLORS[ds.opp] || '#888';
+  const overlay = document.createElement('div');
+  overlay.id = 'splashOverlay';
+  overlay.innerHTML = `
+    <div class="splash-bg splash-bg-pending"></div>
+    <button class="splash-close" aria-label="Close">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="splash-inner">
+      <div class="splash-team splash-team-left">
+        <img src="public/images/site.png" alt="SITE" class="splash-logo">
+        <div class="splash-team-name">SITE</div>
+      </div>
+      <div class="splash-center">
+        <div class="splash-pending-time${ds.tbd ? ' tbd' : ''}">${ds.time}</div>
+        <div class="splash-meta">${ds.label}</div>
+        <div class="splash-meta-time">${ds.date} &nbsp;·&nbsp; ${ds.venue}</div>
+      </div>
+      <div class="splash-team splash-team-right">
+        <img src="public/images/${ds.opp}.png" alt="${ds.oppName}" class="splash-logo">
+        <div class="splash-team-name" style="color:${oppClr}">${ds.oppName}</div>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  requestAnimationFrame(() => overlay.classList.add('splash-visible'));
+  overlay.addEventListener('click', closeResultSplash);
+}
+
+document.getElementById('scheduleRoot').addEventListener('click', e => {
+  const row = e.target.closest('.match-row');
+  if (!row) return;
+  const ds = {
+    result:  row.dataset.result,
+    opp:     row.dataset.opp,
+    oppName: row.dataset.oppName,
+    time:    row.dataset.time,
+    date:    row.dataset.date,
+    label:   row.dataset.label,
+    venue:   row.dataset.venue,
+    tbd:     row.querySelector('.match-time.tbd') !== null
+  };
+  if (ds.result) {
+    showResultSplash(ds);
+  } else {
+    showMatchSplash(ds);
+  }
 });

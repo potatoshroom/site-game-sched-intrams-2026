@@ -309,7 +309,7 @@ h1 span {
   border: 1px solid var(--border);
   background: var(--dark);
   transition: all 0.15s ease;
-  cursor: default;
+  cursor: pointer;
   position: relative;
   overflow: hidden;
 }
@@ -801,6 +801,12 @@ h1 span {
   .agenda-sport-venue { display: none; }
 }
 
+/* ── HIGHLIGHT SECTION ── */
+.highlight-section .sport-label {
+  border-left: 2px solid var(--gold);
+  padding-left: 10px;
+}
+
 /* ── GENDER GRADIENT HEADINGS ── */
 [data-gender="men"] .sport-name {
   background: linear-gradient(90deg, #7bc0e0 0%, #4a8fd9 100%);
@@ -863,6 +869,185 @@ h1 span {
   border-bottom-color: var(--white);
 }
 
+/* ── RESULT SPLASH ── */
+#splashOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#splashOverlay.splash-visible { opacity: 1; }
+
+.splash-bg {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.splash-bg-win     { background: rgba(0,0,0,0.88); }
+.splash-bg-lose    { background: rgba(0,0,0,0.92); }
+.splash-bg-pending { background: rgba(0,0,0,0.85); }
+
+.splash-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  z-index: 1;
+}
+
+.splash-close:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+.splash-close svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+.splash-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(32px, 8vw, 100px);
+  padding: 48px 32px;
+  width: 100%;
+  max-width: 900px;
+  transform: translateY(16px);
+  transition: transform 0.35s ease;
+}
+
+#splashOverlay.splash-visible .splash-inner { transform: translateY(0); }
+
+.splash-team {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  max-width: 200px;
+}
+
+.splash-logo {
+  width: clamp(80px, 14vw, 160px);
+  height: clamp(80px, 14vw, 160px);
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.5));
+}
+
+.splash-team-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(20px, 4vw, 32px);
+  font-weight: 900;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--white);
+  text-align: center;
+}
+
+.splash-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.splash-center::before {
+  content: 'VS';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(120px, 30vw, 260px);
+  font-weight: 900;
+  letter-spacing: -4px;
+  color: rgba(255,255,255,0.04);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  z-index: 0;
+}
+
+.splash-center > * { position: relative; z-index: 1; }
+
+.splash-vs { display: none; }
+
+.splash-result {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(64px, 15vw, 128px);
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1;
+  text-shadow: 0 0 60px currentColor;
+}
+
+.splash-meta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--silver);
+  text-align: center;
+}
+
+.splash-meta-time {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--light);
+  letter-spacing: 1.5px;
+  text-align: center;
+}
+
+.splash-pending-time {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(40px, 10vw, 80px);
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: var(--white);
+  text-align: center;
+  line-height: 1;
+}
+
+.splash-pending-time.tbd {
+  font-size: clamp(20px, 4vw, 32px);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--silver);
+}
+
+@media (max-width: 600px) {
+  .splash-inner {
+    flex-direction: column;
+    gap: 12px;
+    padding: 56px 24px 40px;
+  }
+  .splash-team { flex-direction: column; max-width: 100%; width: 100%; align-items: center; }
+  .splash-team-left { order: 1; }
+  .splash-center { order: 2; }
+  .splash-team-right { order: 3; }
+  .splash-logo { width: 56px; height: 56px; }
+  .splash-team-name { font-size: 18px; }
+}
+
+/* Rows with results get pointer only when results are visible */
+.results-visible .match-row[data-result] { cursor: pointer; }
+
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--black); }
@@ -873,4 +1058,16 @@ h1 span {
   .match-multi { display: none; }
   .day-num { font-size: 50px; min-width: 64px; }
   h1 { font-size: 44px; }
+
+  .results-visible .match-row.win,
+  .results-visible .match-row.lose { overflow: visible; }
+
+  .results-visible .match-row.win::after,
+  .results-visible .match-row.lose::after {
+    position: static;
+    transform: none;
+    grid-column: 1 / -1;
+    width: fit-content;
+    margin-top: 2px;
+  }
 }
