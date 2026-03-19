@@ -824,7 +824,7 @@ h1 span {
   position: absolute;
   top: calc(100% + 10px);
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(-4px);
   background: var(--white);
   color: var(--black);
   font-family: 'Barlow Condensed', sans-serif;
@@ -836,8 +836,13 @@ h1 span {
   white-space: nowrap;
   pointer-events: none;
   opacity: 0;
-  animation: hintLifecycle 4s ease 1.2s forwards;
+  transition: opacity 0.35s ease, transform 0.35s ease;
   z-index: 100;
+}
+
+#resultHint.hint-show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 #resultHint::before {
@@ -848,13 +853,6 @@ h1 span {
   transform: translateX(-50%);
   border: 6px solid transparent;
   border-bottom-color: var(--white);
-}
-
-@keyframes hintLifecycle {
-  0%   { opacity: 0; transform: translateX(-50%) translateY(-4px); }
-  12%  { opacity: 1; transform: translateX(-50%) translateY(0); }
-  80%  { opacity: 1; transform: translateX(-50%) translateY(0); }
-  100% { opacity: 0; transform: translateX(-50%) translateY(4px); }
 }
 
 /* ── SCROLLBAR ── */

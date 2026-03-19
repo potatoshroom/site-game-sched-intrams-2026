@@ -250,13 +250,36 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
+// ── Results hint
+const hint = document.getElementById('resultHint');
+let hintTimer = null;
+
+function dismissHint() {
+  hint.classList.remove('hint-show');
+  if (hintTimer) { clearTimeout(hintTimer); hintTimer = null; }
+}
+
+function startHintTimer() {
+  if (hintTimer) return;
+  hintTimer = setTimeout(dismissHint, 3000);
+  ['mousemove', 'scroll', 'keydown', 'touchstart', 'click'].forEach(e =>
+    document.removeEventListener(e, startHintTimer)
+  );
+}
+
+// Show immediately once JS runs
+requestAnimationFrame(() => requestAnimationFrame(() => hint.classList.add('hint-show')));
+
+// Begin 3s countdown on first user interaction
+['mousemove', 'scroll', 'keydown', 'touchstart', 'click'].forEach(e =>
+  document.addEventListener(e, startHintTimer, { passive: true })
+);
+
 // ── Results toggle
 document.getElementById('resultsToggle').addEventListener('click', () => {
   const visible = document.documentElement.classList.toggle('results-visible');
   document.getElementById('resultsLabel').textContent = visible ? 'Hide Results' : 'Show Results';
-  const hint = document.getElementById('resultHint');
-  hint.style.animation = 'none';
-  hint.style.opacity   = '0';
+  dismissHint();
 });
 
 // ── Theme toggle
