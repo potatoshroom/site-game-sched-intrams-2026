@@ -73,6 +73,18 @@ function buildCalData(data) {
 CAL_DATA = buildCalData(SCHEDULE_DATA);
 renderSchedule(SCHEDULE_DATA);
 
+// ── Stats strip
+(function() {
+  const allSections = SCHEDULE_DATA.days.flatMap(d => d.sections);
+  const allMatches  = allSections.flatMap(s => s.matches);
+  const sports      = new Set(allSections.map(s => s.sport));
+  const opponents   = new Set(allMatches.map(m => m.opp));
+  document.getElementById('statDays').textContent      = SCHEDULE_DATA.days.length;
+  document.getElementById('statSports').textContent    = sports.size;
+  document.getElementById('statOpponents').textContent = opponents.size;
+  document.getElementById('statMatches').textContent   = allMatches.length;
+})();
+
 // Gender gradient: tag each sport section from its heading text
 document.querySelectorAll('.sport-section').forEach(sec => {
   const name = sec.querySelector('.sport-name')?.textContent || '';
