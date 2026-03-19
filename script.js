@@ -35,7 +35,6 @@ function renderSchedule(data) {
         html += `<div class="match-row${resultCls}"${splashAttrs}>
           <div class="match-time${tbdCls}">${esc(m.time)}</div>
           <div class="match-teams"><img class="team-logo" src="public/images/site.png" alt="SITE"><span class="team site">SITE</span><span class="vs-tag">VS</span><img class="team-logo" src="public/images/${oppLower}.png" alt="${esc(m.opp)}"><span class="team opp t-${oppLower}">${esc(m.opp)}</span></div>
-          <div class="match-multi"></div>
         </div>`;
       });
       html += `</div></div>`;
@@ -344,7 +343,6 @@ function showResultSplash(ds) {
         <div class="splash-team-name">SITE</div>
       </div>
       <div class="splash-center">
-        <div class="splash-vs">VS</div>
         ${ds.scoreSite != null && ds.scoreOpp != null ? `<div class="splash-score"><span class="splash-score-site">${ds.scoreSite}</span><span class="splash-score-sep">–</span><span class="splash-score-opp">${ds.scoreOpp}</span></div>` : ''}
         <div class="splash-result" style="color:${resClr}">${resText}</div>
         <div class="splash-meta">${ds.label}</div>
