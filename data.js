@@ -56,8 +56,8 @@ const SCHEDULE_DATA = {
           matches: [
             { time: "8:15 AM",  opp: "CISTE", result: "lose" },
             { time: "9:15 AM",  opp: "SOHE",  result: "win" },
-            { time: "10:00 AM", opp: "SOHS" },
-            { time: "10:30 AM", opp: "SBA" },
+            { time: "10:00 AM", opp: "SOHS", result: "win" },
+            { time: "10:30 AM", opp: "SBA", result:"lose" },
             { time: "11:00 AM", opp: "SIHM" }
           ]
         },
