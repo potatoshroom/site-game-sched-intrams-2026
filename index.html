@@ -758,6 +758,32 @@
     .agenda-sport-venue { display: none; }
   }
 
+  /* ── GENDER GRADIENT HEADINGS ── */
+  [data-gender="men"] .sport-name {
+    background: linear-gradient(90deg, #7bc0e0 0%, #4a8fd9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  [data-gender="women"] .sport-name {
+    background: linear-gradient(90deg, #e8a0c8 0%, #d44f99 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  [data-gender="mixed"] .sport-name {
+    background: linear-gradient(90deg, #6ec97a 0%, #2ea84a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  [data-gender="men"] .sport-svg    { color: #6aafd4; }
+  [data-gender="women"] .sport-svg  { color: #d47aaa; }
+  [data-gender="mixed"] .sport-svg  { color: #4aba7a; }
+
   /* ── SCROLLBAR ── */
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--black); }
@@ -1159,7 +1185,42 @@
     <div class="sport-section" data-sport="chess">
       <div class="sport-label">
         <span class="sport-icon"><svg class="sport-svg"><use href="#ico-chess"/></svg></span>
-        <span class="sport-name">Chess — Individual</span>
+        <span class="sport-name">Chess — Men (Individual)</span>
+        <span class="sport-venue">Library · VPA Building</span>
+      </div>
+      <div class="matches">
+        <div class="match-row">
+          <div class="match-time">8:30 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">10:30 AM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohe">SOHE</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">1:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohs">SOHS</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">2:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sba">SBA</span></div>
+          <div class="match-multi"></div>
+        </div>
+        <div class="match-row">
+          <div class="match-time">3:00 PM</div>
+          <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sihm">SIHM</span></div>
+          <div class="match-multi"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sport-section" data-sport="chess">
+      <div class="sport-label">
+        <span class="sport-icon"><svg class="sport-svg"><use href="#ico-chess"/></svg></span>
+        <span class="sport-name">Chess — Women (Individual)</span>
         <span class="sport-venue">Library · VPA Building</span>
       </div>
       <div class="matches">
@@ -1581,7 +1642,14 @@
           matches:[
             { time:'3rd Game PM', opp:'SOHS',  oCls:'sohs',  gLabel:'', gCls:'', tbd:true },
             { time:'5th Game PM', opp:'SBA',   oCls:'sba',   gLabel:'', gCls:'', tbd:true }]},
-        { sport:'chess', icon:'#ico-chess', label:'Chess — Individual', venue:'Library · VPA Building',
+        { sport:'chess', icon:'#ico-chess', label:'Chess — Men (Individual)', venue:'Library · VPA Building',
+          matches:[
+            { time:'8:30 AM',  opp:'CISTE', oCls:'ciste', gLabel:'', gCls:'' },
+            { time:'10:30 AM', opp:'SOHE',  oCls:'sohe',  gLabel:'', gCls:'' },
+            { time:'1:00 PM',  opp:'SOHS',  oCls:'sohs',  gLabel:'', gCls:'' },
+            { time:'2:00 PM',  opp:'SBA',   oCls:'sba',   gLabel:'', gCls:'' },
+            { time:'3:00 PM',  opp:'SIHM',  oCls:'sihm',  gLabel:'', gCls:'' }]},
+        { sport:'chess', icon:'#ico-chess', label:'Chess — Women (Individual)', venue:'Library · VPA Building',
           matches:[
             { time:'8:30 AM',  opp:'CISTE', oCls:'ciste', gLabel:'', gCls:'' },
             { time:'10:30 AM', opp:'SOHE',  oCls:'sohe',  gLabel:'', gCls:'' },
@@ -1824,6 +1892,17 @@
         }, 10);
       }
     });
+  });
+
+  // Gender gradient: tag each sport section from its heading text
+  document.querySelectorAll('.sport-section').forEach(sec => {
+    const name = sec.querySelector('.sport-name')?.textContent || '';
+    const hasMen    = /\bMen\b/.test(name);
+    const hasWomen  = /\bWomen\b/.test(name);
+    const isDoubles = /\bDoubles\b/.test(name);
+    if (hasMen && hasWomen || isDoubles) sec.dataset.gender = 'mixed';
+    else if (hasWomen)                   sec.dataset.gender = 'women';
+    else if (hasMen)                     sec.dataset.gender = 'men';
   });
 
   // ── Theme toggle
