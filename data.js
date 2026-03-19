@@ -225,7 +225,7 @@ const SCHEDULE_DATA = {
         {
           sport: "scrabble",
           icon: "ico-scrabble",
-          label: "Scrabble — Doubles",
+          label: "Scrabble — Mixed Doubles",
           venue: "Library",
           matches: [
             { time: "3:30 PM", opp: "CISTE" },
@@ -243,7 +243,7 @@ const SCHEDULE_DATA = {
         {
           sport: "scrabble",
           icon: "ico-scrabble",
-          label: "Scrabble — Doubles",
+          label: "Scrabble — Mixed Doubles",
           venue: "Library",
           matches: [
             { time: "8:00 AM", opp: "SIHM" },
@@ -253,7 +253,33 @@ const SCHEDULE_DATA = {
         {
           sport: "tabletennis",
           icon: "ico-tabletennis",
-          label: "Table Tennis — Men, Women & Mixed",
+          label: "Table Tennis — Men",
+          venue: "Nikki's Garden",
+          matches: [
+            { time: "8:30 AM", opp: "CISTE" },
+            { time: "10:30 AM", opp: "SOHE" },
+            { time: "1:00 PM", opp: "SOHS" },
+            { time: "2:00 PM", opp: "SBA" },
+            { time: "3:00 PM", opp: "SIHM" },
+          ],
+        },
+        {
+          sport: "tabletennis",
+          icon: "ico-tabletennis",
+          label: "Table Tennis — Women",
+          venue: "Nikki's Garden",
+          matches: [
+            { time: "8:30 AM", opp: "CISTE" },
+            { time: "10:30 AM", opp: "SOHE" },
+            { time: "1:00 PM", opp: "SOHS" },
+            { time: "2:00 PM", opp: "SBA" },
+            { time: "3:00 PM", opp: "SIHM" },
+          ],
+        },
+        {
+          sport: "tabletennis",
+          icon: "ico-tabletennis",
+          label: "Table Tennis — Mixed Doubles",
           venue: "Nikki's Garden",
           matches: [
             { time: "8:30 AM", opp: "CISTE" },
@@ -273,7 +299,35 @@ const SCHEDULE_DATA = {
         {
           sport: "badminton",
           icon: "ico-badminton",
-          label: "Badminton — Men, Women & Mixed",
+          label: "Badminton — Men",
+          venue: "Nikki's Garden / LCR Gym",
+          highlight: true,
+          matches: [
+            { time: "8:30 AM", opp: "CISTE" },
+            { time: "10:30 AM", opp: "SOHE" },
+            { time: "1:00 PM", opp: "SOHS" },
+            { time: "2:00 PM", opp: "SBA" },
+            { time: "3:00 PM", opp: "SIHM" },
+          ],
+        },
+        {
+          sport: "badminton",
+          icon: "ico-badminton",
+          label: "Badminton — Women",
+          venue: "Nikki's Garden / LCR Gym",
+          highlight: true,
+          matches: [
+            { time: "8:30 AM", opp: "CISTE" },
+            { time: "10:30 AM", opp: "SOHE" },
+            { time: "1:00 PM", opp: "SOHS" },
+            { time: "2:00 PM", opp: "SBA" },
+            { time: "3:00 PM", opp: "SIHM" },
+          ],
+        },
+        {
+          sport: "badminton",
+          icon: "ico-badminton",
+          label: "Badminton — Mixed Doubles",
           venue: "Nikki's Garden / LCR Gym",
           highlight: true,
           matches: [
