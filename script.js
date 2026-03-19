@@ -263,12 +263,12 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-// ── Results hint
-const hint = document.getElementById('resultHint');
+// ── Results hint (floating only)
+const floatHint = document.getElementById('floatingHint');
 let hintTimer = null;
 
 function dismissHint() {
-  hint.classList.remove('hint-show');
+  floatHint.classList.remove('hint-show');
   if (hintTimer) { clearTimeout(hintTimer); hintTimer = null; }
 }
 
@@ -281,31 +281,16 @@ function startHintTimer() {
 }
 
 // Show immediately once JS runs
-requestAnimationFrame(() => requestAnimationFrame(() => hint.classList.add('hint-show')));
+requestAnimationFrame(() => requestAnimationFrame(() => {
+  document.getElementById('floatingResults').classList.add('fab-visible');
+  document.getElementById('floatingTheme').classList.add('fab-visible');
+  floatHint.classList.add('hint-show');
+}));
 
 // Begin 3s countdown on first user interaction
 ['mousemove', 'scroll', 'keydown', 'touchstart', 'click'].forEach(e =>
   document.addEventListener(e, startHintTimer, { passive: true })
 );
-
-// ── Results toggle
-document.getElementById('resultsToggle').addEventListener('click', () => {
-  const visible = document.documentElement.classList.toggle('results-visible');
-  document.getElementById('resultsLabel').textContent = visible ? 'Hide Results' : 'Show Results';
-  dismissHint();
-});
-
-// ── Theme toggle
-const themeToggle = document.getElementById('themeToggle');
-const themeLabel  = document.getElementById('themeLabel');
-const moonIcon = `<circle cx="12" cy="12" r="5"/><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/>`;
-const sunIcon  = `<circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="7.05" y2="7.05"/><line x1="16.95" y1="16.95" x2="19.07" y2="19.07"/><line x1="4.93" y1="19.07" x2="7.05" y2="16.95"/><line x1="16.95" y1="7.05" x2="19.07" y2="4.93"/>`;
-
-themeToggle.addEventListener('click', () => {
-  const isLight = document.documentElement.classList.toggle('light');
-  document.getElementById('themeIcon').innerHTML = isLight ? moonIcon : sunIcon;
-  themeLabel.textContent = isLight ? 'Dark' : 'Light';
-});
 
 // Filter
 const filterBtns = document.querySelectorAll('.filter-btn');
@@ -422,3 +407,45 @@ document.getElementById('scheduleRoot').addEventListener('click', e => {
     showMatchSplash(ds);
   }
 });
+
+// ── Floating Buttons ──
+(function () {
+  const fabResults = document.getElementById('floatingResults');
+  const fabTheme   = document.getElementById('floatingTheme');
+  const fabLabel   = document.getElementById('floatingResultsLabel');
+  let fabTimer = null;
+
+  function showFabs() {
+    fabResults.classList.add('fab-visible');
+    fabTheme.classList.add('fab-visible');
+    if (fabTimer) clearTimeout(fabTimer);
+    fabTimer = setTimeout(() => {
+      fabResults.classList.remove('fab-visible');
+      fabTheme.classList.remove('fab-visible');
+    }, 1000);
+  }
+
+  function syncResultsLabel() {
+    const on = document.documentElement.classList.contains('results-visible');
+    fabLabel.textContent = on ? 'Hide Results' : 'Show Results';
+  }
+
+  fabResults.addEventListener('click', () => {
+    document.documentElement.classList.toggle('results-visible');
+    syncResultsLabel();
+    dismissHint();
+    showFabs();
+  });
+
+  fabTheme.addEventListener('click', () => {
+    const isLight = document.documentElement.classList.toggle('light');
+    const moonIcon = `<circle cx="12" cy="12" r="5"/><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/>`;
+    const sunIcon  = `<circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="7.05" y2="7.05"/><line x1="16.95" y1="16.95" x2="19.07" y2="19.07"/><line x1="4.93" y1="19.07" x2="7.05" y2="16.95"/><line x1="16.95" y1="7.05" x2="19.07" y2="4.93"/>`;
+    document.getElementById('floatingThemeIcon').innerHTML = isLight ? moonIcon : sunIcon;
+    document.getElementById('floatingThemeLabel').textContent = isLight ? 'Dark' : 'Light';
+    showFabs();
+  });
+
+  const events = ['mousemove', 'scroll', 'keydown', 'touchstart', 'click'];
+  events.forEach(e => document.addEventListener(e, showFabs, { passive: true }));
+})();

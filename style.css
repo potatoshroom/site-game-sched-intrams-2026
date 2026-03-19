@@ -833,41 +833,6 @@ h1 span {
 [data-gender="women"] .sport-svg  { color: #d47aaa; }
 [data-gender="mixed"] .sport-svg  { color: #ffd300; }
 
-/* ── RESULT HINT ── */
-#resultHint {
-  position: absolute;
-  top: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%) translateY(-4px);
-  background: var(--white);
-  color: var(--black);
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 7px 14px;
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.35s ease, transform 0.35s ease;
-  z-index: 100;
-}
-
-#resultHint.hint-show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-#resultHint::before {
-  content: '';
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 6px solid transparent;
-  border-bottom-color: var(--white);
-}
 
 /* ── RESULT SPLASH ── */
 #splashOverlay {
@@ -1028,6 +993,95 @@ h1 span {
 
 /* Rows with results get pointer only when results are visible */
 .results-visible .match-row[data-result] { cursor: pointer; }
+
+/* ── FLOATING RESULTS BUTTON ── */
+#floatingFabs {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 500;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+#floatingHint {
+  background: var(--white);
+  color: var(--black);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  position: relative;
+}
+
+#floatingHint::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--white);
+}
+
+#floatingHint.hint-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#floatingResults,
+#floatingTheme {
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--silver);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, border-color 0.15s, color 0.15s;
+  user-select: none;
+}
+
+#floatingResults.fab-visible,
+#floatingTheme.fab-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#floatingResults:hover,
+#floatingTheme:hover {
+  border-color: var(--silver);
+  color: var(--light);
+}
+
+#floatingResults svg,
+#floatingTheme svg {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  flex-shrink: 0;
+}
 
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar { width: 4px; }
