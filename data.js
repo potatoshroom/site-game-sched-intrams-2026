@@ -134,7 +134,26 @@ const SCHEDULE_DATA = {
               result: "lose",
               score: { site: null, opp: null },
             },
-            { time: "11:00 AM", opp: "SIHM", score: { site: null, opp: null } },
+            {
+              time: "11:00 AM",
+              opp: "SIHM",
+              result: "lose",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "1:15 PM",
+              opp: "CISTE",
+              stage: "semis",
+              result: "lose",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "2:00 PM",
+              opp: "SBA",
+              stage: "3rd",
+              result: "lose",
+              score: { site: null, opp: null },
+            },
           ],
         },
         {
@@ -556,7 +575,7 @@ const SCHEDULE_DATA = {
 // Only set result here: "Champion" | "Runner-up" | "3rd Place" | null
 const TALLY_META = {
   "Basketball — Men (5v5)": { result: null },
-  "Basketball — Women (3v3)": { result: null },
+  "Basketball — Women (3v3)": { result: "4th Place" },
   "Volleyball — Men": { result: null },
   "Volleyball — Women": { result: null },
   "Beach Volleyball — Men": { result: null },
