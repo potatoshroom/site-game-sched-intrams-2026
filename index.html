@@ -487,6 +487,49 @@
   .match-row:has(.t-sba)::before   { background: #d4aa45; }
   .match-row:has(.t-sohe)::before  { background: #e07832; }
 
+  /* ── WIN / LOSE ── */
+  .match-row.win,
+  .match-row.lose {
+    border-color: transparent;
+  }
+
+  .match-row.win  { background: rgba(46, 168, 74, 0.07); }
+  .match-row.lose { background: rgba(204, 60, 60, 0.07); }
+
+  .match-row.win::before  { background: #2ea84a; }
+  .match-row.lose::before { background: #cc3333; }
+
+  .match-row.win:hover::before  { background: #2ea84a; }
+  .match-row.lose:hover::before { background: #cc3333; }
+
+  .match-row.win::after,
+  .match-row.lose::after {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  .match-row.win::after {
+    content: 'WIN';
+    color: #2ea84a;
+    background: rgba(46, 168, 74, 0.12);
+    border: 1px solid rgba(46, 168, 74, 0.3);
+  }
+
+  .match-row.lose::after {
+    content: 'LOSE';
+    color: #cc3333;
+    background: rgba(204, 60, 60, 0.12);
+    border: 1px solid rgba(204, 60, 60, 0.3);
+  }
+
   /* ── HIDDEN ── */
   .hidden { display: none !important; }
 
@@ -774,7 +817,7 @@
   }
 
   [data-gender="mixed"] .sport-name {
-    background: linear-gradient(90deg, #6ec97a 0%, #2ea84a 100%);
+    background: linear-gradient(90deg, #ffeb85 0%, #c1a100 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -782,7 +825,7 @@
 
   [data-gender="men"] .sport-svg    { color: #6aafd4; }
   [data-gender="women"] .sport-svg  { color: #d47aaa; }
-  [data-gender="mixed"] .sport-svg  { color: #4aba7a; }
+  [data-gender="mixed"] .sport-svg  { color: #ffd300; }
 
   /* ── SCROLLBAR ── */
   ::-webkit-scrollbar { width: 4px; }
@@ -977,7 +1020,7 @@
         <span class="sport-venue">Leisure Coast Gym</span>
       </div>
       <div class="matches">
-        <div class="match-row">
+        <div class="match-row lose">
           <div class="match-time">2:30 PM</div>
           <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
           <div class="match-multi"></div>
@@ -992,7 +1035,7 @@
         <span class="sport-venue">Leisure Coast Court 1</span>
       </div>
       <div class="matches">
-        <div class="match-row">
+        <div class="match-row win">
           <div class="match-time tbd">2nd Game PM</div>
           <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
           <div class="match-multi"></div>
@@ -1007,7 +1050,7 @@
         <span class="sport-venue">Leisure Coast Court 2</span>
       </div>
       <div class="matches">
-        <div class="match-row">
+        <div class="match-row win">
           <div class="match-time tbd">2nd Game PM</div>
           <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
           <div class="match-multi"></div>
@@ -1022,12 +1065,12 @@
         <span class="sport-venue">Sand Area</span>
       </div>
       <div class="matches">
-        <div class="match-row">
+        <div class="match-row lose">
           <div class="match-time tbd">2nd Game PM</div>
           <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
           <div class="match-multi"></div>
         </div>
-        <div class="match-row">
+        <div class="match-row lose">
           <div class="match-time tbd">6th Game PM</div>
           <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohe">SOHE</span></div>
           <div class="match-multi"></div>
@@ -1074,12 +1117,12 @@
         <span class="sport-venue">LCR Gym Court #1</span>
       </div>
       <div class="matches">
-        <div class="match-row">
+        <div class="match-row lose">
           <div class="match-time">8:15 AM</div>
           <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
           <div class="match-multi"></div>
         </div>
-        <div class="match-row">
+        <div class="match-row win">
           <div class="match-time">9:15 AM</div>
           <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohe">SOHE</span></div>
           <div class="match-multi"></div>
@@ -1149,12 +1192,12 @@
         <span class="sport-venue">Sand Area</span>
       </div>
       <div class="matches">
-        <div class="match-row">
+        <div class="match-row lose">
           <div class="match-time tbd">2nd Game AM</div>
           <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
           <div class="match-multi"></div>
         </div>
-        <div class="match-row">
+        <div class="match-row win">
           <div class="match-time tbd">6th Game AM</div>
           <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohe">SOHE</span></div>
           <div class="match-multi"></div>
@@ -1189,22 +1232,22 @@
         <span class="sport-venue">Library · VPA Building</span>
       </div>
       <div class="matches">
-        <div class="match-row">
+        <div class="match-row win">
           <div class="match-time">8:30 AM</div>
           <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
           <div class="match-multi"></div>
         </div>
-        <div class="match-row">
+        <div class="match-row win">
           <div class="match-time">10:30 AM</div>
           <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohe">SOHE</span></div>
           <div class="match-multi"></div>
         </div>
-        <div class="match-row">
+        <div class="match-row win">
           <div class="match-time">1:00 PM</div>
           <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohs">SOHS</span></div>
           <div class="match-multi"></div>
         </div>
-        <div class="match-row">
+        <div class="match-row win">
           <div class="match-time">2:00 PM</div>
           <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sba">SBA</span></div>
           <div class="match-multi"></div>
@@ -1224,17 +1267,17 @@
         <span class="sport-venue">Library · VPA Building</span>
       </div>
       <div class="matches">
-        <div class="match-row">
+        <div class="match-row win">
           <div class="match-time">8:30 AM</div>
           <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-ciste">CISTE</span></div>
           <div class="match-multi"></div>
         </div>
-        <div class="match-row">
+        <div class="match-row lose">
           <div class="match-time">10:30 AM</div>
           <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohe">SOHE</span></div>
           <div class="match-multi"></div>
         </div>
-        <div class="match-row">
+        <div class="match-row win">
           <div class="match-time">1:00 PM</div>
           <div class="match-teams"><span class="team site">SITE</span><span class="vs-tag">VS</span><span class="team opp t-sohs">SOHS</span></div>
           <div class="match-multi"></div>
