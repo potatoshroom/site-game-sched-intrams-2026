@@ -1,7 +1,8 @@
 // ── SCHEDULE DATA ──
 // Edit this file to update match results, times, venues, and opponents.
-// result: "win" | "lose"  — omit if not yet played
-// tbd: true               — time is a slot (e.g. "2nd Game PM"), not exact
+// result: "win" | "lose"        — omit if not yet played
+// tbd: true                     — time is a slot (e.g. "2nd Game PM"), not exact
+// score: { site: X, opp: Y }   — fill in both to show score on overlay; leave null to hide
 
 const SCHEDULE_DATA = {
   days: [
@@ -15,7 +16,14 @@ const SCHEDULE_DATA = {
           icon: "ico-basketball",
           label: "Basketball — Men (5v5)",
           venue: "Leisure Coast Gym",
-          matches: [{ time: "2:30 PM", opp: "CISTE", result: "lose", score: { site: 70, opp: 83 } }],
+          matches: [
+            {
+              time: "2:30 PM",
+              opp: "CISTE",
+              result: "lose",
+              score: { site: 70, opp: 83 },
+            },
+          ],
         },
         {
           sport: "volleyball",
@@ -23,7 +31,13 @@ const SCHEDULE_DATA = {
           label: "Volleyball — Men",
           venue: "Leisure Coast Court 1",
           matches: [
-            { time: "2nd Game PM", tbd: true, opp: "CISTE", result: "win" },
+            {
+              time: "2nd Game PM",
+              tbd: true,
+              opp: "CISTE",
+              result: "win",
+              score: { site: 2, opp: 1 },
+            },
           ],
         },
         {
@@ -32,7 +46,13 @@ const SCHEDULE_DATA = {
           label: "Volleyball — Women",
           venue: "Leisure Coast Court 2",
           matches: [
-            { time: "2nd Game PM", tbd: true, opp: "CISTE", result: "win" },
+            {
+              time: "2nd Game PM",
+              tbd: true,
+              opp: "CISTE",
+              result: "win",
+              score: { site: 2, opp: 0 },
+            },
           ],
         },
         {
@@ -41,8 +61,20 @@ const SCHEDULE_DATA = {
           label: "Beach Volleyball — Men",
           venue: "Sand Area",
           matches: [
-            { time: "2nd Game PM", tbd: true, opp: "CISTE", result: "lose" },
-            { time: "6th Game PM", tbd: true, opp: "SOHE", result: "lose" },
+            {
+              time: "2nd Game PM",
+              tbd: true,
+              opp: "CISTE",
+              result: "lose",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "6th Game PM",
+              tbd: true,
+              opp: "SOHE",
+              result: "lose",
+              score: { site: null, opp: null },
+            },
           ],
         },
       ],
@@ -58,8 +90,13 @@ const SCHEDULE_DATA = {
           label: "Basketball — Men (5v5)",
           venue: "UDD Quadrangle",
           matches: [
-            { time: "11:00 AM", opp: "SOHE", result: "win" },
-            { time: "4:00 PM", opp: "SOHS" },
+            {
+              time: "11:00 AM",
+              opp: "SOHE",
+              result: "win",
+              score: { site: null, opp: null },
+            },
+            { time: "4:00 PM", opp: "SOHS", score: { site: null, opp: null } },
           ],
         },
         {
@@ -68,11 +105,31 @@ const SCHEDULE_DATA = {
           label: "Basketball — Women (3v3)",
           venue: "LCR Gym Court #1",
           matches: [
-            { time: "8:15 AM", opp: "CISTE", result: "lose" },
-            { time: "9:15 AM", opp: "SOHE", result: "win" },
-            { time: "10:00 AM", opp: "SOHS", result: "win" },
-            { time: "10:30 AM", opp: "SBA", result: "lose" },
-            { time: "11:00 AM", opp: "SIHM" },
+            {
+              time: "8:15 AM",
+              opp: "CISTE",
+              result: "lose",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "9:15 AM",
+              opp: "SOHE",
+              result: "win",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "10:00 AM",
+              opp: "SOHS",
+              result: "win",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "10:30 AM",
+              opp: "SBA",
+              result: "lose",
+              score: { site: null, opp: null },
+            },
+            { time: "11:00 AM", opp: "SIHM", score: { site: null, opp: null } },
           ],
         },
         {
@@ -81,8 +138,18 @@ const SCHEDULE_DATA = {
           label: "Volleyball — Men",
           venue: "Leisure Coast Court 1",
           matches: [
-            { time: "3rd Game AM", tbd: true, opp: "SOHE" },
-            { time: "3rd Game PM", tbd: true, opp: "SOHS" },
+            {
+              time: "3rd Game AM",
+              tbd: true,
+              opp: "SOHE",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "3rd Game PM",
+              tbd: true,
+              opp: "SOHS",
+              score: { site: null, opp: null },
+            },
           ],
         },
         {
@@ -91,8 +158,18 @@ const SCHEDULE_DATA = {
           label: "Volleyball — Women",
           venue: "Leisure Coast Court 2",
           matches: [
-            { time: "3rd Game AM", tbd: true, opp: "SOHE" },
-            { time: "3rd Game PM", tbd: true, opp: "SOHS" },
+            {
+              time: "3rd Game AM",
+              tbd: true,
+              opp: "SOHE",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "3rd Game PM",
+              tbd: true,
+              opp: "SOHS",
+              score: { site: null, opp: null },
+            },
           ],
         },
         {
@@ -101,8 +178,20 @@ const SCHEDULE_DATA = {
           label: "Beach Volleyball — Women",
           venue: "Sand Area",
           matches: [
-            { time: "2nd Game AM", tbd: true, opp: "CISTE", result: "lose" },
-            { time: "6th Game AM", tbd: true, opp: "SOHE", result: "win" },
+            {
+              time: "2nd Game AM",
+              tbd: true,
+              opp: "CISTE",
+              result: "lose",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "6th Game AM",
+              tbd: true,
+              opp: "SOHE",
+              result: "win",
+              score: { site: null, opp: null },
+            },
           ],
         },
         {
@@ -111,8 +200,18 @@ const SCHEDULE_DATA = {
           label: "Beach Volleyball — Men",
           venue: "Sand Area",
           matches: [
-            { time: "3rd Game PM", tbd: true, opp: "SOHS" },
-            { time: "5th Game PM", tbd: true, opp: "SBA" },
+            {
+              time: "3rd Game PM",
+              tbd: true,
+              opp: "SOHS",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "5th Game PM",
+              tbd: true,
+              opp: "SBA",
+              score: { site: null, opp: null },
+            },
           ],
         },
         {
@@ -121,11 +220,31 @@ const SCHEDULE_DATA = {
           label: "Chess — Men (Individual)",
           venue: "Library · VPA Building",
           matches: [
-            { time: "8:30 AM", opp: "CISTE", result: "win" },
-            { time: "10:30 AM", opp: "SOHE", result: "win" },
-            { time: "1:00 PM", opp: "SOHS", result: "win" },
-            { time: "2:00 PM", opp: "SBA", result: "win" },
-            { time: "3:00 PM", opp: "SIHM" },
+            {
+              time: "8:30 AM",
+              opp: "CISTE",
+              result: "win",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "10:30 AM",
+              opp: "SOHE",
+              result: "win",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "1:00 PM",
+              opp: "SOHS",
+              result: "win",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "2:00 PM",
+              opp: "SBA",
+              result: "win",
+              score: { site: null, opp: null },
+            },
+            { time: "3:00 PM", opp: "SIHM", score: { site: null, opp: null } },
           ],
         },
         {
@@ -134,11 +253,31 @@ const SCHEDULE_DATA = {
           label: "Chess — Women (Individual)",
           venue: "Library · VPA Building",
           matches: [
-            { time: "8:30 AM", opp: "CISTE", result: "win" },
-            { time: "10:30 AM", opp: "SOHE", result: "lose" },
-            { time: "1:00 PM", opp: "SOHS", result: "win" },
-            { time: "2:00 PM", opp: "SBA", result: "win" },
-            { time: "3:00 PM", opp: "SIHM" },
+            {
+              time: "8:30 AM",
+              opp: "CISTE",
+              result: "win",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "10:30 AM",
+              opp: "SOHE",
+              result: "lose",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "1:00 PM",
+              opp: "SOHS",
+              result: "win",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "2:00 PM",
+              opp: "SBA",
+              result: "win",
+              score: { site: null, opp: null },
+            },
+            { time: "3:00 PM", opp: "SIHM", score: { site: null, opp: null } },
           ],
         },
       ],
@@ -154,8 +293,8 @@ const SCHEDULE_DATA = {
           label: "Basketball — Men (5v5)",
           venue: "UDD Quadrangle",
           matches: [
-            { time: "9:30 AM", opp: "SBA" },
-            { time: "1:00 PM", opp: "SIHM" },
+            { time: "9:30 AM", opp: "SBA", score: { site: null, opp: null } },
+            { time: "1:00 PM", opp: "SIHM", score: { site: null, opp: null } },
           ],
         },
         {
@@ -164,8 +303,13 @@ const SCHEDULE_DATA = {
           label: "Volleyball — Men",
           venue: "Leisure Coast Court 1",
           matches: [
-            { time: "2nd Game AM", tbd: true, opp: "SBA" },
-            { time: "1:00 PM", opp: "SIHM" },
+            {
+              time: "2nd Game AM",
+              tbd: true,
+              opp: "SBA",
+              score: { site: null, opp: null },
+            },
+            { time: "1:00 PM", opp: "SIHM", score: { site: null, opp: null } },
           ],
         },
         {
@@ -174,8 +318,13 @@ const SCHEDULE_DATA = {
           label: "Volleyball — Women",
           venue: "Leisure Coast Court 2",
           matches: [
-            { time: "2nd Game AM", tbd: true, opp: "SBA" },
-            { time: "1:00 PM", opp: "SIHM" },
+            {
+              time: "2nd Game AM",
+              tbd: true,
+              opp: "SBA",
+              score: { site: null, opp: null },
+            },
+            { time: "1:00 PM", opp: "SIHM", score: { site: null, opp: null } },
           ],
         },
         {
@@ -184,9 +333,19 @@ const SCHEDULE_DATA = {
           label: "Beach Volleyball — Women",
           venue: "Sand Area",
           matches: [
-            { time: "3rd Game AM", tbd: true, opp: "SOHS" },
-            { time: "5th Game AM", tbd: true, opp: "SBA" },
-            { time: "3:00 PM", opp: "SIHM" },
+            {
+              time: "3rd Game AM",
+              tbd: true,
+              opp: "SOHS",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "5th Game AM",
+              tbd: true,
+              opp: "SBA",
+              score: { site: null, opp: null },
+            },
+            { time: "3:00 PM", opp: "SIHM", score: { site: null, opp: null } },
           ],
         },
         {
@@ -194,7 +353,9 @@ const SCHEDULE_DATA = {
           icon: "ico-beach",
           label: "Beach Volleyball — Men",
           venue: "Sand Area",
-          matches: [{ time: "1:00 PM", opp: "SIHM" }],
+          matches: [
+            { time: "1:00 PM", opp: "SIHM", score: { site: null, opp: null } },
+          ],
         },
         {
           sport: "scrabble",
@@ -202,11 +363,11 @@ const SCHEDULE_DATA = {
           label: "Scrabble — Men (Singles)",
           venue: "Library",
           matches: [
-            { time: "8:30 AM", opp: "CISTE" },
-            { time: "9:55 AM", opp: "SOHE" },
-            { time: "10:55 AM", opp: "SOHS" },
-            { time: "11:30 AM", opp: "SBA" },
-            { time: "1:00 PM", opp: "SIHM" },
+            { time: "8:30 AM", opp: "CISTE", score: { site: null, opp: null } },
+            { time: "9:55 AM", opp: "SOHE", score: { site: null, opp: null } },
+            { time: "10:55 AM", opp: "SOHS", score: { site: null, opp: null } },
+            { time: "11:30 AM", opp: "SBA", score: { site: null, opp: null } },
+            { time: "1:00 PM", opp: "SIHM", score: { site: null, opp: null } },
           ],
         },
         {
@@ -215,11 +376,11 @@ const SCHEDULE_DATA = {
           label: "Scrabble — Women (Singles)",
           venue: "Library",
           matches: [
-            { time: "8:30 AM", opp: "CISTE" },
-            { time: "9:55 AM", opp: "SOHE" },
-            { time: "11:55 AM", opp: "SOHS" },
-            { time: "1:30 PM", opp: "SBA" },
-            { time: "2:00 PM", opp: "SIHM" },
+            { time: "8:30 AM", opp: "CISTE", score: { site: null, opp: null } },
+            { time: "9:55 AM", opp: "SOHE", score: { site: null, opp: null } },
+            { time: "11:55 AM", opp: "SOHS", score: { site: null, opp: null } },
+            { time: "1:30 PM", opp: "SBA", score: { site: null, opp: null } },
+            { time: "2:00 PM", opp: "SIHM", score: { site: null, opp: null } },
           ],
         },
         {
@@ -228,9 +389,9 @@ const SCHEDULE_DATA = {
           label: "Scrabble — Mixed Doubles",
           venue: "Library",
           matches: [
-            { time: "3:30 PM", opp: "CISTE" },
-            { time: "3:55 PM", opp: "SOHE" },
-            { time: "4:55 PM", opp: "SOHS" },
+            { time: "3:30 PM", opp: "CISTE", score: { site: null, opp: null } },
+            { time: "3:55 PM", opp: "SOHE", score: { site: null, opp: null } },
+            { time: "4:55 PM", opp: "SOHS", score: { site: null, opp: null } },
           ],
         },
       ],
@@ -246,8 +407,8 @@ const SCHEDULE_DATA = {
           label: "Scrabble — Mixed Doubles",
           venue: "Library",
           matches: [
-            { time: "8:00 AM", opp: "SIHM" },
-            { time: "8:30 AM", opp: "SBA" },
+            { time: "8:00 AM", opp: "SIHM", score: { site: null, opp: null } },
+            { time: "8:30 AM", opp: "SBA", score: { site: null, opp: null } },
           ],
         },
         {
@@ -256,11 +417,11 @@ const SCHEDULE_DATA = {
           label: "Table Tennis — Men",
           venue: "Nikki's Garden",
           matches: [
-            { time: "8:30 AM", opp: "CISTE" },
-            { time: "10:30 AM", opp: "SOHE" },
-            { time: "1:00 PM", opp: "SOHS" },
-            { time: "2:00 PM", opp: "SBA" },
-            { time: "3:00 PM", opp: "SIHM" },
+            { time: "8:30 AM", opp: "CISTE", score: { site: null, opp: null } },
+            { time: "10:30 AM", opp: "SOHE", score: { site: null, opp: null } },
+            { time: "1:00 PM", opp: "SOHS", score: { site: null, opp: null } },
+            { time: "2:00 PM", opp: "SBA", score: { site: null, opp: null } },
+            { time: "3:00 PM", opp: "SIHM", score: { site: null, opp: null } },
           ],
         },
         {
@@ -269,11 +430,11 @@ const SCHEDULE_DATA = {
           label: "Table Tennis — Women",
           venue: "Nikki's Garden",
           matches: [
-            { time: "8:30 AM", opp: "CISTE" },
-            { time: "10:30 AM", opp: "SOHE" },
-            { time: "1:00 PM", opp: "SOHS" },
-            { time: "2:00 PM", opp: "SBA" },
-            { time: "3:00 PM", opp: "SIHM" },
+            { time: "8:30 AM", opp: "CISTE", score: { site: null, opp: null } },
+            { time: "10:30 AM", opp: "SOHE", score: { site: null, opp: null } },
+            { time: "1:00 PM", opp: "SOHS", score: { site: null, opp: null } },
+            { time: "2:00 PM", opp: "SBA", score: { site: null, opp: null } },
+            { time: "3:00 PM", opp: "SIHM", score: { site: null, opp: null } },
           ],
         },
         {
@@ -282,11 +443,11 @@ const SCHEDULE_DATA = {
           label: "Table Tennis — Mixed Doubles",
           venue: "Nikki's Garden",
           matches: [
-            { time: "8:30 AM", opp: "CISTE" },
-            { time: "10:30 AM", opp: "SOHE" },
-            { time: "1:00 PM", opp: "SOHS" },
-            { time: "2:00 PM", opp: "SBA" },
-            { time: "3:00 PM", opp: "SIHM" },
+            { time: "8:30 AM", opp: "CISTE", score: { site: null, opp: null } },
+            { time: "10:30 AM", opp: "SOHE", score: { site: null, opp: null } },
+            { time: "1:00 PM", opp: "SOHS", score: { site: null, opp: null } },
+            { time: "2:00 PM", opp: "SBA", score: { site: null, opp: null } },
+            { time: "3:00 PM", opp: "SIHM", score: { site: null, opp: null } },
           ],
         },
       ],
@@ -303,11 +464,11 @@ const SCHEDULE_DATA = {
           venue: "Nikki's Garden / LCR Gym",
           highlight: true,
           matches: [
-            { time: "8:30 AM", opp: "CISTE" },
-            { time: "10:30 AM", opp: "SOHE" },
-            { time: "1:00 PM", opp: "SOHS" },
-            { time: "2:00 PM", opp: "SBA" },
-            { time: "3:00 PM", opp: "SIHM" },
+            { time: "8:30 AM", opp: "CISTE", score: { site: null, opp: null } },
+            { time: "10:30 AM", opp: "SOHE", score: { site: null, opp: null } },
+            { time: "1:00 PM", opp: "SOHS", score: { site: null, opp: null } },
+            { time: "2:00 PM", opp: "SBA", score: { site: null, opp: null } },
+            { time: "3:00 PM", opp: "SIHM", score: { site: null, opp: null } },
           ],
         },
         {
@@ -317,11 +478,11 @@ const SCHEDULE_DATA = {
           venue: "Nikki's Garden / LCR Gym",
           highlight: true,
           matches: [
-            { time: "8:30 AM", opp: "CISTE" },
-            { time: "10:30 AM", opp: "SOHE" },
-            { time: "1:00 PM", opp: "SOHS" },
-            { time: "2:00 PM", opp: "SBA" },
-            { time: "3:00 PM", opp: "SIHM" },
+            { time: "8:30 AM", opp: "CISTE", score: { site: null, opp: null } },
+            { time: "10:30 AM", opp: "SOHE", score: { site: null, opp: null } },
+            { time: "1:00 PM", opp: "SOHS", score: { site: null, opp: null } },
+            { time: "2:00 PM", opp: "SBA", score: { site: null, opp: null } },
+            { time: "3:00 PM", opp: "SIHM", score: { site: null, opp: null } },
           ],
         },
         {
@@ -331,11 +492,11 @@ const SCHEDULE_DATA = {
           venue: "Nikki's Garden / LCR Gym",
           highlight: true,
           matches: [
-            { time: "8:30 AM", opp: "CISTE" },
-            { time: "10:30 AM", opp: "SOHE" },
-            { time: "1:00 PM", opp: "SOHS" },
-            { time: "2:00 PM", opp: "SBA" },
-            { time: "3:00 PM", opp: "SIHM" },
+            { time: "8:30 AM", opp: "CISTE", score: { site: null, opp: null } },
+            { time: "10:30 AM", opp: "SOHE", score: { site: null, opp: null } },
+            { time: "1:00 PM", opp: "SOHS", score: { site: null, opp: null } },
+            { time: "2:00 PM", opp: "SBA", score: { site: null, opp: null } },
+            { time: "3:00 PM", opp: "SIHM", score: { site: null, opp: null } },
           ],
         },
       ],

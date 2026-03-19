@@ -30,7 +30,7 @@ function renderSchedule(data) {
         const resultCls = m.result ? ` ${m.result}` : '';
         const tbdCls    = m.tbd ? ' tbd' : '';
         const oppLower  = m.opp.toLowerCase();
-        const scoreAttrs  = (m.score != null) ? ` data-score-site="${m.score.site}" data-score-opp="${m.score.opp}"` : '';
+        const scoreAttrs  = (m.score?.site != null && m.score?.opp != null) ? ` data-score-site="${m.score.site}" data-score-opp="${m.score.opp}"` : '';
         const splashAttrs = ` data-opp="${oppLower}" data-opp-name="${esc(m.opp)}" data-time="${esc(m.time)}" data-date="${esc(day.date)}" data-label="${esc(sec.label)}" data-venue="${esc(sec.venue)}"${m.result ? ` data-result="${m.result}"` : ''}${scoreAttrs}`;
         html += `<div class="match-row${resultCls}"${splashAttrs}>
           <div class="match-time${tbdCls}">${esc(m.time)}</div>
