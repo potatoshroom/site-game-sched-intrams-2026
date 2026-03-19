@@ -96,7 +96,12 @@ const SCHEDULE_DATA = {
               result: "win",
               score: { site: 74, opp: 56 },
             },
-            { time: "4:00 PM", opp: "SOHS", score: { site: null, opp: null } },
+            {
+              time: "4:00 PM",
+              opp: "SOHS",
+              result: "lose",
+              score: { site: 75, opp: 77 },
+            },
           ],
         },
         {
