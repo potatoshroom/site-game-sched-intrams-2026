@@ -244,7 +244,27 @@ const SCHEDULE_DATA = {
               result: "win",
               score: { site: null, opp: null },
             },
-            { time: "3:00 PM", opp: "SIHM", score: { site: null, opp: null } },
+            {
+              time: "3:00 PM",
+              opp: "SIHM",
+              result: "win",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "4:30 PM",
+              opp: "SOHS",
+              stage: "semis",
+              result: "win",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "After Semis",
+              tbd: true,
+              opp: "SOHE",
+              stage: "finals",
+              result: "win",
+              score: { site: null, opp: null },
+            },
           ],
         },
         {
@@ -268,7 +288,7 @@ const SCHEDULE_DATA = {
             {
               time: "1:00 PM",
               opp: "SOHS",
-              result: "win",
+              result: "lose",
               score: { site: null, opp: null },
             },
             {
@@ -277,7 +297,27 @@ const SCHEDULE_DATA = {
               result: "win",
               score: { site: null, opp: null },
             },
-            { time: "3:00 PM", opp: "SIHM", score: { site: null, opp: null } },
+            {
+              time: "3:00 PM",
+              opp: "SIHM",
+              result: "win",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "4:30 PM",
+              opp: "SOHS",
+              stage: "semis",
+              result: "lose",
+              score: { site: null, opp: null },
+            },
+            {
+              time: "After Semis",
+              tbd: true,
+              opp: "SOHE",
+              stage: "3rd",
+              result: "win",
+              score: { site: null, opp: null },
+            },
           ],
         },
       ],
@@ -502,4 +542,29 @@ const SCHEDULE_DATA = {
       ],
     },
   ],
+};
+
+// ── TALLY META ──
+// semis / finals: "win" | "lose" | null (null = not yet played / N/A)
+// result: "Champion" | "Runner-up" | "3rd Place" | any string | null
+// semis / finals results are derived automatically from matches with stage: "semis"/"finals" in SCHEDULE_DATA.
+// Only set result here: "Champion" | "Runner-up" | "3rd Place" | null
+const TALLY_META = {
+  "Basketball — Men (5v5)": { result: null },
+  "Basketball — Women (3v3)": { result: null },
+  "Volleyball — Men": { result: null },
+  "Volleyball — Women": { result: null },
+  "Beach Volleyball — Men": { result: null },
+  "Beach Volleyball — Women": { result: null },
+  "Chess — Men (Individual)": { result: "Champion" },
+  "Chess — Women (Individual)": { result: "3rd Place" },
+  "Scrabble — Men (Singles)": { result: null },
+  "Scrabble — Women (Singles)": { result: null },
+  "Scrabble — Mixed Doubles": { result: null },
+  "Table Tennis — Men": { result: null },
+  "Table Tennis — Women": { result: null },
+  "Table Tennis — Mixed Doubles": { result: null },
+  "Badminton — Men": { result: null },
+  "Badminton — Women": { result: null },
+  "Badminton — Mixed Doubles": { result: null },
 };

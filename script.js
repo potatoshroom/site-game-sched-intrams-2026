@@ -3,6 +3,8 @@ let CAL_DATA = {};
 
 function esc(s) { return String(s).replace(/&/g, '&amp;'); }
 
+const STAGE_LABELS = { semis: 'Semis', finals: 'Finals', '3rd': 'Battle for 3rd' };
+
 function renderSchedule(data) {
   const root = document.getElementById('scheduleRoot');
   let html = '';
@@ -30,11 +32,15 @@ function renderSchedule(data) {
         const resultCls = m.result ? ` ${m.result}` : '';
         const tbdCls    = m.tbd ? ' tbd' : '';
         const oppLower  = m.opp.toLowerCase();
+        const isTbd     = oppLower === 'tbd';
         const scoreAttrs  = (m.score?.site != null && m.score?.opp != null) ? ` data-score-site="${m.score.site}" data-score-opp="${m.score.opp}"` : '';
-        const splashAttrs = ` data-opp="${oppLower}" data-opp-name="${esc(m.opp)}" data-time="${esc(m.time)}" data-date="${esc(day.date)}" data-label="${esc(sec.label)}" data-venue="${esc(sec.venue)}"${m.result ? ` data-result="${m.result}"` : ''}${scoreAttrs}`;
+        const splashAttrs = ` data-opp="${oppLower}" data-opp-name="${esc(m.opp)}" data-time="${esc(m.time)}" data-date="${esc(day.date)}" data-label="${esc(sec.label)}" data-venue="${esc(sec.venue)}"${m.result ? ` data-result="${m.result}"` : ''}${m.stage ? ` data-stage="${m.stage}"` : ''}${scoreAttrs}`;
+        const oppLogoHtml = isTbd ? '' : `<img class="team-logo" src="public/images/${oppLower}.png" alt="${esc(m.opp)}">`;
+        const stageBadge  = m.stage ? `<span class="match-stage-badge match-stage-${m.stage}">${STAGE_LABELS[m.stage] || m.stage}</span>` : '';
         html += `<div class="match-row${resultCls}"${splashAttrs}>
           <div class="match-time${tbdCls}">${esc(m.time)}</div>
-          <div class="match-teams"><img class="team-logo" src="public/images/site.png" alt="SITE"><span class="team site">SITE</span><span class="vs-tag">VS</span><img class="team-logo" src="public/images/${oppLower}.png" alt="${esc(m.opp)}"><span class="team opp t-${oppLower}">${esc(m.opp)}</span></div>
+          <div class="match-teams"><img class="team-logo" src="public/images/site.png" alt="SITE"><span class="team site">SITE</span><span class="vs-tag">VS</span>${oppLogoHtml}<span class="team opp${isTbd ? '' : ` t-${oppLower}`}">${esc(m.opp)}</span></div>
+          ${stageBadge}
         </div>`;
       });
       html += `</div></div>`;
@@ -55,7 +61,7 @@ function buildCalData(data) {
           label: sec.label, venue: sec.venue,
           matches: sec.matches.map(m => ({
             time: m.time, opp: m.opp, oCls: m.opp.toLowerCase(),
-            tbd: m.tbd || false, result: m.result || null
+            tbd: m.tbd || false, result: m.result || null, stage: m.stage || null
           }))
         };
       })
@@ -204,13 +210,16 @@ function openAgenda(day) {
         <span class="agenda-sport-venue">${sec.venue}</span>
       </div>`;
     for (const m of sec.matches) {
+      const isTbdOpp = m.oCls === 'tbd';
+      const agendaOppLogo = isTbdOpp ? '' : `<img class="team-logo" src="public/images/${m.oCls}.png" alt="${m.opp}">`;
+      const agendaStageBadge = m.stage ? `<span class="match-stage-badge match-stage-${m.stage}">${STAGE_LABELS[m.stage] || m.stage}</span>` : '';
       html += `
-      <div class="agenda-match opp-${m.oCls}">
+      <div class="agenda-match${isTbdOpp ? '' : ` opp-${m.oCls}`}">
         <div class="agenda-time${m.tbd ? ' tbd' : ''}">${m.time}</div>
         <div class="agenda-teams">
           <img class="team-logo" src="public/images/site.png" alt="SITE"><span class="team site">SITE</span>
           <span class="vs-tag">VS</span>
-          <img class="team-logo" src="public/images/${m.oCls}.png" alt="${m.opp}"><span class="team opp t-${m.oCls}">${m.opp}</span>
+          ${agendaOppLogo}<span class="team opp${isTbdOpp ? '' : ` t-${m.oCls}`}">${m.opp}</span>${agendaStageBadge}
         </div>
         ${m.result ? `<div class="agenda-result ${m.result}">${m.result === 'win' ? 'WIN' : 'LOSE'}</div>` : '<div></div>'}
       </div>`;
@@ -239,7 +248,9 @@ function closeAgenda() {
 document.getElementById('tabCal').addEventListener('click', () => {
   document.getElementById('tabCal').classList.add('active');
   document.getElementById('tabSched').classList.remove('active');
+  document.getElementById('tabTally').classList.remove('active');
   document.getElementById('calWrap').classList.add('visible');
+  document.getElementById('tallyRoot').classList.remove('visible');
   document.querySelectorAll('.day-block').forEach(d => d.style.display = 'none');
   buildCalGrid(document.querySelector('.filter-btn.active')?.dataset.filter || 'all');
 });
@@ -247,13 +258,162 @@ document.getElementById('tabCal').addEventListener('click', () => {
 document.getElementById('tabSched').addEventListener('click', () => {
   document.getElementById('tabSched').classList.add('active');
   document.getElementById('tabCal').classList.remove('active');
+  document.getElementById('tabTally').classList.remove('active');
   document.getElementById('calWrap').classList.remove('visible');
+  document.getElementById('tallyRoot').classList.remove('visible');
   const af = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
   document.querySelectorAll('.day-block').forEach(day => {
     const vis = [...day.querySelectorAll('.sport-section')].some(s => !s.classList.contains('hidden'));
     day.style.display = vis ? '' : 'none';
   });
 });
+
+document.getElementById('tabTally').addEventListener('click', () => {
+  document.getElementById('tabTally').classList.add('active');
+  document.getElementById('tabCal').classList.remove('active');
+  document.getElementById('tabSched').classList.remove('active');
+  document.getElementById('calWrap').classList.remove('visible');
+  document.querySelectorAll('.day-block').forEach(d => d.style.display = 'none');
+  document.getElementById('tallyRoot').classList.add('visible');
+  renderTally();
+});
+
+function renderTally() {
+  const root = document.getElementById('tallyRoot');
+  const opponents = ['CISTE', 'SOHE', 'SOHS', 'SBA', 'SIHM'];
+
+  // Collect sport sections grouped by label, preserving order
+  const sectionOrder = [];
+  const sectionMap = new Map();
+
+  for (const day of SCHEDULE_DATA.days) {
+    for (const sec of day.sections) {
+      if (!sectionMap.has(sec.label)) {
+        sectionOrder.push(sec.label);
+        sectionMap.set(sec.label, { icon: sec.icon, sport: sec.sport, matches: new Map(), stages: new Map() });
+      }
+      const entry = sectionMap.get(sec.label);
+      for (const m of sec.matches) {
+        if (m.stage) {
+          entry.stages.set(m.stage, { result: m.result || null, opp: m.opp });
+        } else {
+          const oppKey = m.opp.toUpperCase();
+          if (!entry.matches.has(oppKey)) entry.matches.set(oppKey, []);
+          entry.matches.get(oppKey).push({ result: m.result || null, score: m.score });
+        }
+      }
+    }
+  }
+
+  function genderOf(label) {
+    const hasMen = /\bMen\b/.test(label);
+    const hasWomen = /\bWomen\b/.test(label);
+    const isDoubles = /\bDoubles\b/.test(label);
+    if ((hasMen && hasWomen) || isDoubles) return 'mixed';
+    if (hasWomen) return 'women';
+    if (hasMen) return 'men';
+    return '';
+  }
+
+  function resultStageCell(val) {
+    if (val === 'win')  return `<div class="tally-score tally-win">WIN</div>`;
+    if (val === 'lose') return `<div class="tally-score tally-lose">LOSE</div>`;
+    return `<span class="tally-dash">—</span>`;
+  }
+
+  function resultBadge(val) {
+    if (!val) return `<span class="tally-dash">—</span>`;
+    const lower = val.toLowerCase();
+    let cls = 'tally-result-badge';
+    if (lower.includes('champion')) cls += ' tally-result-gold';
+    else if (lower.includes('runner') || lower === '2nd') cls += ' tally-result-silver';
+    else if (lower === '3rd' || lower.includes('3rd')) cls += ' tally-result-bronze';
+    return `<div class="${cls}">${esc(val)}</div>`;
+  }
+
+  let html = `<div class="tally-wrap"><table class="tally-table"><thead><tr><th class="tally-th-game">Game</th>`;
+  for (const opp of opponents) {
+    html += `<th class="tally-th-opp"><span class="t-${opp.toLowerCase()}">${opp}</span></th>`;
+  }
+  html += `<th class="tally-th-stat">W/L</th>`;
+  html += `<th class="tally-th-stat">Semis</th>`;
+  html += `<th class="tally-th-stat">Battle for 3rd</th>`;
+  html += `<th class="tally-th-stat">Finals</th>`;
+  html += `<th class="tally-th-stat tally-th-result">Result</th>`;
+  html += `</tr></thead><tbody>`;
+
+  for (const label of sectionOrder) {
+    const data = sectionMap.get(label);
+    const gender = genderOf(label);
+    const gAttr = gender ? ` data-gender="${gender}"` : '';
+    const meta = (typeof TALLY_META !== 'undefined' && TALLY_META[label]) || {};
+
+    // Compute W/L from all matches with results
+    let wins = 0, losses = 0;
+    for (const matchList of data.matches.values()) {
+      for (const m of matchList) {
+        if (m.result === 'win') wins++;
+        else if (m.result === 'lose') losses++;
+      }
+    }
+
+    const resultLower = (meta.result || '').toLowerCase();
+    let rowGlow = '';
+    if (resultLower.includes('champion')) rowGlow = ' tally-glow-gold';
+    else if (resultLower.includes('runner') || resultLower === '2nd') rowGlow = ' tally-glow-silver';
+    else if (resultLower.includes('3rd') || resultLower === '3rd place') rowGlow = ' tally-glow-bronze';
+
+    html += `<tr class="tally-row${rowGlow}"${gAttr}>`;
+    html += `<td class="tally-game-label"><div class="tally-label-inner">`;
+    html += `<span class="sport-icon"><svg class="sport-svg"><use href="#${data.icon}"/></svg></span>`;
+    html += `<span class="sport-name">${esc(label)}</span>`;
+    html += `</div></td>`;
+
+    for (const opp of opponents) {
+      const matchList = data.matches.get(opp) || [];
+      if (matchList.length === 0) {
+        html += `<td class="tally-cell tally-no-match">—</td>`;
+      } else {
+        let cellHtml = '';
+        for (const m of matchList) {
+          if (m.result) {
+            const cls = m.result === 'win' ? 'tally-win' : 'tally-lose';
+            let scoreStr;
+            if (m.score && m.score.site != null && m.score.opp != null) {
+              scoreStr = `${m.score.site} – ${m.score.opp}`;
+            } else {
+              scoreStr = m.result === 'win' ? 'WIN' : 'LOSE';
+            }
+            cellHtml += `<div class="tally-score ${cls}">${scoreStr}</div>`;
+          } else {
+            cellHtml += `<div class="tally-score tally-pending">TBD</div>`;
+          }
+        }
+        html += `<td class="tally-cell">${cellHtml}</td>`;
+      }
+    }
+
+    // W/L cell
+    const wlHtml = (wins || losses)
+      ? `<span class="tally-w">${wins}W</span><span class="tally-sep"> · </span><span class="tally-l">${losses}L</span>`
+      : `<span class="tally-dash">—</span>`;
+    html += `<td class="tally-cell tally-cell-stat">${wlHtml}</td>`;
+
+    // Semis / Finals / Battle for 3rd / Result — derived from stage-marked matches in SCHEDULE_DATA
+    const semisResult  = data.stages.get('semis')?.result ?? null;
+    const finalsResult = data.stages.get('finals')?.result ?? null;
+    const thirdResult  = data.stages.get('3rd')?.result ?? null;
+    html += `<td class="tally-cell tally-cell-stat">${resultStageCell(semisResult)}</td>`;
+    html += `<td class="tally-cell tally-cell-stat">${resultStageCell(thirdResult)}</td>`;
+    html += `<td class="tally-cell tally-cell-stat">${resultStageCell(finalsResult)}</td>`;
+    html += `<td class="tally-cell tally-cell-stat tally-cell-result">${resultBadge(meta.result ?? null)}</td>`;
+
+    html += `</tr>`;
+  }
+
+  html += `</tbody></table></div>`;
+  root.innerHTML = html;
+}
 
 // Refresh calendar when filter changes (if calendar tab is active)
 document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -331,6 +491,8 @@ function showResultSplash(ds) {
   const oppClr  = TEAM_COLORS[ds.opp] || '#888';
   const resClr  = isWin ? '#2ea84a' : '#cc3333';
   const resText = isWin ? 'WIN' : 'LOSE';
+  const stageLine = ds.stage ? `<div class="splash-stage-badge splash-stage-${ds.stage}">${STAGE_LABELS[ds.stage] || ds.stage}</div>` : '';
+  const oppLogoHtml = ds.opp !== 'tbd' ? `<img src="public/images/${ds.opp}.png" alt="${ds.oppName}" class="splash-logo">` : `<div class="splash-logo-tbd">?</div>`;
 
   const overlay = document.createElement('div');
   overlay.id = 'splashOverlay';
@@ -343,13 +505,14 @@ function showResultSplash(ds) {
         <div class="splash-team-name">SITE</div>
       </div>
       <div class="splash-center">
+        ${stageLine}
         ${ds.scoreSite != null && ds.scoreOpp != null ? `<div class="splash-score"><span class="splash-score-site">${ds.scoreSite}</span><span class="splash-score-sep">–</span><span class="splash-score-opp">${ds.scoreOpp}</span></div>` : ''}
         <div class="splash-result" style="color:${resClr}">${resText}</div>
         <div class="splash-meta">${ds.label}</div>
         <div class="splash-meta-time">${ds.date} &nbsp;·&nbsp; ${ds.time} &nbsp;·&nbsp; ${ds.venue}</div>
       </div>
       <div class="splash-team splash-team-right">
-        <img src="public/images/${ds.opp}.png" alt="${ds.oppName}" class="splash-logo">
+        ${oppLogoHtml}
         <div class="splash-team-name" style="color:${oppClr}">${ds.oppName}</div>
       </div>
     </div>`;
@@ -369,6 +532,8 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeResultS
 
 function showMatchSplash(ds) {
   const oppClr = TEAM_COLORS[ds.opp] || '#888';
+  const stageLine = ds.stage ? `<div class="splash-stage-badge splash-stage-${ds.stage}">${STAGE_LABELS[ds.stage] || ds.stage}</div>` : '';
+  const oppLogoHtml = ds.opp !== 'tbd' ? `<img src="public/images/${ds.opp}.png" alt="${ds.oppName}" class="splash-logo">` : `<div class="splash-logo-tbd">?</div>`;
   const overlay = document.createElement('div');
   overlay.id = 'splashOverlay';
   overlay.innerHTML = `
@@ -380,12 +545,13 @@ function showMatchSplash(ds) {
         <div class="splash-team-name">SITE</div>
       </div>
       <div class="splash-center">
+        ${stageLine}
         <div class="splash-pending-time${ds.tbd ? ' tbd' : ''}">${ds.time}</div>
         <div class="splash-meta">${ds.label}</div>
         <div class="splash-meta-time">${ds.date} &nbsp;·&nbsp; ${ds.venue}</div>
       </div>
       <div class="splash-team splash-team-right">
-        <img src="public/images/${ds.opp}.png" alt="${ds.oppName}" class="splash-logo">
+        ${oppLogoHtml}
         <div class="splash-team-name" style="color:${oppClr}">${ds.oppName}</div>
       </div>
     </div>`;
@@ -407,7 +573,8 @@ document.getElementById('scheduleRoot').addEventListener('click', e => {
     venue:   row.dataset.venue,
     tbd:       row.querySelector('.match-time.tbd') !== null,
     scoreSite: row.dataset.scoreSite,
-    scoreOpp:  row.dataset.scoreOpp
+    scoreOpp:  row.dataset.scoreOpp,
+    stage:     row.dataset.stage || null
   };
   if (ds.result) {
     showResultSplash(ds);
