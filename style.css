@@ -1190,15 +1190,19 @@ h1 span {
 .tally-th-stat {
   min-width: 72px;
   border-left: 2px solid var(--mid) !important;
+  white-space: nowrap;
 }
 
-.tally-th-result { min-width: 110px; }
+.tally-th-result { min-width: 0; white-space: nowrap; }
 
 .tally-cell-stat {
   border-left: 2px solid var(--mid) !important;
+  white-space: nowrap;
 }
 
-.tally-cell-result { min-width: 110px; }
+.tally-cell-result { min-width: 0; }
+
+.tally-w, .tally-l, .tally-sep, .tally-result-badge { white-space: nowrap; }
 
 .tally-dash {
   font-family: 'Barlow Condensed', sans-serif;
