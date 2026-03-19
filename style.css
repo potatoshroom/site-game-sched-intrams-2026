@@ -285,8 +285,8 @@ h1 span {
 }
 
 .sport-venue {
-  font-size: 11px;
-  color: var(--muted);
+  font-size: 12px;
+  color: var(--silver);
   letter-spacing: 1px;
   margin-left: auto;
   font-style: italic;
@@ -749,7 +749,7 @@ h1 span {
 }
 
 .agenda-sport-venue {
-  margin-left: auto; font-size: 10px; color: var(--border);
+  margin-left: auto; font-size: 12px; color: var(--silver);
   letter-spacing: 1px; font-style: italic; font-weight: 400; font-family: 'Barlow', sans-serif;
 }
 
@@ -795,7 +795,6 @@ h1 span {
   .cal-chip svg { display: none; }
   .agenda-match { grid-template-columns: 75px 1fr; }
   .agenda-gender { display: none; }
-  .agenda-sport-venue { display: none; }
 }
 
 /* ── HIGHLIGHT SECTION ── */
