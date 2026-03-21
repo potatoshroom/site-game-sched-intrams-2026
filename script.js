@@ -636,11 +636,12 @@ document.getElementById('tallyRoot').addEventListener('click', e => {
   const fabNav     = document.getElementById('floatingNavBtn');
   const fabLabel   = document.getElementById('floatingResultsLabel');
   let fabTimer = null;
+  let navTargetInView = false;
 
   function showFabs() {
     fabResults.classList.add('fab-visible');
     fabTheme.classList.add('fab-visible');
-    fabNav.classList.add('fab-visible');
+    if (!navTargetInView) fabNav.classList.add('fab-visible');
     if (fabTimer) clearTimeout(fabTimer);
     fabTimer = setTimeout(() => {
       fabResults.classList.remove('fab-visible');
@@ -704,11 +705,43 @@ document.getElementById('tallyRoot').addEventListener('click', e => {
     return { day: new Date(phtNow.getTime() + 24 * 3600 * 1000).getUTCDate(), label: "Tomorrow's Events" };
   }
 
-  function syncNavLabel() {
-    document.getElementById('floatingNavLabel').textContent = getNavTarget().label;
+  const DOWN = `<line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>`;
+  const UP   = `<line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>`;
+
+  function syncNavPosition() {
+    const { day, label } = getNavTarget();
+    document.getElementById('floatingNavLabel').textContent = label;
+
+    const navEl   = document.getElementById('floatingNav');
+    const arrowEl = document.getElementById('floatingNavArrow');
+    const dayEl   = document.getElementById('day-' + day);
+
+    // If the target block is hidden (non-schedule view) default to bottom/down
+    if (!dayEl || dayEl.offsetParent === null) {
+      navTargetInView = false;
+      navEl.classList.remove('nav-above');
+      arrowEl.innerHTML = DOWN;
+      return;
+    }
+
+    const rect = dayEl.getBoundingClientRect();
+    navTargetInView = rect.top >= 0 && rect.top < window.innerHeight;
+
+    if (navTargetInView) {
+      fabNav.classList.remove('fab-visible');
+      return;
+    }
+
+    if (rect.top < 0) {
+      navEl.classList.add('nav-above');
+      arrowEl.innerHTML = UP;
+    } else {
+      navEl.classList.remove('nav-above');
+      arrowEl.innerHTML = DOWN;
+    }
   }
 
-  syncNavLabel();
+  syncNavPosition();
 
   fabNav.addEventListener('click', () => {
     const { day } = getNavTarget();
@@ -717,10 +750,15 @@ document.getElementById('tallyRoot').addEventListener('click', e => {
     // Scroll to the day block
     const dayEl = document.getElementById('day-' + day);
     if (dayEl) {
-      setTimeout(() => dayEl.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+      setTimeout(() => {
+        dayEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(syncNavPosition, 400);
+      }, 50);
     }
     showFabs();
   });
+
+  document.addEventListener('scroll', syncNavPosition, { passive: true });
 
   function syncResultsLabel() {
     const on = document.documentElement.classList.contains('results-visible');

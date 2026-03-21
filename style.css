@@ -1178,9 +1178,16 @@ h1 span {
 #floatingNav {
   position: fixed;
   bottom: 28px;
+  top: auto;
   left: 50%;
   transform: translateX(-50%);
   z-index: 500;
+  transition: top 0.2s ease, bottom 0.2s ease;
+}
+
+#floatingNav.nav-above {
+  bottom: auto;
+  top: 28px;
 }
 
 #floatingNavBtn {
@@ -1540,6 +1547,7 @@ h1 span {
   #floatingResults, #floatingTheme { font-size: 10px; letter-spacing: 1px; padding: 8px 12px; }
   #floatingHint { font-size: 9px; letter-spacing: 1px; padding: 5px 10px; }
   #floatingNav { bottom: 16px; }
+  #floatingNav.nav-above { bottom: auto; top: 16px; }
   #floatingNavBtn { font-size: 10px; letter-spacing: 1px; padding: 8px 12px; }
 
   /* ── Tally ── */
