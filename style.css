@@ -1174,6 +1174,56 @@ h1 span {
   flex-shrink: 0;
 }
 
+/* ── FLOATING NAV BUTTON (bottom-center) ── */
+#floatingNav {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+}
+
+#floatingNavBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--silver);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, border-color 0.15s, color 0.15s;
+  user-select: none;
+}
+
+#floatingNavBtn.fab-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#floatingNavBtn:hover {
+  border-color: var(--silver);
+  color: var(--light);
+}
+
+#floatingNavBtn svg {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  flex-shrink: 0;
+}
+
 /* ── STAGE BADGE (match rows) ── */
 .match-stage-badge {
   font-family: 'Barlow Condensed', sans-serif;
@@ -1489,6 +1539,8 @@ h1 span {
   #floatingFabs { bottom: 16px; right: 14px; }
   #floatingResults, #floatingTheme { font-size: 10px; letter-spacing: 1px; padding: 8px 12px; }
   #floatingHint { font-size: 9px; letter-spacing: 1px; padding: 5px 10px; }
+  #floatingNav { bottom: 16px; }
+  #floatingNavBtn { font-size: 10px; letter-spacing: 1px; padding: 8px 12px; }
 
   /* ── Tally ── */
   .tally-score { font-size: 11px; padding: 2px 4px; }

@@ -2,6 +2,12 @@
 // Set to false to disable all gold nebula effects on badminton rows and calendar cell.
 const BADMINTON_HIGHLIGHT = true;
 
+// ── TEST DATE OVERRIDE ──
+// Set to an object to simulate a specific date/time; set to null to use system time.
+// gmt: UTC offset as a number (e.g. 8 for PHT, -5 for EST, 0 for UTC)
+// Example: { date: '2026-03-21', time: '17:30', gmt: 8 }
+const TEST_DATE = null;
+
 // ── SCHEDULE DATA (loaded from schedule.json) ──
 let CAL_DATA = {};
 
@@ -14,7 +20,7 @@ function renderSchedule(data) {
   let html = '';
   data.days.forEach((day, i) => {
     const delay = ((i + 1) * 0.05).toFixed(2);
-    html += `<div class="day-block" style="animation-delay:${delay}s">
+    html += `<div class="day-block" id="day-${day.day}" style="animation-delay:${delay}s">
       <div class="day-header">
         <div class="day-num">${day.day}</div>
         <div class="day-info">
@@ -466,6 +472,7 @@ function startHintTimer() {
 requestAnimationFrame(() => requestAnimationFrame(() => {
   document.getElementById('floatingResults').classList.add('fab-visible');
   document.getElementById('floatingTheme').classList.add('fab-visible');
+  document.getElementById('floatingNavBtn').classList.add('fab-visible');
   floatHint.classList.add('hint-show');
 }));
 
@@ -626,18 +633,94 @@ document.getElementById('tallyRoot').addEventListener('click', e => {
 (function () {
   const fabResults = document.getElementById('floatingResults');
   const fabTheme   = document.getElementById('floatingTheme');
+  const fabNav     = document.getElementById('floatingNavBtn');
   const fabLabel   = document.getElementById('floatingResultsLabel');
   let fabTimer = null;
 
   function showFabs() {
     fabResults.classList.add('fab-visible');
     fabTheme.classList.add('fab-visible');
+    fabNav.classList.add('fab-visible');
     if (fabTimer) clearTimeout(fabTimer);
     fabTimer = setTimeout(() => {
       fabResults.classList.remove('fab-visible');
       fabTheme.classList.remove('fab-visible');
+      fabNav.classList.remove('fab-visible');
     }, 1000);
   }
+
+  // ── Nav button: today/tomorrow/<day> logic (PHT = UTC+8) ──
+  function getNow() {
+    if (!TEST_DATE) return new Date();
+    const sign = TEST_DATE.gmt >= 0 ? '+' : '-';
+    const hh = String(Math.floor(Math.abs(TEST_DATE.gmt))).padStart(2, '0');
+    const mm = String(Math.round((Math.abs(TEST_DATE.gmt) % 1) * 60)).padStart(2, '0');
+    return new Date(`${TEST_DATE.date}T${TEST_DATE.time}:00${sign}${hh}:${mm}`);
+  }
+
+  function getPhtHour() {
+    const now = getNow();
+    return Math.floor(((now.getUTCHours() * 60 + now.getUTCMinutes() + 8 * 60) % (24 * 60)) / 60);
+  }
+
+  function getNavTarget() {
+    const phtHour = getPhtHour();
+    const phtNow = new Date(getNow().getTime() + 8 * 3600 * 1000);
+
+    const MONTHS = { January:0, February:1, March:2, April:3, May:4, June:5,
+                     July:6, August:7, September:8, October:9, November:10, December:11 };
+    function parseDateParts(str) {
+      const m = str.match(/(\w+)\s+(\d+),\s+(\d+)/);
+      return m ? { year: +m[3], month: MONTHS[m[1]], day: +m[2] } : null;
+    }
+    function hasEvents(date) {
+      const cy = date.getUTCFullYear(), cm = date.getUTCMonth(), cd = date.getUTCDate();
+      return SCHEDULE_DATA.days.some(d => {
+        const p = parseDateParts(d.date);
+        return p && p.year === cy && p.month === cm && p.day === cd;
+      });
+    }
+
+    // During today window: only use "Today's Events" if today actually has events
+    if (phtHour >= 0 && phtHour < 17 && hasEvents(phtNow)) {
+      return { day: phtNow.getUTCDate(), label: "Today's Events" };
+    }
+
+    // Otherwise scan forward for the next day with events
+    for (let offset = 1; offset <= 30; offset++) {
+      const candidate = new Date(phtNow.getTime() + offset * 24 * 3600 * 1000);
+      const cd = candidate.getUTCDate();
+      const found = SCHEDULE_DATA.days.find(d => {
+        const p = parseDateParts(d.date);
+        return p && p.year === candidate.getUTCFullYear() && p.month === candidate.getUTCMonth() && p.day === cd;
+      });
+      if (found) {
+        const label = offset === 1 ? "Tomorrow's Events" : `${found.name}'s Events`;
+        return { day: cd, label };
+      }
+    }
+
+    // Fallback: no upcoming events found
+    return { day: new Date(phtNow.getTime() + 24 * 3600 * 1000).getUTCDate(), label: "Tomorrow's Events" };
+  }
+
+  function syncNavLabel() {
+    document.getElementById('floatingNavLabel').textContent = getNavTarget().label;
+  }
+
+  syncNavLabel();
+
+  fabNav.addEventListener('click', () => {
+    const { day } = getNavTarget();
+    // Switch to Schedule view
+    document.getElementById('tabSched').click();
+    // Scroll to the day block
+    const dayEl = document.getElementById('day-' + day);
+    if (dayEl) {
+      setTimeout(() => dayEl.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+    }
+    showFabs();
+  });
 
   function syncResultsLabel() {
     const on = document.documentElement.classList.contains('results-visible');
