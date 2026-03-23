@@ -13,7 +13,7 @@ let CAL_DATA = {};
 
 function esc(s) { return String(s).replace(/&/g, '&amp;'); }
 
-const STAGE_LABELS = { semis: 'Semis', finals: 'Finals', '3rd': 'Battle for 3rd' };
+const STAGE_LABELS = { quarters: 'Quarters', semis: 'Semis', finals: 'Finals', '3rd': 'Battle for 3rd' };
 
 function renderSchedule(data) {
   const root = document.getElementById('scheduleRoot');
@@ -275,6 +275,7 @@ document.getElementById('tabCal').addEventListener('click', () => {
   document.getElementById('calWrap').classList.add('visible');
   document.getElementById('tallyRoot').classList.remove('visible');
   document.querySelectorAll('.day-block').forEach(d => d.style.display = 'none');
+  document.getElementById('floatingNavBtn')?.classList.remove('fab-visible');
   buildCalGrid(document.querySelector('.filter-btn.active')?.dataset.filter || 'all');
 });
 
@@ -284,7 +285,6 @@ document.getElementById('tabSched').addEventListener('click', () => {
   document.getElementById('tabTally').classList.remove('active');
   document.getElementById('calWrap').classList.remove('visible');
   document.getElementById('tallyRoot').classList.remove('visible');
-  const af = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
   document.querySelectorAll('.day-block').forEach(day => {
     const vis = [...day.querySelectorAll('.sport-section')].some(s => !s.classList.contains('hidden'));
     day.style.display = vis ? '' : 'none';
@@ -298,6 +298,7 @@ document.getElementById('tabTally').addEventListener('click', () => {
   document.getElementById('calWrap').classList.remove('visible');
   document.querySelectorAll('.day-block').forEach(d => d.style.display = 'none');
   document.getElementById('tallyRoot').classList.add('visible');
+  document.getElementById('floatingNavBtn')?.classList.remove('fab-visible');
   renderTally();
 });
 
@@ -351,7 +352,7 @@ function renderTally() {
       const cls = val === 'win' ? 'tally-win' : 'tally-lose';
       return `<div class="tally-score ${cls} tally-clickable" ${splashAttrs(sd.opp.toLowerCase(), sd.opp, val, label, sd.time, sd.date, sd.venue, sd.score, sd.stage)}>${val === 'win' ? 'WIN' : 'LOSE'}</div>`;
     }
-    return `<div class="tally-score tally-pending tally-clickable" ${splashAttrs((sd.opp || 'tbd').toLowerCase(), sd.opp || 'TBD', '', label, sd.time, sd.date, sd.venue, sd.score, sd.stage)}>TBD</div>`;
+    return `<span class="tally-dash">—</span>`;
   }
 
   function resultBadge(val) {
@@ -369,6 +370,7 @@ function renderTally() {
     html += `<th class="tally-th-opp"><span class="t-${opp.toLowerCase()}">${opp}</span></th>`;
   }
   html += `<th class="tally-th-stat">W/L</th>`;
+  html += `<th class="tally-th-stat">Quarters</th>`;
   html += `<th class="tally-th-stat">Semis</th>`;
   html += `<th class="tally-th-stat">Battle for 3rd</th>`;
   html += `<th class="tally-th-stat">Finals</th>`;
@@ -432,7 +434,8 @@ function renderTally() {
       : `<span class="tally-dash">—</span>`;
     html += `<td class="tally-cell tally-cell-stat">${wlHtml}</td>`;
 
-    // Semis / Finals / Battle for 3rd / Result — derived from stage-marked matches in SCHEDULE_DATA
+    // Quarters / Semis / Finals / Battle for 3rd / Result — derived from stage-marked matches in SCHEDULE_DATA
+    html += `<td class="tally-cell tally-cell-stat">${resultStageCell(data.stages.get('quarters') ?? null, label)}</td>`;
     html += `<td class="tally-cell tally-cell-stat">${resultStageCell(data.stages.get('semis') ?? null, label)}</td>`;
     html += `<td class="tally-cell tally-cell-stat">${resultStageCell(data.stages.get('3rd') ?? null, label)}</td>`;
     html += `<td class="tally-cell tally-cell-stat">${resultStageCell(data.stages.get('finals') ?? null, label)}</td>`;
@@ -657,7 +660,8 @@ document.getElementById('tallyRoot').addEventListener('click', e => {
   function showFabs() {
     fabResults.classList.add('fab-visible');
     fabTheme.classList.add('fab-visible');
-    if (!navTargetInView) fabNav.classList.add('fab-visible');
+    const onSched = document.getElementById('tabSched').classList.contains('active');
+    if (!navTargetInView && onSched) fabNav.classList.add('fab-visible');
     if (fabTimer) clearTimeout(fabTimer);
     fabTimer = setTimeout(() => {
       fabResults.classList.remove('fab-visible');
@@ -732,6 +736,13 @@ document.getElementById('tallyRoot').addEventListener('click', e => {
     const arrowEl = document.getElementById('floatingNavArrow');
     const dayEl   = document.getElementById('day-' + day);
 
+    // If not on the schedule tab, hide the nav FAB entirely
+    if (!document.getElementById('tabSched').classList.contains('active')) {
+      navTargetInView = false;
+      fabNav.classList.remove('fab-visible');
+      return;
+    }
+
     // If the target block is hidden (non-schedule view) default to bottom/down
     if (!dayEl || dayEl.offsetParent === null) {
       navTargetInView = false;
@@ -767,7 +778,9 @@ document.getElementById('tallyRoot').addEventListener('click', e => {
     const dayEl = document.getElementById('day-' + day);
     if (dayEl) {
       setTimeout(() => {
-        dayEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const offset = 30;
+        const top = dayEl.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
         setTimeout(syncNavPosition, 400);
       }, 50);
     }
