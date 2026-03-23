@@ -1094,7 +1094,7 @@ const SCHEDULE_DATA = {
           highlight: null,
           matches: [
             {
-              time: "8:30 AM",
+              time: "Game 2",
               tbd: null,
               opp: "CISTE",
               stage: null,
@@ -1103,7 +1103,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "10:30 AM",
+              time: "Game 6",
               tbd: null,
               opp: "SOHE",
               stage: null,
@@ -1112,7 +1112,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "1:00 PM",
+              time: "Game 9",
               tbd: null,
               opp: "SOHS",
               stage: null,
@@ -1121,7 +1121,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "2:00 PM",
+              time: "Game 11",
               tbd: null,
               opp: "SBA",
               stage: null,
@@ -1130,7 +1130,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "3:00 PM",
+              time: "Game 13",
               tbd: null,
               opp: "SIHM",
               stage: null,
