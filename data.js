@@ -379,7 +379,7 @@ const SCHEDULE_DATA = {
               opp: "SBA",
               score: { site: null, opp: null },
             },
-            { time: "1:00 PM", opp: "SIHM", score: { site: null, opp: null } },
+            { time: "1:00 PM", opp: "SIHM", result: "lose", score: { site: 20, opp: 30 } },
           ],
         },
         {
