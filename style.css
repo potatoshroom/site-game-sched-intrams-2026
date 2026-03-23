@@ -413,6 +413,11 @@ h1 span {
   color: var(--white);
 }
 
+.match-row[data-bracket="true"] .team.site,
+.agenda-match[data-bracket="true"] .team.site {
+  color: var(--silver);
+}
+
 .team.opp {
   color: var(--silver);
 }

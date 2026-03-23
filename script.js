@@ -43,13 +43,17 @@ function renderSchedule(data) {
         const tbdCls    = m.tbd ? ' tbd' : '';
         const oppLower  = m.opp.toLowerCase();
         const isTbd     = oppLower === 'tbd';
+        const isBracket = !!m.bracket;
         const scoreAttrs  = (m.score?.site != null && m.score?.opp != null) ? ` data-score-site="${m.score.site}" data-score-opp="${m.score.opp}"` : '';
-        const splashAttrs = ` data-opp="${oppLower}" data-opp-name="${esc(m.opp)}" data-time="${esc(m.time)}" data-date="${esc(day.date)}" data-label="${esc(sec.label)}" data-venue="${esc(sec.venue)}"${m.result ? ` data-result="${m.result}"` : ''}${m.stage ? ` data-stage="${m.stage}"` : ''}${scoreAttrs}`;
-        const oppLogoHtml = isTbd ? '' : `<img class="team-logo" src="public/images/${oppLower}.png" alt="${esc(m.opp)}">`;
+        const splashAttrs = ` data-opp="${oppLower}" data-opp-name="${esc(m.opp)}" data-time="${esc(m.time)}" data-date="${esc(day.date)}" data-label="${esc(sec.label)}" data-venue="${esc(sec.venue)}"${m.result ? ` data-result="${m.result}"` : ''}${m.stage ? ` data-stage="${m.stage}"` : ''}${isBracket ? ' data-bracket="true"' : ''}${scoreAttrs}`;
+        const siteLogo    = isBracket ? 'placeholder_dept' : 'site';
+        const siteName    = isBracket ? '???' : 'SITE';
+        const oppLogoImg  = (isBracket || oppLower === '???') ? 'placeholder_dept' : oppLower;
+        const oppLogoHtml = isTbd ? '' : `<img class="team-logo" src="public/images/${oppLogoImg}.png" alt="${esc(m.opp)}">`;
         const stageBadge  = m.stage ? `<span class="match-stage-badge match-stage-${m.stage}">${STAGE_LABELS[m.stage] || m.stage}</span>` : '';
         html += `<div class="match-row${resultCls}"${splashAttrs}>
           <div class="match-time${tbdCls}">${esc(m.time)}</div>
-          <div class="match-teams"><img class="team-logo" src="public/images/site.png" alt="SITE"><span class="team site">SITE</span><span class="vs-tag">VS</span>${oppLogoHtml}<span class="team opp${isTbd ? '' : ` t-${oppLower}`}">${esc(m.opp)}</span>${stageBadge}</div>
+          <div class="match-teams"><img class="team-logo" src="public/images/${siteLogo}.png" alt="${siteName}"><span class="team site">${siteName}</span><span class="vs-tag">VS</span>${oppLogoHtml}<span class="team opp${isTbd ? '' : ` t-${oppLower}`}">${esc(m.opp)}</span>${stageBadge}</div>
         </div>`;
       });
       html += `</div></div>`;
@@ -225,14 +229,18 @@ function openAgenda(day) {
         <span class="agenda-sport-venue">${sec.venue}</span>
       </div>`;
     for (const m of sec.matches) {
-      const isTbdOpp = m.oCls === 'tbd';
-      const agendaOppLogo = isTbdOpp ? '' : `<img class="team-logo" src="public/images/${m.oCls}.png" alt="${m.opp}">`;
+      const isTbdOpp    = m.oCls === 'tbd';
+      const isAgendaBracket = !!m.bracket;
+      const agendaSiteLogo = isAgendaBracket ? 'placeholder_dept' : 'site';
+      const agendaSiteName = isAgendaBracket ? '???' : 'SITE';
+      const agendaOppImg  = (isAgendaBracket || m.oCls === '???') ? 'placeholder_dept' : m.oCls;
+      const agendaOppLogo = isTbdOpp ? '' : `<img class="team-logo" src="public/images/${agendaOppImg}.png" alt="${m.opp}">`;
       const agendaStageBadge = m.stage ? `<span class="match-stage-badge match-stage-${m.stage}">${STAGE_LABELS[m.stage] || m.stage}</span>` : '';
       html += `
-      <div class="agenda-match${isTbdOpp ? '' : ` opp-${m.oCls}`}">
+      <div class="agenda-match${isTbdOpp ? '' : ` opp-${m.oCls}`}${isAgendaBracket ? ' data-bracket="true"' : ''}">
         <div class="agenda-time${m.tbd ? ' tbd' : ''}">${m.time}</div>
         <div class="agenda-teams">
-          <img class="team-logo" src="public/images/site.png" alt="SITE"><span class="team site">SITE</span>
+          <img class="team-logo" src="public/images/${agendaSiteLogo}.png" alt="${agendaSiteName}"><span class="team site">${agendaSiteName}</span>
           <span class="vs-tag">VS</span>
           ${agendaOppLogo}<span class="team opp${isTbdOpp ? '' : ` t-${m.oCls}`}">${m.opp}</span>${agendaStageBadge}
         </div>
@@ -515,7 +523,10 @@ function showResultSplash(ds) {
   const resClr  = isWin ? '#2ea84a' : '#cc3333';
   const resText = isWin ? 'WIN' : 'LOSE';
   const stageLine = ds.stage ? `<div class="splash-stage-badge splash-stage-${ds.stage}">${STAGE_LABELS[ds.stage] || ds.stage}</div>` : '';
-  const oppLogoHtml = ds.opp !== 'tbd' ? `<img src="public/images/${ds.opp}.png" alt="${ds.oppName}" class="splash-logo">` : `<div class="splash-logo-tbd">?</div>`;
+  const isSplashBracket = ds.bracket === 'true';
+  const siteSplashLogo  = isSplashBracket ? 'placeholder_dept' : 'site';
+  const siteSplashName  = isSplashBracket ? '???' : 'SITE';
+  const oppLogoHtml = ds.opp === 'tbd' ? `<div class="splash-logo-tbd">?</div>` : `<img src="public/images/${(isSplashBracket || ds.opp === '???') ? 'placeholder_dept' : ds.opp}.png" alt="${ds.oppName}" class="splash-logo">`;
 
   const overlay = document.createElement('div');
   overlay.id = 'splashOverlay';
@@ -524,8 +535,8 @@ function showResultSplash(ds) {
 
     <div class="splash-inner">
       <div class="splash-team splash-team-left">
-        <img src="public/images/site.png" alt="SITE" class="splash-logo">
-        <div class="splash-team-name">SITE</div>
+        <img src="public/images/${siteSplashLogo}.png" alt="${siteSplashName}" class="splash-logo">
+        <div class="splash-team-name"${isSplashBracket ? ' style="color:#888"' : ''}>${siteSplashName}</div>
       </div>
       <div class="splash-center">
         ${stageLine}
@@ -556,7 +567,10 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeResultS
 function showMatchSplash(ds) {
   const oppClr = TEAM_COLORS[ds.opp] || '#888';
   const stageLine = ds.stage ? `<div class="splash-stage-badge splash-stage-${ds.stage}">${STAGE_LABELS[ds.stage] || ds.stage}</div>` : '';
-  const oppLogoHtml = ds.opp !== 'tbd' ? `<img src="public/images/${ds.opp}.png" alt="${ds.oppName}" class="splash-logo">` : `<div class="splash-logo-tbd">?</div>`;
+  const isMatchBracket = ds.bracket === 'true';
+  const siteMatchLogo  = isMatchBracket ? 'placeholder_dept' : 'site';
+  const siteMatchName  = isMatchBracket ? '???' : 'SITE';
+  const oppLogoHtml = ds.opp === 'tbd' ? `<div class="splash-logo-tbd">?</div>` : `<img src="public/images/${(isMatchBracket || ds.opp === '???') ? 'placeholder_dept' : ds.opp}.png" alt="${ds.oppName}" class="splash-logo">`;
   const overlay = document.createElement('div');
   overlay.id = 'splashOverlay';
   overlay.innerHTML = `
@@ -564,8 +578,8 @@ function showMatchSplash(ds) {
 
     <div class="splash-inner">
       <div class="splash-team splash-team-left">
-        <img src="public/images/site.png" alt="SITE" class="splash-logo">
-        <div class="splash-team-name">SITE</div>
+        <img src="public/images/${siteMatchLogo}.png" alt="${siteMatchName}" class="splash-logo">
+        <div class="splash-team-name"${isMatchBracket ? ' style="color:#888"' : ''}>${siteMatchName}</div>
       </div>
       <div class="splash-center">
         ${stageLine}
@@ -597,7 +611,8 @@ document.getElementById('scheduleRoot').addEventListener('click', e => {
     tbd:       row.querySelector('.match-time.tbd') !== null,
     scoreSite: row.dataset.scoreSite,
     scoreOpp:  row.dataset.scoreOpp,
-    stage:     row.dataset.stage || null
+    stage:     row.dataset.stage || null,
+    bracket:   row.dataset.bracket || null
   };
   if (ds.result) {
     showResultSplash(ds);
@@ -620,7 +635,8 @@ document.getElementById('tallyRoot').addEventListener('click', e => {
     tbd:       false,
     scoreSite: cell.dataset.scoreSite,
     scoreOpp:  cell.dataset.scoreOpp,
-    stage:     cell.dataset.stage || null
+    stage:     cell.dataset.stage || null,
+    bracket:   cell.dataset.bracket || null
   };
   if (ds.result) {
     showResultSplash(ds);
