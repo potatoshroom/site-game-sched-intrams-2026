@@ -417,7 +417,7 @@ const SCHEDULE_DATA = {
               result: "lose",
               score: { site: 16, opp: 30 },
             },
-            { time: "3:00 PM", opp: "SIHM", score: { site: null, opp: null } },
+            { time: "3:00 PM", opp: "SIHM", result: "lose", score: { site: 28, opp: 30 } },
           ],
         },
         {
