@@ -407,7 +407,8 @@ const SCHEDULE_DATA = {
               time: "3rd Game AM",
               tbd: true,
               opp: "SOHS",
-              score: { site: null, opp: null },
+              result: "lose",
+              score: { site: 15, opp: 30 },
             },
             {
               time: "5th Game AM",
