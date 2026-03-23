@@ -533,7 +533,7 @@ const SCHEDULE_DATA = {
           sport: "badminton",
           icon: "ico-badminton",
           label: "Badminton — Men",
-          venue: "Nikki's Garden / LCR Gym",
+          venue: "LCR Gym",
           highlight: true,
           matches: [
             { time: "8:30 AM", opp: "CISTE", score: { site: null, opp: null } },
@@ -547,7 +547,7 @@ const SCHEDULE_DATA = {
           sport: "badminton",
           icon: "ico-badminton",
           label: "Badminton — Women",
-          venue: "Nikki's Garden / LCR Gym",
+          venue: "LCR Gym",
           highlight: true,
           matches: [
             { time: "8:30 AM", opp: "CISTE", score: { site: null, opp: null } },
@@ -561,7 +561,7 @@ const SCHEDULE_DATA = {
           sport: "badminton",
           icon: "ico-badminton",
           label: "Badminton — Mixed Doubles",
-          venue: "Nikki's Garden / LCR Gym",
+          venue: "Nikki's Garden",
           highlight: true,
           matches: [
             { time: "8:30 AM", opp: "CISTE", score: { site: null, opp: null } },
