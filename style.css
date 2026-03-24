@@ -1338,6 +1338,8 @@ h1 span {
 @media (max-width: 600px) {
   #badmintonAnnounceTitle { font-size: 18px; }
   #badmintonAnnounceInner { padding: 36px 28px; }
+  #badmintonAnnounceSport { flex-direction: column; gap: 10px; }
+  .badminton-announce-icon { width: 64px; height: 64px; }
 }
 
 #floatingNav {
