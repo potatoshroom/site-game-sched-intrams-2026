@@ -490,6 +490,22 @@ requestAnimationFrame(() => requestAnimationFrame(() => {
 // ── Badminton announce popup
 const badmintonAnnounce = document.getElementById('badmintonAnnounce');
 if (BADMINTON_HIGHLIGHT) {
+  // Determine PHT date (UTC+8), respecting TEST_DATE
+  const _bNow = (() => {
+    if (!TEST_DATE) return new Date();
+    const sign = TEST_DATE.gmt >= 0 ? '+' : '-';
+    const hh = String(Math.floor(Math.abs(TEST_DATE.gmt))).padStart(2, '0');
+    const mm = String(Math.round((Math.abs(TEST_DATE.gmt) % 1) * 60)).padStart(2, '0');
+    return new Date(`${TEST_DATE.date}T${TEST_DATE.time}:00${sign}${hh}:${mm}`);
+  })();
+  const _bPht = new Date(_bNow.getTime() + 8 * 3600 * 1000);
+  const _bIsToday = _bPht.getUTCFullYear() === 2026 && _bPht.getUTCMonth() === 2 && _bPht.getUTCDate() === 25;
+
+  if (_bIsToday) {
+    document.getElementById('badmintonAnnounceEyebrow').innerHTML = 'Today &nbsp;·&nbsp; March 25, 2026';
+    document.getElementById('badmintonAnnounceTitle').textContent = 'Games Today';
+  }
+
   requestAnimationFrame(() => requestAnimationFrame(() => {
     badmintonAnnounce.classList.add('announce-show');
   }));

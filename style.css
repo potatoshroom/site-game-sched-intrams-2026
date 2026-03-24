@@ -701,7 +701,7 @@ h1 span {
 
 .agenda-hd-num {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 44px; font-weight: 900; line-height: 1; color: var(--border);
+  font-size: 44x; font-weight: 900; line-height: 1; color: var(--border);
   min-width: 56px; text-align: right;
 }
 
@@ -1274,7 +1274,7 @@ h1 span {
   justify-content: center;
   gap: 16px;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 36px;
+  font-size: 56px;
   font-weight: 900;
   letter-spacing: 6px;
   text-transform: uppercase;
@@ -1295,13 +1295,13 @@ h1 span {
 
 #badmintonAnnounceTitle {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 44px;
-  font-weight: 900;
-  letter-spacing: 2px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 4px;
   text-transform: uppercase;
   line-height: 1;
-  color: var(--white);
-  text-shadow: 0 0 40px rgba(240, 210, 50, 0.25);
+  color: var(--silver);
+  text-shadow: none;
   margin-bottom: 20px;
 }
 
@@ -1336,7 +1336,7 @@ h1 span {
 }
 
 @media (max-width: 600px) {
-  #badmintonAnnounceTitle { font-size: 44px; }
+  #badmintonAnnounceTitle { font-size: 18px; }
   #badmintonAnnounceInner { padding: 36px 28px; }
 }
 
