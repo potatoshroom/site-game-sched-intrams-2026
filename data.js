@@ -480,7 +480,7 @@ const SCHEDULE_DATA = {
               opp: "SIHM",
               stage: null,
               bracket: null,
-              result: null,
+              result: "lose",
               score: { site: null, opp: null },
             },
           ],
