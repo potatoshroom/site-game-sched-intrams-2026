@@ -573,6 +573,20 @@ const TEAM_COLORS = {
   sba: '#d4aa45', sihm: '#e05252'
 };
 
+function sportLogoFromLabel(label) {
+  const l = label.toLowerCase();
+  if (l.includes('badminton'))      return 'badminton.svg';
+  if (l.includes('basketball'))     return 'basketball.svg';
+  if (l.includes('beach'))          return 'beachvolley.svg';
+  if (l.includes('volleyball'))     return 'volleyball.svg';
+  if (l.includes('chess'))          return 'chess.svg';
+  if (l.includes('scrabble'))       return 'scrabble.svg';
+  if (l.includes('table tennis'))   return 'tabletennis.svg';
+  if (l.includes('mobile legends')) return 'mlbb.svg';
+  if (l.includes('call of duty'))   return 'codm.svg';
+  return null;
+}
+
 function showResultSplash(ds) {
   const isWin   = ds.result === 'win';
   const oppClr  = TEAM_COLORS[ds.opp] || '#888';
@@ -584,11 +598,14 @@ function showResultSplash(ds) {
   const siteSplashName  = isSplashBracket ? '???' : 'SITE';
   const oppLogoHtml = ds.opp === 'tbd' ? `<div class="splash-logo-tbd">?</div>` : `<img src="public/images/${(isSplashBracket || ds.opp === '???') ? 'placeholder_dept' : ds.opp}.png" alt="${ds.oppName}" class="splash-logo">`;
 
+  const _sportFile = sportLogoFromLabel(ds.label);
+  const _sportBg = _sportFile ? `<img class="splash-sport-bg" src="public/images/sportslogos/${_sportFile}" alt="">` : '';
+
   const overlay = document.createElement('div');
   overlay.id = 'splashOverlay';
   overlay.innerHTML = `
     <div class="splash-bg splash-bg-${ds.result}"></div>
-
+    ${_sportBg}
     <div class="splash-inner">
       <div class="splash-team splash-team-left">
         <img src="public/images/${siteSplashLogo}.png" alt="${siteSplashName}" class="splash-logo">
@@ -627,11 +644,14 @@ function showMatchSplash(ds) {
   const siteMatchLogo  = isMatchBracket ? 'placeholder_dept' : 'site';
   const siteMatchName  = isMatchBracket ? '???' : 'SITE';
   const oppLogoHtml = ds.opp === 'tbd' ? `<div class="splash-logo-tbd">?</div>` : `<img src="public/images/${(isMatchBracket || ds.opp === '???') ? 'placeholder_dept' : ds.opp}.png" alt="${ds.oppName}" class="splash-logo">`;
+  const _sportFile2 = sportLogoFromLabel(ds.label);
+  const _sportBg2 = _sportFile2 ? `<img class="splash-sport-bg" src="public/images/sportslogos/${_sportFile2}" alt="">` : '';
+
   const overlay = document.createElement('div');
   overlay.id = 'splashOverlay';
   overlay.innerHTML = `
     <div class="splash-bg splash-bg-pending"></div>
-
+    ${_sportBg2}
     <div class="splash-inner">
       <div class="splash-team splash-team-left">
         <img src="public/images/${siteMatchLogo}.png" alt="${siteMatchName}" class="splash-logo">

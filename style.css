@@ -964,6 +964,20 @@ h1 span {
 .splash-bg-lose    { background: rgba(0,0,0,0.92); }
 .splash-bg-pending { background: rgba(0,0,0,0.85); }
 
+.splash-sport-bg {
+  position: absolute;
+  width: 72vmin;
+  height: 72vmin;
+  object-fit: contain;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.07;
+  filter: invert(1);
+  pointer-events: none;
+  z-index: 0;
+}
+
 
 .splash-inner {
   position: relative;
