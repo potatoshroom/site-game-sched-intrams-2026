@@ -862,11 +862,11 @@ const SCHEDULE_DATA = {
             {
               time: "1:00 PM",
               tbd: null,
-              opp: "SOHS",
+              opp: "SIHM",
               stage: "3rd",
               bracket: null,
-              result: null,
-              score: { site: null, opp: null },
+              result: "win",
+              score: { site: 2, opp: 0 },
             },
           ],
         },
@@ -1394,7 +1394,7 @@ const SCHEDULE_DATA = {
 const TALLY_META = {
   "Basketball — Men (5v5)": { result: null },
   "Basketball — Women (3v3)": { result: "4th Place" },
-  "Volleyball — Men": { result: null },
+  "Volleyball — Men": { result: "3rd Place" },
   "Volleyball — Women": { result: null },
   "Beach Volleyball — Men": { result: "6th Place" },
   "Beach Volleyball — Women": { result: "5th Place" },
