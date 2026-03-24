@@ -525,8 +525,8 @@ const SCHEDULE_DATA = {
               opp: "SBA",
               stage: null,
               bracket: null,
-              result: "lose",
-              score: { site: null, opp: null },
+              result: "win",
+              score: { site: 2, opp: 0 },
             },
             {
               time: "1:00 PM",
