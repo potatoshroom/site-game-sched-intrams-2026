@@ -1272,30 +1272,30 @@ h1 span {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 16px;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 4px;
+  font-size: 36px;
+  font-weight: 900;
+  letter-spacing: 6px;
   text-transform: uppercase;
   color: #f0d232;
-  text-shadow: 0 0 20px rgba(240, 210, 50, 0.6);
+  text-shadow: 0 0 30px rgba(240, 210, 50, 0.7);
   margin-bottom: 16px;
 }
 
 .badminton-announce-icon {
-  width: 28px;
-  height: 28px;
+  width: 52px;
+  height: 52px;
   stroke: #f0d232;
   fill: none;
-  stroke-width: 1.6;
+  stroke-width: 1.4;
   stroke-linecap: round;
-  filter: drop-shadow(0 0 8px rgba(240, 210, 50, 0.7));
+  filter: drop-shadow(0 0 12px rgba(240, 210, 50, 0.8));
 }
 
 #badmintonAnnounceTitle {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 64px;
+  font-size: 44px;
   font-weight: 900;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -1327,11 +1327,11 @@ h1 span {
 
 #badmintonAnnounceDismiss {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--border);
+  color: var(--silver);
   animation: goldPulse 2.5s ease-in-out infinite;
 }
 

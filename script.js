@@ -489,13 +489,17 @@ requestAnimationFrame(() => requestAnimationFrame(() => {
 
 // ── Badminton announce popup
 const badmintonAnnounce = document.getElementById('badmintonAnnounce');
-requestAnimationFrame(() => requestAnimationFrame(() => {
-  badmintonAnnounce.classList.add('announce-show');
-}));
-document.addEventListener('click', () => {
-  badmintonAnnounce.classList.add('announce-hide');
-  badmintonAnnounce.addEventListener('transitionend', () => badmintonAnnounce.remove(), { once: true });
-}, { once: true });
+if (BADMINTON_HIGHLIGHT) {
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    badmintonAnnounce.classList.add('announce-show');
+  }));
+  document.addEventListener('click', () => {
+    badmintonAnnounce.classList.add('announce-hide');
+    badmintonAnnounce.addEventListener('transitionend', () => badmintonAnnounce.remove(), { once: true });
+  }, { once: true });
+} else {
+  badmintonAnnounce.remove();
+}
 
 // Begin 3s countdown on first user interaction
 ['mousemove', 'scroll', 'keydown', 'touchstart', 'click'].forEach(e =>
