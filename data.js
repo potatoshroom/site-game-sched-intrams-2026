@@ -1024,10 +1024,10 @@ const SCHEDULE_DATA = {
             {
               time: "PM",
               tbd: null,
-              opp: "???",
+              opp: "SOHE",
               stage: "finals",
               bracket: null,
-              result: null,
+              result: "win",
               score: { site: null, opp: null },
             },
           ],
@@ -1096,7 +1096,7 @@ const SCHEDULE_DATA = {
             {
               time: "PM",
               tbd: null,
-              opp: "???",
+              opp: "SOHS",
               stage: "finals",
               bracket: null,
               result: "lose",
