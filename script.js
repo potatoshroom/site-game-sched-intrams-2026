@@ -1,6 +1,6 @@
 // ── BADMINTON HIGHLIGHT KILL SWITCH ──
 // Set to false to disable all gold nebula effects on badminton rows and calendar cell.
-const BADMINTON_HIGHLIGHT = false;
+const BADMINTON_HIGHLIGHT = true;
 
 // ── TEST DATE OVERRIDE ──
 // Set to an object to simulate a specific date/time; set to null to use system time.
