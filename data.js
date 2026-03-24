@@ -853,6 +853,24 @@ const SCHEDULE_DATA = {
       date: "March 24, 2026",
       sections: [
         {
+          sport: "basketball",
+          icon: "ico-basketball",
+          label: "Basketball — Men (5v5)",
+          venue: "UDD Quadrangle",
+          highlight: null,
+          matches: [
+            {
+              time: "1:00 PM",
+              tbd: null,
+              opp: "SOHS",
+              stage: "3rd",
+              bracket: null,
+              result: null,
+              score: { site: null, opp: null },
+            },
+          ],
+        },
+        {
           sport: "scrabble",
           icon: "ico-scrabble",
           label: "Scrabble — Mixed Doubles",
@@ -1099,7 +1117,7 @@ const SCHEDULE_DATA = {
               opp: "CISTE",
               stage: null,
               bracket: null,
-              result: null,
+              result: "win",
               score: { site: null, opp: null },
             },
             {
@@ -1153,7 +1171,7 @@ const SCHEDULE_DATA = {
               opp: "???",
               stage: "semis",
               bracket: null,
-              result: null,
+              result: "win",
               score: { site: null, opp: null },
             },
             {
@@ -1161,7 +1179,7 @@ const SCHEDULE_DATA = {
               tbd: null,
               opp: "???",
               stage: "finals",
-              bracket: true,
+              bracket: false,
               result: null,
               score: { site: null, opp: null },
             },
