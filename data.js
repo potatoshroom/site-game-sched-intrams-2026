@@ -1144,7 +1144,7 @@ const SCHEDULE_DATA = {
           sport: "mobilelegends",
           icon: "ico-mobilelegends",
           label: "Mobile Legends",
-          venue: "L301 & L302",
+          venue: "Audio-Visual Theater",
           highlight: null,
           matches: [
             {
@@ -1171,7 +1171,7 @@ const SCHEDULE_DATA = {
           sport: "callofduty",
           icon: "ico-callofduty",
           label: "Call of Duty Mobile",
-          venue: "L301 & L302",
+          venue: "Audio-Visual Theater",
           highlight: null,
           matches: [
             {
@@ -1180,15 +1180,15 @@ const SCHEDULE_DATA = {
               opp: "???",
               stage: "semis",
               bracket: null,
-              result: null,
+              result: "win",
               score: { site: null, opp: null },
             },
             {
               time: "1:00 PM",
               tbd: null,
-              opp: "???",
+              opp: "SBA",
               stage: "finals",
-              bracket: true,
+              bracket: false,
               result: null,
               score: { site: null, opp: null },
             },
