@@ -487,6 +487,16 @@ requestAnimationFrame(() => requestAnimationFrame(() => {
   floatHint.classList.add('hint-show');
 }));
 
+// ── Badminton announce popup
+const badmintonAnnounce = document.getElementById('badmintonAnnounce');
+requestAnimationFrame(() => requestAnimationFrame(() => {
+  badmintonAnnounce.classList.add('announce-show');
+}));
+document.addEventListener('click', () => {
+  badmintonAnnounce.classList.add('announce-hide');
+  badmintonAnnounce.addEventListener('transitionend', () => badmintonAnnounce.remove(), { once: true });
+}, { once: true });
+
 // Begin 3s countdown on first user interaction
 ['mousemove', 'scroll', 'keydown', 'touchstart', 'click'].forEach(e =>
   document.addEventListener(e, startHintTimer, { passive: true })

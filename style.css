@@ -1180,6 +1180,166 @@ h1 span {
 }
 
 /* ── FLOATING NAV BUTTON (bottom-center) ── */
+/* ── BADMINTON ANNOUNCE POPUP ── */
+#badmintonAnnounce {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  overflow: hidden;
+}
+
+#badmintonAnnounce::before,
+#badmintonAnnounce::after {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+}
+
+#badmintonAnnounce::before {
+  background:
+    radial-gradient(ellipse 60% 40% at 30% 40%, rgba(255, 200, 50, 0.30), transparent 60%),
+    radial-gradient(ellipse 50% 35% at 75% 65%, rgba(220, 140, 10, 0.22), transparent 55%),
+    radial-gradient(ellipse 45% 30% at 60% 20%, rgba(255, 220, 80, 0.18), transparent 55%);
+  filter: blur(40px);
+  animation: nebulaDrift 12s ease-in-out infinite, goldPulse 4s ease-in-out infinite;
+}
+
+#badmintonAnnounce::after {
+  background:
+    radial-gradient(ellipse 55% 38% at 65% 55%, rgba(240, 160, 20, 0.18), transparent 60%),
+    radial-gradient(ellipse 40% 30% at 25% 70%, rgba(255, 190, 40, 0.14), transparent 55%);
+  filter: blur(60px);
+  animation: goldShimmer 18s ease-in-out infinite, goldPulse 6s ease-in-out infinite reverse;
+}
+
+#badmintonAnnounce.announce-show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#badmintonAnnounce.announce-hide {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+#badmintonAnnounceInner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 48px 56px;
+  border: 1px solid rgba(240, 210, 50, 0.30);
+  background: rgba(240, 210, 50, 0.05);
+  max-width: 540px;
+  width: 90%;
+  animation: fadeUp 0.6s ease both;
+  overflow: hidden;
+}
+
+#badmintonAnnounceInner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(255, 200, 50, 0.10), transparent 65%);
+  filter: blur(20px);
+  animation: goldPulse 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+#badmintonAnnounceEyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+#badmintonAnnounceSport {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #f0d232;
+  text-shadow: 0 0 20px rgba(240, 210, 50, 0.6);
+  margin-bottom: 16px;
+}
+
+.badminton-announce-icon {
+  width: 28px;
+  height: 28px;
+  stroke: #f0d232;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 8px rgba(240, 210, 50, 0.7));
+}
+
+#badmintonAnnounceTitle {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 64px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--white);
+  text-shadow: 0 0 40px rgba(240, 210, 50, 0.25);
+  margin-bottom: 20px;
+}
+
+#badmintonAnnounceSub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--silver);
+  margin-bottom: 8px;
+}
+
+#badmintonAnnounceVenue {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 40px;
+}
+
+#badmintonAnnounceDismiss {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--border);
+  animation: goldPulse 2.5s ease-in-out infinite;
+}
+
+@media (max-width: 600px) {
+  #badmintonAnnounceTitle { font-size: 44px; }
+  #badmintonAnnounceInner { padding: 36px 28px; }
+}
+
 #floatingNav {
   position: fixed;
   bottom: 28px;
