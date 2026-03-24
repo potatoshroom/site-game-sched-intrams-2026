@@ -1333,10 +1333,10 @@ h1 span {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 70% 55% at 50% 55%, rgba(255, 200, 50,  0.40), transparent 60%),
-    radial-gradient(ellipse 55% 45% at 72% 35%, rgba(240, 160, 20,  0.30), transparent 58%),
-    radial-gradient(ellipse 50% 42% at 20% 65%, rgba(255, 220, 80,  0.25), transparent 56%);
-  filter: blur(18px);
+    radial-gradient(ellipse 80% 65% at 50% 55%, rgba(255, 200, 50,  0.65), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 72% 35%, rgba(240, 160, 20,  0.50), transparent 58%),
+    radial-gradient(ellipse 55% 48% at 20% 65%, rgba(255, 220, 80,  0.40), transparent 56%);
+  filter: blur(16px);
   animation: nebulaDrift 12s ease-in-out infinite, goldPulse 4s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
@@ -1348,10 +1348,11 @@ h1 span {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 70% 55% at 50% 55%, rgba(200, 200, 210, 0.35), transparent 60%),
-    radial-gradient(ellipse 55% 45% at 72% 35%, rgba(160, 170, 180, 0.25), transparent 58%),
-    radial-gradient(ellipse 50% 42% at 20% 65%, rgba(220, 225, 235, 0.20), transparent 56%);
-  filter: blur(18px);
+    radial-gradient(ellipse 80% 65% at 50% 55%, rgba(210, 215, 225, 0.70), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 72% 35%, rgba(180, 190, 205, 0.55), transparent 58%),
+    radial-gradient(ellipse 55% 48% at 20% 65%, rgba(230, 235, 245, 0.45), transparent 56%),
+    radial-gradient(ellipse 40% 40% at 50% 20%, rgba(255, 255, 255, 0.30), transparent 55%);
+  filter: blur(14px);
   animation: nebulaDrift 14s ease-in-out infinite, goldPulse 5s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
@@ -1363,10 +1364,10 @@ h1 span {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 70% 55% at 50% 55%, rgba(200, 120, 40,  0.35), transparent 60%),
-    radial-gradient(ellipse 55% 45% at 72% 35%, rgba(160,  90, 20,  0.25), transparent 58%),
-    radial-gradient(ellipse 50% 42% at 20% 65%, rgba(220, 150, 60,  0.20), transparent 56%);
-  filter: blur(18px);
+    radial-gradient(ellipse 80% 65% at 50% 55%, rgba(200, 120, 40,  0.55), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 72% 35%, rgba(160,  90, 20,  0.42), transparent 58%),
+    radial-gradient(ellipse 55% 48% at 20% 65%, rgba(220, 150, 60,  0.35), transparent 56%);
+  filter: blur(16px);
   animation: nebulaDrift 16s ease-in-out infinite, goldPulse 6s ease-in-out infinite reverse;
   pointer-events: none;
   z-index: 0;
@@ -1434,13 +1435,13 @@ h1 span {
   letter-spacing: 2px;
 }
 
-.tally-glow-gold td   { background: rgba(240, 210, 50, 0.09)  !important; box-shadow: inset 0 0 0 1px rgba(240, 210, 50, 0.3); }
-.tally-glow-silver td { background: rgba(160, 160, 160, 0.07) !important; box-shadow: inset 0 0 0 1px rgba(160, 160, 160, 0.25); }
-.tally-glow-bronze td { background: rgba(140, 80, 28, 0.1)    !important; box-shadow: inset 0 0 0 1px rgba(140, 80, 28, 0.35); }
+.tally-glow-gold td   { background: rgba(240, 210, 50, 0.13)  !important; box-shadow: inset 0 0 0 1px rgba(240, 210, 50, 0.45); }
+.tally-glow-silver td { background: rgba(190, 195, 210, 0.14) !important; box-shadow: inset 0 0 0 1px rgba(200, 205, 220, 0.50); }
+.tally-glow-bronze td { background: rgba(140, 80, 28, 0.14)   !important; box-shadow: inset 0 0 0 1px rgba(140, 80, 28, 0.50); }
 
 .tally-glow-gold .tally-game-label   { border-left: 3px solid #f0d232 !important; }
-.tally-glow-silver .tally-game-label { border-left: 3px solid #a0a0a0 !important; }
-.tally-glow-bronze .tally-game-label { border-left: 3px solid #8c501c !important; }
+.tally-glow-silver .tally-game-label { border-left: 4px solid #c0c8d8 !important; }
+.tally-glow-bronze .tally-game-label { border-left: 3px solid #a0601e !important; }
 
 .tally-th-stat {
   min-width: 72px;
