@@ -360,7 +360,7 @@ function renderTally() {
     const lower = val.toLowerCase();
     let cls = 'tally-result-badge';
     if (lower.includes('champion')) cls += ' tally-result-gold';
-    else if (lower.includes('runner') || lower === '2nd') cls += ' tally-result-silver';
+    else if (lower.includes('runner') || lower.includes('2nd')) cls += ' tally-result-silver';
     else if (lower === '3rd' || lower.includes('3rd')) cls += ' tally-result-bronze';
     return `<div class="${cls}">${esc(val)}</div>`;
   }
@@ -395,7 +395,7 @@ function renderTally() {
     const resultLower = (meta.result || '').toLowerCase();
     let rowGlow = '';
     if (resultLower.includes('champion')) rowGlow = ' tally-glow-gold';
-    else if (resultLower.includes('runner') || resultLower === '2nd') rowGlow = ' tally-glow-silver';
+    else if (resultLower.includes('runner') || resultLower.includes('2nd')) rowGlow = ' tally-glow-silver';
     else if (resultLower.includes('3rd') || resultLower === '3rd place') rowGlow = ' tally-glow-bronze';
 
     html += `<tr class="tally-row${rowGlow}"${gAttr}>`;

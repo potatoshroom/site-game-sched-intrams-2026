@@ -1312,6 +1312,66 @@ h1 span {
 
 .tally-row { border-bottom: 1px solid var(--border); }
 
+.tally-glow-gold,
+.tally-glow-silver,
+.tally-glow-bronze {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.tally-glow-gold td,
+.tally-glow-silver td,
+.tally-glow-bronze td {
+  position: relative;
+  z-index: 1;
+}
+
+/* Champion — gold nebula (reuses nebulaDrift + goldPulse) */
+.tally-glow-gold::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 55%, rgba(255, 200, 50,  0.40), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 72% 35%, rgba(240, 160, 20,  0.30), transparent 58%),
+    radial-gradient(ellipse 50% 42% at 20% 65%, rgba(255, 220, 80,  0.25), transparent 56%);
+  filter: blur(18px);
+  animation: nebulaDrift 12s ease-in-out infinite, goldPulse 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 2nd Place — silver nebula */
+.tally-glow-silver::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 55%, rgba(200, 200, 210, 0.35), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 72% 35%, rgba(160, 170, 180, 0.25), transparent 58%),
+    radial-gradient(ellipse 50% 42% at 20% 65%, rgba(220, 225, 235, 0.20), transparent 56%);
+  filter: blur(18px);
+  animation: nebulaDrift 14s ease-in-out infinite, goldPulse 5s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 3rd Place — bronze nebula */
+.tally-glow-bronze::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 55%, rgba(200, 120, 40,  0.35), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 72% 35%, rgba(160,  90, 20,  0.25), transparent 58%),
+    radial-gradient(ellipse 50% 42% at 20% 65%, rgba(220, 150, 60,  0.20), transparent 56%);
+  filter: blur(18px);
+  animation: nebulaDrift 16s ease-in-out infinite, goldPulse 6s ease-in-out infinite reverse;
+  pointer-events: none;
+  z-index: 0;
+}
+
 .tally-game-label {
   background: var(--dark);
   border: 1px solid var(--border);
