@@ -15,6 +15,29 @@ function esc(s) { return String(s).replace(/&/g, '&amp;'); }
 
 const STAGE_LABELS = { quarters: 'Quarters', semis: 'Semis', finals: 'Finals', '3rd': 'Battle for 3rd' };
 
+const SPORT_LOGO = {
+  'ico-badminton':     'badminton.svg',
+  'ico-basketball':    'basketball.svg',
+  'ico-volleyball':    'volleyball.svg',
+  'ico-beach':         'beachvolley.svg',
+  'ico-chess':         'chess.svg',
+  'ico-scrabble':      'scrabble.svg',
+  'ico-tabletennis':   'tabletennis.svg',
+  'ico-mobilelegends': 'mlbb.svg',
+  'ico-callofduty':    'codm.svg',
+};
+
+function sportIconHtml(iconId, extraCls = '') {
+  const id = iconId.replace(/^#/, '');
+  const file = SPORT_LOGO[id];
+  const cls = 'sport-img' + (extraCls ? ' ' + extraCls : '');
+  if (file) {
+    const url = `public/images/sportslogos/${file}`;
+    return `<img class="${cls}" src="${url}" alt="">`;
+  }
+  return `<svg class="sport-svg${extraCls ? ' ' + extraCls : ''}"><use href="#${id}"/></svg>`;
+}
+
 function renderSchedule(data) {
   const root = document.getElementById('scheduleRoot');
   let html = '';
@@ -33,7 +56,7 @@ function renderSchedule(data) {
       const hlCls = (BADMINTON_HIGHLIGHT && sec.highlight) ? ' highlight-section' : '';
       html += `<div class="sport-section${hlCls}" data-sport="${sec.sport}">
         <div class="sport-label">
-          <span class="sport-icon"><svg class="sport-svg"><use href="#${sec.icon}"/></svg></span>
+          <span class="sport-icon">${sportIconHtml(sec.icon)}</span>
           <span class="sport-name">${esc(sec.label)}</span>
           <span class="sport-venue">${esc(sec.venue)}</span>
         </div>
@@ -168,7 +191,7 @@ function buildCalGrid(activeFilter) {
       for (const sec of visible) {
         const bg = SPORT_CHIP_CLR[sec.sport] || '#888';
         html += `<div class="cal-chip" style="background:${bg}">`;
-        html += `<svg viewBox="0 0 24 24"><use href="${sec.icon}"/></svg>`;
+        html += sportIconHtml(sec.icon);
         html += `${sec.label.split(' — ')[0]}`;
         html += `</div>`;
       }
@@ -224,7 +247,7 @@ function openAgenda(day) {
   for (const sec of sections) {
     html += `<div class="agenda-sport-group">
       <div class="agenda-sport-hd">
-        <svg viewBox="0 0 24 24"><use href="${sec.icon}"/></svg>
+        ${sportIconHtml(sec.icon)}
         ${sec.label}
         <span class="agenda-sport-venue">${sec.venue}</span>
       </div>`;
@@ -400,7 +423,7 @@ function renderTally() {
 
     html += `<tr class="tally-row${rowGlow}"${gAttr}>`;
     html += `<td class="tally-game-label"><div class="tally-label-inner">`;
-    html += `<span class="sport-icon"><svg class="sport-svg"><use href="#${data.icon}"/></svg></span>`;
+    html += `<span class="sport-icon">${sportIconHtml(data.icon)}</span>`;
     html += `<span class="sport-name">${esc(label)}</span>`;
     html += `</div></td>`;
 

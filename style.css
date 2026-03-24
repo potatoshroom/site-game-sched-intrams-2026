@@ -320,6 +320,27 @@ h1 span {
   color: inherit;
 }
 
+.sport-img {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  flex-shrink: 0;
+  vertical-align: middle;
+  /* SVGs are black fills — invert for dark mode to get silver */
+  filter: invert(0.65);
+}
+
+:root.light .sport-img {
+  filter: invert(0) opacity(0.6);
+}
+
+.filter-btn .sport-img {
+  width: 13px;
+  height: 13px;
+  margin-right: 3px;
+}
+
 .sport-name {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 13px;
@@ -913,6 +934,9 @@ h1 span {
 [data-gender="men"] .sport-svg    { color: #6aafd4; }
 [data-gender="women"] .sport-svg  { color: #d47aaa; }
 [data-gender="mixed"] .sport-svg  { color: #ffd300; }
+[data-gender="men"] .sport-img    { filter: invert(1) sepia(1) saturate(2) hue-rotate(175deg) brightness(0.85); }
+[data-gender="women"] .sport-img  { filter: invert(1) sepia(1) saturate(2) hue-rotate(280deg) brightness(0.85); }
+[data-gender="mixed"] .sport-img  { filter: invert(1) sepia(1) saturate(8) hue-rotate(10deg) brightness(1.05); }
 
 
 /* ── RESULT SPLASH ── */
@@ -1286,11 +1310,8 @@ h1 span {
 .badminton-announce-icon {
   width: 52px;
   height: 52px;
-  stroke: #f0d232;
-  fill: none;
-  stroke-width: 1.4;
-  stroke-linecap: round;
-  filter: drop-shadow(0 0 12px rgba(240, 210, 50, 0.8));
+  /* black SVG → gold #f0d232 */
+  filter: invert(1) sepia(1) saturate(8) hue-rotate(5deg) drop-shadow(0 0 12px rgba(240, 210, 50, 0.8));
 }
 
 #badmintonAnnounceTitle {
