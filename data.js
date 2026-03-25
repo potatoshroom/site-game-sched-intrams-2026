@@ -1241,11 +1241,11 @@ const SCHEDULE_DATA = {
           sport: "badminton",
           icon: "ico-badminton",
           label: "Badminton — Men",
-          venue: "LCR Gym",
+          venue: "Nikki's Garden",
           highlight: true,
           matches: [
             {
-              time: "8:30 AM",
+              time: "Game 4",
               tbd: null,
               opp: "CISTE",
               stage: null,
@@ -1254,7 +1254,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "10:30 AM",
+              time: "Game 16",
               tbd: null,
               opp: "SOHE",
               stage: null,
@@ -1263,7 +1263,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "1:00 PM",
+              time: "Game 25",
               tbd: null,
               opp: "SOHS",
               stage: null,
@@ -1272,7 +1272,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "2:00 PM",
+              time: "Game 31",
               tbd: null,
               opp: "SBA",
               stage: null,
@@ -1281,7 +1281,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "3:00 PM",
+              time: "Game 37",
               tbd: null,
               opp: "SIHM",
               stage: null,
@@ -1322,11 +1322,11 @@ const SCHEDULE_DATA = {
           sport: "badminton",
           icon: "ico-badminton",
           label: "Badminton — Women",
-          venue: "LCR Gym",
+          venue: "Nikki's Garden",
           highlight: true,
           matches: [
             {
-              time: "8:30 AM",
+              time: "Game 5",
               tbd: null,
               opp: "CISTE",
               stage: null,
@@ -1335,7 +1335,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "10:30 AM",
+              time: "Game 17",
               tbd: null,
               opp: "SOHE",
               stage: null,
@@ -1344,7 +1344,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "1:00 PM",
+              time: "Game 26",
               tbd: null,
               opp: "SOHS",
               stage: null,
@@ -1353,7 +1353,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "2:00 PM",
+              time: "Game 32",
               tbd: null,
               opp: "SBA",
               stage: null,
@@ -1362,7 +1362,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "3:00 PM",
+              time: "Game 38",
               tbd: null,
               opp: "SIHM",
               stage: null,
@@ -1407,7 +1407,7 @@ const SCHEDULE_DATA = {
           highlight: true,
           matches: [
             {
-              time: "8:30 AM",
+              time: "Game 6",
               tbd: null,
               opp: "CISTE",
               stage: null,
@@ -1416,7 +1416,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "10:30 AM",
+              time: "Game 18",
               tbd: null,
               opp: "SOHE",
               stage: null,
@@ -1425,7 +1425,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "1:00 PM",
+              time: "Game 27",
               tbd: null,
               opp: "SOHS",
               stage: null,
@@ -1434,7 +1434,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "2:00 PM",
+              time: "Game 33",
               tbd: null,
               opp: "SBA",
               stage: null,
@@ -1443,7 +1443,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "3:00 PM",
+              time: "Game 39",
               tbd: null,
               opp: "SIHM",
               stage: null,
