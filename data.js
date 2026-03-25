@@ -1250,8 +1250,8 @@ const SCHEDULE_DATA = {
               opp: "CISTE",
               stage: null,
               bracket: null,
-              result: null,
-              score: { site: null, opp: null },
+              result: "lose",
+              score: { site: 1, opp: 2 },
             },
             {
               time: "Game 16",
@@ -1331,8 +1331,8 @@ const SCHEDULE_DATA = {
               opp: "CISTE",
               stage: null,
               bracket: null,
-              result: null,
-              score: { site: null, opp: null },
+              result: "lose",
+              score: { site: 0, opp: 2 },
             },
             {
               time: "Game 17",
@@ -1412,8 +1412,8 @@ const SCHEDULE_DATA = {
               opp: "CISTE",
               stage: null,
               bracket: null,
-              result: null,
-              score: { site: null, opp: null },
+              result: "win",
+              score: { site: 2, opp: 0 },
             },
             {
               time: "Game 18",
