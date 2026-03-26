@@ -964,7 +964,7 @@ const SCHEDULE_DATA = {
           sport: "tabletennis",
           icon: "ico-tabletennis",
           label: "Table Tennis — Men",
-          venue: "Nikki's Garden",
+          venue: "Niki's Garden",
           highlight: null,
           matches: [
             {
@@ -1036,7 +1036,7 @@ const SCHEDULE_DATA = {
           sport: "tabletennis",
           icon: "ico-tabletennis",
           label: "Table Tennis — Women",
-          venue: "Nikki's Garden",
+          venue: "Niki's Garden",
           highlight: null,
           matches: [
             {
@@ -1108,7 +1108,7 @@ const SCHEDULE_DATA = {
           sport: "tabletennis",
           icon: "ico-tabletennis",
           label: "Table Tennis — Mixed Doubles",
-          venue: "Nikki's Garden",
+          venue: "Niki's Garden",
           highlight: null,
           matches: [
             {
@@ -1241,7 +1241,7 @@ const SCHEDULE_DATA = {
           sport: "badminton",
           icon: "ico-badminton",
           label: "Badminton — Men",
-          venue: "Nikki's Garden",
+          venue: "Niki's Garden",
           highlight: true,
           matches: [
             {
@@ -1268,7 +1268,7 @@ const SCHEDULE_DATA = {
           sport: "badminton",
           icon: "ico-badminton",
           label: "Badminton — Women",
-          venue: "Nikki's Garden",
+          venue: "Niki's Garden",
           highlight: true,
           matches: [
             {
@@ -1295,7 +1295,7 @@ const SCHEDULE_DATA = {
           sport: "badminton",
           icon: "ico-badminton",
           label: "Badminton — Mixed Doubles",
-          venue: "Nikki's Garden",
+          venue: "Niki's Garden",
           highlight: true,
           matches: [
             {
@@ -1356,11 +1356,11 @@ const SCHEDULE_DATA = {
           sport: "badminton",
           icon: "ico-badminton",
           label: "Badminton — Men",
-          venue: "Nikki's Garden",
+          venue: "Smashzone",
           highlight: true,
           matches: [
             {
-              time: "Game 7",
+              time: "Game 2",
               tbd: null,
               opp: "SOHS",
               stage: null,
@@ -1369,7 +1369,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "Game 13",
+              time: "Game 4",
               tbd: null,
               opp: "SBA",
               stage: null,
@@ -1378,7 +1378,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "Game 19",
+              time: "Game 6",
               tbd: null,
               opp: "SIHM",
               stage: null,
@@ -1419,11 +1419,11 @@ const SCHEDULE_DATA = {
           sport: "badminton",
           icon: "ico-badminton",
           label: "Badminton — Women",
-          venue: "Nikki's Garden",
+          venue: "Smashzone",
           highlight: true,
           matches: [
             {
-              time: "Game 8",
+              time: "Game 2",
               tbd: null,
               opp: "SOHS",
               stage: null,
@@ -1432,7 +1432,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "Game 14",
+              time: "Game 4",
               tbd: null,
               opp: "SBA",
               stage: null,
@@ -1441,7 +1441,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "Game 20",
+              time: "Game 6",
               tbd: null,
               opp: "SIHM",
               stage: null,
@@ -1482,11 +1482,11 @@ const SCHEDULE_DATA = {
           sport: "badminton",
           icon: "ico-badminton",
           label: "Badminton — Mixed Doubles",
-          venue: "Nikki's Garden",
+          venue: "Smashzone",
           highlight: true,
           matches: [
             {
-              time: "Game 9",
+              time: "Game 2",
               tbd: null,
               opp: "SOHS",
               stage: null,
@@ -1495,7 +1495,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "Game 15",
+              time: "Game 4",
               tbd: null,
               opp: "SBA",
               stage: null,
@@ -1504,7 +1504,7 @@ const SCHEDULE_DATA = {
               score: { site: null, opp: null },
             },
             {
-              time: "Game 21",
+              time: "Game 6",
               tbd: null,
               opp: "SIHM",
               stage: null,
