@@ -1386,33 +1386,6 @@ const SCHEDULE_DATA = {
               result: null,
               score: { site: null, opp: null },
             },
-            {
-              time: "After Elim.",
-              tbd: null,
-              opp: "???",
-              stage: "semis",
-              bracket: true,
-              result: null,
-              score: { site: null, opp: null },
-            },
-            {
-              time: "After Semis",
-              tbd: null,
-              opp: "???",
-              stage: "3rd",
-              bracket: true,
-              result: null,
-              score: { site: null, opp: null },
-            },
-            {
-              time: "After Battle",
-              tbd: null,
-              opp: "???",
-              stage: "finals",
-              bracket: true,
-              result: null,
-              score: { site: null, opp: null },
-            },
           ],
         },
         {
@@ -1555,7 +1528,7 @@ const SCHEDULE_DATA = {
 // semis / finals results are derived automatically from matches with stage: "semis"/"finals" in SCHEDULE_DATA.
 // Only set result here: "Champion" | "Runner-up" | "3rd Place" | null
 const TALLY_META = {
-  "Basketball — Men (5v5)": { result: null },
+  "Basketball — Men (5v5)": { result: "3rd Place" },
   "Basketball — Women (3v3)": { result: "4th Place" },
   "Volleyball — Men": { result: "3rd Place" },
   "Volleyball — Women": { result: "5th Place" },
