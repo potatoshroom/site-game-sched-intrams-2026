@@ -1365,7 +1365,7 @@ const SCHEDULE_DATA = {
               opp: "SOHS",
               stage: null,
               bracket: null,
-              result: null,
+              result: "lose",
               score: { site: null, opp: null },
             },
             {
@@ -1374,7 +1374,7 @@ const SCHEDULE_DATA = {
               opp: "SBA",
               stage: null,
               bracket: null,
-              result: null,
+              result: "win",
               score: { site: null, opp: null },
             },
             {
@@ -1428,7 +1428,7 @@ const SCHEDULE_DATA = {
               opp: "SOHS",
               stage: null,
               bracket: null,
-              result: null,
+              result: "lose",
               score: { site: null, opp: null },
             },
             {
@@ -1437,7 +1437,7 @@ const SCHEDULE_DATA = {
               opp: "SBA",
               stage: null,
               bracket: null,
-              result: null,
+              result: "lose",
               score: { site: null, opp: null },
             },
             {
@@ -1491,8 +1491,8 @@ const SCHEDULE_DATA = {
               opp: "SOHS",
               stage: null,
               bracket: null,
-              result: null,
-              score: { site: null, opp: null },
+              result: "win",
+              score: { site: 2, opp: 0 },
             },
             {
               time: "Game 4",
@@ -1500,7 +1500,7 @@ const SCHEDULE_DATA = {
               opp: "SBA",
               stage: null,
               bracket: null,
-              result: null,
+              result: "win",
               score: { site: null, opp: null },
             },
             {
