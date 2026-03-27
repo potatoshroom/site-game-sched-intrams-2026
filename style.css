@@ -178,6 +178,20 @@ h1 span {
   color: var(--black);
 }
 
+.filter-btn-event {
+  border-color: rgba(201, 168, 76, 0.35);
+  color: rgba(201, 168, 76, 0.8);
+}
+.filter-btn-event:hover {
+  border-color: rgba(201, 168, 76, 0.7);
+  color: rgba(201, 168, 76, 1);
+}
+.filter-btn-event.active {
+  background: rgba(201, 168, 76, 0.15);
+  border-color: rgba(201, 168, 76, 0.8);
+  color: #c9a84c;
+}
+
 .filter-btn[data-filter="badminton"]:not(.no-highlight) {
   position: relative;
   isolation: isolate;
@@ -358,6 +372,16 @@ h1 span {
   flex-shrink: 0;
 }
 
+.entry-result {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(201, 168, 76, 0.6);
+  white-space: nowrap;
+}
+
 /* ── BINIBINING LIGHTBOX ── */
 #bbLightbox {
   position: fixed;
@@ -400,11 +424,13 @@ h1 span {
   object-fit: contain;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -60%);
   opacity: 0.07;
   filter: grayscale(1);
   pointer-events: none;
   z-index: 0;
+  -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 85%);
+  mask-image: linear-gradient(to bottom, black 40%, transparent 85%);
 }
 
 #bbLightboxImages {
@@ -436,15 +462,33 @@ h1 span {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 120px 14px 12px;
+  padding: 80px 14px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,0.2) 75%, transparent 100%);
+}
+
+.bb-result {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
+  color: rgba(201, 168, 76, 0.85);
+  text-shadow: 0 0 12px rgba(201, 168, 76, 0.4);
+}
+
+.bb-name-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
   color: #f0f0f0;
-  text-align: center;
-  background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,0.2) 75%, transparent 100%);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.8);
 }
 
 #bbLightboxDismiss {
@@ -1734,6 +1778,106 @@ h1 span {
 #tallyRoot.visible { display: block; animation: fadeUp 0.3s ease both; }
 
 .tally-wrap { overflow-x: auto; }
+
+.tally-events-section {
+  margin-top: 20px;
+  padding: 0 4px 12px;
+}
+
+.tally-events-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(201, 168, 76, 0.6);
+  padding: 6px 4px 10px;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.2);
+  margin-bottom: 8px;
+}
+
+.tally-events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tally-event-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px 8px 15px;
+  border-radius: 6px;
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  background: rgba(201, 168, 76, 0.04);
+  border-left: 3px solid var(--gold);
+  gap: 12px;
+}
+
+.tally-event-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.tally-event-name .sport-icon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.7;
+}
+
+.tally-event-result { flex-shrink: 0; }
+
+.tally-event-has-entries {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-color: transparent;
+}
+
+.tally-entry-list {
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-top: none;
+  border-left: 3px solid rgba(201, 168, 76, 0.35);
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.tally-entry-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border-top: 1px solid rgba(201, 168, 76, 0.12);
+  background: rgba(201, 168, 76, 0.02);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.tally-entry-row:hover { background: rgba(201, 168, 76, 0.07); }
+
+.tally-entry-row .entry-crown {
+  color: var(--gold);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+.tally-entry-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold);
+  flex: 1;
+}
 
 .tally-table {
   width: 100%;

@@ -1524,8 +1524,8 @@ const SCHEDULE_DATA = {
           isEvent: true,
           time: "9:00 AM",
           entries: [
-            { name: "Angela", img: "angela.png" },
-            { name: "Iya",    img: "iya.png" },
+            { name: "Angela", img: "angela.png", result: "2nd Runner-Up" },
+            { name: "Iya",    img: "iya.png",    result: "3rd Runner-Up" },
           ],
           matches: [],
         },

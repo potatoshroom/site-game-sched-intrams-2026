@@ -58,7 +58,7 @@ function renderSchedule(data) {
       const evCls = sec.isEvent ? (sec.shimmer ? ' event-section award-section' : ' event-section') : '';
       const bbEntries = (sec.entries || []).filter(e => e.img);
       const bbLabelAttr = bbEntries.length
-        ? ` data-bb-imgs="${bbEntries.map(e => e.img).join(',')}" data-bb-names="${bbEntries.map(e => esc(e.name)).join(',')}"`
+        ? ` data-bb-imgs="${bbEntries.map(e => e.img).join(',')}" data-bb-names="${bbEntries.map(e => esc(e.name)).join(',')}" data-bb-results="${bbEntries.map(e => esc(e.result || '')).join(',')}"`
         : '';
       html += `<div class="sport-section${hlCls}${evCls}" data-sport="${sec.sport}">
         <div class="sport-label"${bbLabelAttr}>
@@ -75,8 +75,9 @@ function renderSchedule(data) {
         if (sec.entries?.length) {
           html += `<div class="event-entries">`;
           for (const entry of sec.entries) {
-            const eAttr = entry.img ? ` data-bb-img="${entry.img}" data-bb-name="${esc(entry.name)}"` : '';
-            html += `<div class="event-entry"${eAttr}><svg class="entry-crown" viewBox="0 0 24 24"><use href="#ico-crown"/></svg><span class="event-entry-name">${esc(entry.name)}</span></div>`;
+            const eAttr = entry.img ? ` data-bb-img="${entry.img}" data-bb-name="${esc(entry.name)}" data-bb-result="${esc(entry.result || '')}"` : '';
+            const rBadge = entry.result ? `<span class="entry-result">${esc(entry.result)}</span>` : '';
+            html += `<div class="event-entry"${eAttr}><svg class="entry-crown" viewBox="0 0 24 24"><use href="#ico-crown"/></svg><span class="event-entry-name">${esc(entry.name)}</span>${rBadge}</div>`;
           }
           html += `</div>`;
         }
@@ -279,7 +280,7 @@ function openAgenda(day) {
   for (const sec of sections) {
     const agBbEntries = (sec.entries || []).filter(e => e.img);
     const agBbHdAttr = agBbEntries.length
-      ? ` data-bb-imgs="${agBbEntries.map(e => e.img).join(',')}" data-bb-names="${agBbEntries.map(e => esc(e.name)).join(',')}"`
+      ? ` data-bb-imgs="${agBbEntries.map(e => e.img).join(',')}" data-bb-names="${agBbEntries.map(e => esc(e.name)).join(',')}" data-bb-results="${agBbEntries.map(e => esc(e.result || '')).join(',')}"`
       : '';
     html += `<div class="agenda-sport-group">
       <div class="agenda-sport-hd"${agBbHdAttr}>
@@ -298,8 +299,9 @@ function openAgenda(day) {
       if (sec.entries?.length) {
         html += `<div class="event-entries" style="padding-left:0;margin-top:6px">`;
         for (const entry of sec.entries) {
-          const eAttr = entry.img ? ` data-bb-img="${entry.img}" data-bb-name="${esc(entry.name)}"` : '';
-          html += `<div class="event-entry"${eAttr}><svg class="entry-crown" viewBox="0 0 24 24"><use href="#ico-crown"/></svg><span class="event-entry-name">${esc(entry.name)}</span></div>`;
+          const eAttr = entry.img ? ` data-bb-img="${entry.img}" data-bb-name="${esc(entry.name)}" data-bb-result="${esc(entry.result || '')}"` : '';
+          const rBadge = entry.result ? `<span class="entry-result">${esc(entry.result)}</span>` : '';
+          html += `<div class="event-entry"${eAttr}><svg class="entry-crown" viewBox="0 0 24 24"><use href="#ico-crown"/></svg><span class="event-entry-name">${esc(entry.name)}</span>${rBadge}</div>`;
         }
         html += `</div>`;
       }
@@ -391,7 +393,7 @@ function renderTally() {
     for (const sec of day.sections) {
       if (!sectionMap.has(sec.label)) {
         sectionOrder.push(sec.label);
-        sectionMap.set(sec.label, { icon: sec.icon, sport: sec.sport, matches: new Map(), stages: new Map() });
+        sectionMap.set(sec.label, { icon: sec.icon, sport: sec.sport, isEvent: sec.isEvent || false, entries: sec.entries || [], matches: new Map(), stages: new Map() });
       }
       const entry = sectionMap.get(sec.label);
       for (const m of sec.matches) {
@@ -456,6 +458,7 @@ function renderTally() {
 
   for (const label of sectionOrder) {
     const data = sectionMap.get(label);
+    if (data.isEvent) continue;
     const gender = genderOf(label);
     const gAttr = gender ? ` data-gender="${gender}"` : '';
     const meta = (typeof TALLY_META !== 'undefined' && TALLY_META[label]) || {};
@@ -522,6 +525,49 @@ function renderTally() {
   }
 
   html += `</tbody></table></div>`;
+
+  // ── Special Events section
+  const eventLabels = sectionOrder.filter(l => sectionMap.get(l).isEvent);
+  if (eventLabels.length) {
+    html += `<div class="tally-events-section">`;
+    html += `<div class="tally-events-title">Special Events</div>`;
+    html += `<div class="tally-events-list">`;
+    for (const label of eventLabels) {
+      const data = sectionMap.get(label);
+      const meta = (typeof TALLY_META !== 'undefined' && TALLY_META[label]) || {};
+      const resultLower = (meta.result || '').toLowerCase();
+      let rowGlow = '';
+      if (resultLower.includes('champion')) rowGlow = ' tally-glow-gold';
+      else if (resultLower.includes('runner') || resultLower.includes('2nd')) rowGlow = ' tally-glow-silver';
+      else if (resultLower.includes('3rd')) rowGlow = ' tally-glow-bronze';
+      const hasEntries = data.entries && data.entries.length > 0;
+      html += `<div class="tally-event-row${rowGlow}${hasEntries ? ' tally-event-has-entries' : ''}">`;
+      html += `<div class="tally-event-name"><span class="sport-icon">${sportIconHtml(data.icon)}</span><span>${esc(label)}</span></div>`;
+      if (!hasEntries) {
+        html += `<div class="tally-event-result">${resultBadge(meta.result ?? null)}</div>`;
+      }
+      html += `</div>`;
+      if (hasEntries) {
+        html += `<div class="tally-entry-list">`;
+        for (const entry of data.entries) {
+          const eResultLower = (entry.result || '').toLowerCase();
+          let eGlow = '';
+          if (eResultLower.includes('champion')) eGlow = ' tally-glow-gold';
+          else if (eResultLower.includes('runner') || eResultLower.includes('2nd')) eGlow = ' tally-glow-silver';
+          else if (eResultLower.includes('3rd')) eGlow = ' tally-glow-bronze';
+          const eAttr = entry.img ? ` data-bb-img="${entry.img}" data-bb-name="${esc(entry.name)}" data-bb-result="${esc(entry.result || '')}"` : '';
+          html += `<div class="tally-entry-row${eGlow}"${eAttr}>`;
+          html += `<svg class="entry-crown" viewBox="0 0 24 24"><use href="#ico-crown"/></svg>`;
+          html += `<span class="tally-entry-name">${esc(entry.name)}</span>`;
+          html += `<div class="tally-event-result">${resultBadge(entry.result ?? null)}</div>`;
+          html += `</div>`;
+        }
+        html += `</div>`;
+      }
+    }
+    html += `</div></div>`;
+  }
+
   root.innerHTML = html;
 }
 
@@ -927,14 +973,17 @@ document.getElementById('tallyRoot').addEventListener('click', e => {
 })();
 
 // ── BINIBINING LIGHTBOX ──
-function openBbLightbox(imgs, names) {
+function openBbLightbox(imgs, names, results) {
   const lb = document.getElementById('bbLightbox');
   const container = document.getElementById('bbLightboxImages');
   const multi = imgs.length > 1;
   container.innerHTML = imgs.map((img, i) => `
     <figure class="bb-figure">
       <img src="public/images/bb/${img}" class="bb-img" alt="${names[i] || ''}"${multi ? ' style="max-width:42vw;max-height:65vh"' : ''}>
-      ${names[i] ? `<figcaption class="bb-name">${names[i]}</figcaption>` : ''}
+      <figcaption class="bb-name">
+        ${results?.[i] ? `<span class="bb-result">${results[i]}</span>` : ''}
+        ${names[i] ? `<span class="bb-name-text">${names[i]}</span>` : ''}
+      </figcaption>
     </figure>`).join('');
   lb.classList.add('bb-show');
 }
@@ -949,8 +998,8 @@ document.addEventListener('click', e => {
   const entry = e.target.closest('[data-bb-img]');
   const label = e.target.closest('[data-bb-imgs]');
   if (entry) {
-    openBbLightbox([entry.dataset.bbImg], [entry.dataset.bbName || '']);
+    openBbLightbox([entry.dataset.bbImg], [entry.dataset.bbName || ''], [entry.dataset.bbResult || '']);
   } else if (label) {
-    openBbLightbox(label.dataset.bbImgs.split(','), (label.dataset.bbNames || '').split(','));
+    openBbLightbox(label.dataset.bbImgs.split(','), (label.dataset.bbNames || '').split(','), (label.dataset.bbResults || '').split(','));
   }
 });
