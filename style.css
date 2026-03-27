@@ -336,7 +336,7 @@ h1 span {
 
 .event-row {
   display: grid;
-  grid-template-columns: 90px 1fr;
+  grid-template-columns: 90px 1fr auto;
   align-items: center;
   gap: 16px;
   padding: 12px 14px;
@@ -906,21 +906,19 @@ h1 span {
 
 .event-result-reveal {
   display: none;
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 900;
   letter-spacing: 2px;
   text-transform: uppercase;
   padding: 2px 8px;
   border-radius: 2px;
-  color: var(--gold);
-  background: rgba(201, 168, 76, 0.1);
-  border: 1px solid rgba(201, 168, 76, 0.35);
+  color: #c9a84c;
+  background: rgba(201, 168, 76, 0.12);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  position: relative;
   z-index: 2;
+  white-space: nowrap;
 }
 
 .results-visible .event-result-reveal { display: block; }
