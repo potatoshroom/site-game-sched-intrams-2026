@@ -1558,7 +1558,7 @@ const SCHEDULE_DATA = {
 // Set to a string to show the result splash on load (e.g. "1st Runner-Up", "Champion").
 // Set to null to hide the popup.
 //const OVERALL_RESULT = null;
-const OVERALL_RESULT = "2nd Place";
+const OVERALL_RESULT = "1st Runner-Up";
 
 // ── TALLY META ──
 // semis / finals: "win" | "lose" | null (null = not yet played / N/A)
