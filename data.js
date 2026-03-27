@@ -104,7 +104,7 @@ const SCHEDULE_DATA = {
           sport: "basketball",
           icon: "ico-basketball",
           label: "Basketball — Men (5v5)",
-          venue: "UDD Quadrangle",
+          venue: "UdD Quadrangle",
           highlight: null,
           matches: [
             {
@@ -462,7 +462,7 @@ const SCHEDULE_DATA = {
           sport: "basketball",
           icon: "ico-basketball",
           label: "Basketball — Men (5v5)",
-          venue: "UDD Quadrangle",
+          venue: "UdD Quadrangle",
           highlight: null,
           matches: [
             {
@@ -856,7 +856,7 @@ const SCHEDULE_DATA = {
           sport: "volleyball",
           icon: "ico-volleyball",
           label: "Volleyball — Men",
-          venue: "UDD Quadrangle",
+          venue: "UdD Quadrangle",
           highlight: null,
           matches: [
             {
@@ -1322,7 +1322,7 @@ const SCHEDULE_DATA = {
           sport: "basketball",
           icon: "ico-basketball",
           label: "Basketball — Men (5v5)",
-          venue: "UDD Quadrangle",
+          venue: "UdD Quadrangle",
           highlight: null,
           matches: [
             {
@@ -1520,7 +1520,7 @@ const SCHEDULE_DATA = {
           sport: "event",
           icon: "ico-crown",
           label: "Binibining Universidad",
-          venue: "UDD Campus",
+          venue: "UdD Campus",
           isEvent: true,
           time: "9:00 AM",
           entries: [
@@ -1533,7 +1533,7 @@ const SCHEDULE_DATA = {
           sport: "event",
           icon: "ico-star",
           label: "Pom Dance Competition",
-          venue: "UDD Campus",
+          venue: "UdD Campus",
           isEvent: true,
           time: "2:00 PM",
           matches: [],
@@ -1542,7 +1542,7 @@ const SCHEDULE_DATA = {
           sport: "event",
           icon: "ico-trophy",
           label: "Awarding of Winners",
-          venue: "UDD Campus",
+          venue: "UdD Campus",
           isEvent: true,
           shimmer: true,
           badge: "Awarding Ceremony",
@@ -1553,6 +1553,12 @@ const SCHEDULE_DATA = {
     },
   ],
 };
+
+// ── OVERALL RESULT ──
+// Set to a string to show the result splash on load (e.g. "1st Runner-Up", "Champion").
+// Set to null to hide the popup.
+//const OVERALL_RESULT = null;
+const OVERALL_RESULT = "1st Runner-Up";
 
 // ── TALLY META ──
 // semis / finals: "win" | "lose" | null (null = not yet played / N/A)
@@ -1582,10 +1588,5 @@ const TALLY_META = {
   "Laro ng Lahi": { result: "5th Place" },
   "Binibining Universidad": { result: null },
   "Pom Dance Competition": { result: "3rd Place" },
+  "Awarding of Winners": { result: OVERALL_RESULT },
 };
-
-// ── OVERALL RESULT ──
-// Set to a string to show the result splash on load (e.g. "1st Runner-Up", "Champion").
-// Set to null to hide the popup.
-//const OVERALL_RESULT = null;
-const OVERALL_RESULT = "1st Runner-Up";

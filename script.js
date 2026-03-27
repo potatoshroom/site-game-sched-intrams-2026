@@ -74,9 +74,11 @@ function renderSchedule(data) {
       if (sec.isEvent) {
         const evMeta = (typeof TALLY_META !== 'undefined' && TALLY_META[sec.label]) || {};
         const evSplashAttr = ` data-event-splash="1" data-label="${esc(sec.label)}" data-icon="${esc(sec.icon || '')}" data-time="${esc(sec.time || '')}" data-venue="${esc(sec.venue || '')}" data-date="${esc(day.date || '')}" data-result="${esc(evMeta.result || '')}"`;
+        const evResultBadge = evMeta.result ? `<span class="event-result-reveal">${esc(evMeta.result)}</span>` : '';
         html += `<div class="event-row"${bbLabelAttr}${evSplashAttr}>
           <div class="match-time">${esc(sec.time)}</div>
           <div><span class="event-badge">${esc(sec.badge || 'Special Event')}</span></div>
+          ${evResultBadge}
         </div>`;
         if (sec.entries?.length) {
           html += `<div class="event-entries">`;
@@ -298,11 +300,12 @@ function openAgenda(day) {
       const awardCls = sec.shimmer ? ' award-section' : '';
       const agEvMeta = (typeof TALLY_META !== 'undefined' && TALLY_META[sec.label]) || {};
       const agEvSplashAttr = ` data-event-splash="1" data-label="${esc(sec.label)}" data-icon="${esc(sec.icon || '')}" data-time="${esc(sec.time || '')}" data-venue="${esc(sec.venue || '')}" data-date="${esc(dayData.date || '')}" data-result="${esc(agEvMeta.result || '')}"`;
+      const agEvResultBadge = agEvMeta.result ? `<span class="event-result-reveal">${esc(agEvMeta.result)}</span>` : '';
       html += `
       <div class="agenda-match${awardCls}"${agBbHdAttr}${agEvSplashAttr}>
         <div class="agenda-time">${sec.time}</div>
         <div><span class="event-badge">${sec.badge || 'Special Event'}</span></div>
-        <div></div>
+        ${agEvResultBadge}
       </div>`;
       if (sec.entries?.length) {
         html += `<div class="event-entries" style="padding-left:0;margin-top:6px">`;
