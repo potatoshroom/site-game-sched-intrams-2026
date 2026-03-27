@@ -8,6 +8,7 @@ const BADMINTON_HIGHLIGHT = false;
 // Example: { date: '2026-03-21', time: '17:30', gmt: 8 }
 const TEST_DATE = null;
 
+
 // ── SCHEDULE DATA (loaded from schedule.json) ──
 let CAL_DATA = {};
 
@@ -55,18 +56,30 @@ function renderSchedule(data) {
     day.sections.forEach(sec => {
       const hlCls = (BADMINTON_HIGHLIGHT && sec.highlight) ? ' highlight-section' : '';
       const evCls = sec.isEvent ? (sec.shimmer ? ' event-section award-section' : ' event-section') : '';
+      const bbEntries = (sec.entries || []).filter(e => e.img);
+      const bbLabelAttr = bbEntries.length
+        ? ` data-bb-imgs="${bbEntries.map(e => e.img).join(',')}" data-bb-names="${bbEntries.map(e => esc(e.name)).join(',')}"`
+        : '';
       html += `<div class="sport-section${hlCls}${evCls}" data-sport="${sec.sport}">
-        <div class="sport-label">
+        <div class="sport-label"${bbLabelAttr}>
           <span class="sport-icon">${sportIconHtml(sec.icon)}</span>
           <span class="sport-name">${esc(sec.label)}</span>
           <span class="sport-venue">${esc(sec.venue)}</span>
         </div>
         <div class="matches">`;
       if (sec.isEvent) {
-        html += `<div class="event-row">
+        html += `<div class="event-row"${bbLabelAttr}>
           <div class="match-time">${esc(sec.time)}</div>
           <div><span class="event-badge">${esc(sec.badge || 'Special Event')}</span></div>
         </div>`;
+        if (sec.entries?.length) {
+          html += `<div class="event-entries">`;
+          for (const entry of sec.entries) {
+            const eAttr = entry.img ? ` data-bb-img="${entry.img}" data-bb-name="${esc(entry.name)}"` : '';
+            html += `<div class="event-entry"${eAttr}><svg class="entry-crown" viewBox="0 0 24 24"><use href="#ico-crown"/></svg><span class="event-entry-name">${esc(entry.name)}</span></div>`;
+          }
+          html += `</div>`;
+        }
       }
       sec.matches.forEach(m => {
         const resultCls = m.result ? ` ${m.result}` : '';
@@ -107,6 +120,7 @@ function buildCalData(data) {
           shimmer: sec.shimmer || false,
           badge: sec.badge || null,
           time: sec.time || null,
+          entries: sec.entries || null,
           matches: sec.matches.map(m => ({
             time: m.time, opp: m.opp, oCls: m.opp.toLowerCase(),
             tbd: m.tbd || false, result: m.result || null, stage: m.stage || null
@@ -263,8 +277,12 @@ function openAgenda(day) {
     <div class="agenda-sections">`;
 
   for (const sec of sections) {
+    const agBbEntries = (sec.entries || []).filter(e => e.img);
+    const agBbHdAttr = agBbEntries.length
+      ? ` data-bb-imgs="${agBbEntries.map(e => e.img).join(',')}" data-bb-names="${agBbEntries.map(e => esc(e.name)).join(',')}"`
+      : '';
     html += `<div class="agenda-sport-group">
-      <div class="agenda-sport-hd">
+      <div class="agenda-sport-hd"${agBbHdAttr}>
         ${sportIconHtml(sec.icon)}
         ${sec.label}
         <span class="agenda-sport-venue">${sec.venue}</span>
@@ -272,11 +290,19 @@ function openAgenda(day) {
     if (sec.isEvent) {
       const awardCls = sec.shimmer ? ' award-section' : '';
       html += `
-      <div class="agenda-match${awardCls}">
+      <div class="agenda-match${awardCls}"${agBbHdAttr}>
         <div class="agenda-time">${sec.time}</div>
         <div><span class="event-badge">${sec.badge || 'Special Event'}</span></div>
         <div></div>
       </div>`;
+      if (sec.entries?.length) {
+        html += `<div class="event-entries" style="padding-left:0;margin-top:6px">`;
+        for (const entry of sec.entries) {
+          const eAttr = entry.img ? ` data-bb-img="${entry.img}" data-bb-name="${esc(entry.name)}"` : '';
+          html += `<div class="event-entry"${eAttr}><svg class="entry-crown" viewBox="0 0 24 24"><use href="#ico-crown"/></svg><span class="event-entry-name">${esc(entry.name)}</span></div>`;
+        }
+        html += `</div>`;
+      }
     } else {
     for (const m of sec.matches) {
       const isTbdOpp    = m.oCls === 'tbd';
@@ -538,25 +564,10 @@ requestAnimationFrame(() => requestAnimationFrame(() => {
   floatHint.classList.add('hint-show');
 }));
 
-// ── Badminton announce popup
+// ── Result announce popup (driven by OVERALL_RESULT in data.js)
 const badmintonAnnounce = document.getElementById('badmintonAnnounce');
-if (BADMINTON_HIGHLIGHT) {
-  // Determine PHT date (UTC+8), respecting TEST_DATE
-  const _bNow = (() => {
-    if (!TEST_DATE) return new Date();
-    const sign = TEST_DATE.gmt >= 0 ? '+' : '-';
-    const hh = String(Math.floor(Math.abs(TEST_DATE.gmt))).padStart(2, '0');
-    const mm = String(Math.round((Math.abs(TEST_DATE.gmt) % 1) * 60)).padStart(2, '0');
-    return new Date(`${TEST_DATE.date}T${TEST_DATE.time}:00${sign}${hh}:${mm}`);
-  })();
-  const _bPht = new Date(_bNow.getTime() + 8 * 3600 * 1000);
-  const _bIsToday = _bPht.getUTCFullYear() === 2026 && _bPht.getUTCMonth() === 2 && _bPht.getUTCDate() === 25;
-
-  if (_bIsToday) {
-    document.getElementById('badmintonAnnounceEyebrow').innerHTML = 'Today &nbsp;·&nbsp; March 25, 2026';
-    document.getElementById('badmintonAnnounceTitle').textContent = 'Games Today';
-  }
-
+if (OVERALL_RESULT) {
+  document.getElementById('badmintonAnnounceTitle').textContent = OVERALL_RESULT;
   requestAnimationFrame(() => requestAnimationFrame(() => {
     badmintonAnnounce.classList.add('announce-show');
   }));
@@ -914,3 +925,32 @@ document.getElementById('tallyRoot').addEventListener('click', e => {
   const events = ['mousemove', 'scroll', 'keydown', 'touchstart', 'click'];
   events.forEach(e => document.addEventListener(e, showFabs, { passive: true }));
 })();
+
+// ── BINIBINING LIGHTBOX ──
+function openBbLightbox(imgs, names) {
+  const lb = document.getElementById('bbLightbox');
+  const container = document.getElementById('bbLightboxImages');
+  const multi = imgs.length > 1;
+  container.innerHTML = imgs.map((img, i) => `
+    <figure class="bb-figure">
+      <img src="public/images/bb/${img}" class="bb-img" alt="${names[i] || ''}"${multi ? ' style="max-width:42vw;max-height:65vh"' : ''}>
+      ${names[i] ? `<figcaption class="bb-name">${names[i]}</figcaption>` : ''}
+    </figure>`).join('');
+  lb.classList.add('bb-show');
+}
+
+document.addEventListener('click', e => {
+  const lb = document.getElementById('bbLightbox');
+  if (!lb) return;
+  if (lb.classList.contains('bb-show')) {
+    if (!e.target.closest('#bbLightboxInner')) lb.classList.remove('bb-show');
+    return;
+  }
+  const entry = e.target.closest('[data-bb-img]');
+  const label = e.target.closest('[data-bb-imgs]');
+  if (entry) {
+    openBbLightbox([entry.dataset.bbImg], [entry.dataset.bbName || '']);
+  } else if (label) {
+    openBbLightbox(label.dataset.bbImgs.split(','), (label.dataset.bbNames || '').split(','));
+  }
+});

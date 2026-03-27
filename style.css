@@ -322,6 +322,153 @@ h1 span {
   display: inline-block;
 }
 
+/* ── EVENT ENTRIES ── */
+.event-entries {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-left: 40px;
+  margin-top: 4px;
+}
+
+.event-entry {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  border: 1px solid rgba(201, 168, 76, 0.22);
+  background: rgba(201, 168, 76, 0.05);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.entry-crown {
+  width: 13px;
+  height: 13px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.75;
+  flex-shrink: 0;
+}
+
+/* ── BINIBINING LIGHTBOX ── */
+#bbLightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.97) 12%, rgba(0,0,0,0.7) 32%, transparent 55%),
+    rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+#bbLightbox.bb-show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#bbLightboxInner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  cursor: default;
+  animation: fadeUp 0.35s ease both;
+  padding: 16px;
+}
+
+.bb-site-bg {
+  position: absolute;
+  width: 72vmin;
+  height: 72vmin;
+  object-fit: contain;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.07;
+  filter: grayscale(1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#bbLightboxImages {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+
+.bb-figure {
+  position: relative;
+  margin: 0;
+  display: inline-block;
+}
+
+.bb-img {
+  max-height: 72vh;
+  max-width: 80vw;
+  object-fit: contain;
+  display: block;
+}
+
+.bb-name {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 120px 14px 12px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #f0f0f0;
+  text-align: center;
+  background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 20%, rgba(0,0,0,0.2) 75%, transparent 100%);
+}
+
+#bbLightboxDismiss {
+  position: relative;
+  z-index: 1;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  animation: goldPulse 2.5s ease-in-out infinite;
+}
+
+[data-bb-img] { cursor: pointer; }
+
+[data-bb-imgs] {
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+[data-bb-imgs]:hover {
+  opacity: 0.75;
+}
+
 /* ── AWARD SECTION — GOLD SHIMMER ── */
 .award-section .sport-name {
   background: linear-gradient(90deg, #c9a84c 0%, #f5e080 40%, #fff8c0 50%, #f5e080 60%, #c9a84c 100%);
@@ -1344,17 +1491,17 @@ h1 span {
 
 #badmintonAnnounce::before {
   background:
-    radial-gradient(ellipse 60% 40% at 30% 40%, rgba(255, 200, 50, 0.30), transparent 60%),
-    radial-gradient(ellipse 50% 35% at 75% 65%, rgba(220, 140, 10, 0.22), transparent 55%),
-    radial-gradient(ellipse 45% 30% at 60% 20%, rgba(255, 220, 80, 0.18), transparent 55%);
+    radial-gradient(ellipse 60% 40% at 30% 40%, rgba(200, 215, 240, 0.32), transparent 60%),
+    radial-gradient(ellipse 50% 35% at 75% 65%, rgba(170, 190, 220, 0.24), transparent 55%),
+    radial-gradient(ellipse 45% 30% at 60% 20%, rgba(220, 230, 250, 0.20), transparent 55%);
   filter: blur(40px);
   animation: nebulaDrift 12s ease-in-out infinite, goldPulse 4s ease-in-out infinite;
 }
 
 #badmintonAnnounce::after {
   background:
-    radial-gradient(ellipse 55% 38% at 65% 55%, rgba(240, 160, 20, 0.18), transparent 60%),
-    radial-gradient(ellipse 40% 30% at 25% 70%, rgba(255, 190, 40, 0.14), transparent 55%);
+    radial-gradient(ellipse 55% 38% at 65% 55%, rgba(180, 200, 230, 0.20), transparent 60%),
+    radial-gradient(ellipse 40% 30% at 25% 70%, rgba(210, 220, 245, 0.16), transparent 55%);
   filter: blur(60px);
   animation: goldShimmer 18s ease-in-out infinite, goldPulse 6s ease-in-out infinite reverse;
 }
@@ -1375,8 +1522,8 @@ h1 span {
   z-index: 1;
   text-align: center;
   padding: 48px 56px;
-  border: 1px solid rgba(240, 210, 50, 0.30);
-  background: rgba(240, 210, 50, 0.05);
+  border: 1px solid rgba(200, 215, 240, 0.30);
+  background: rgba(200, 215, 240, 0.05);
   max-width: 540px;
   width: 90%;
   animation: fadeUp 0.6s ease both;
@@ -1388,7 +1535,7 @@ h1 span {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(255, 200, 50, 0.10), transparent 65%);
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(200, 215, 240, 0.10), transparent 65%);
   filter: blur(20px);
   animation: goldPulse 4s ease-in-out infinite;
   pointer-events: none;
@@ -1414,16 +1561,21 @@ h1 span {
   font-weight: 900;
   letter-spacing: 6px;
   text-transform: uppercase;
-  color: #f0d232;
-  text-shadow: 0 0 30px rgba(240, 210, 50, 0.7);
+  color: #c8d4ec;
+  text-shadow: 0 0 30px rgba(200, 215, 240, 0.65), 0 0 60px rgba(180, 200, 230, 0.30);
   margin-bottom: 16px;
 }
 
-.badminton-announce-icon {
+.announce-result-icon {
   width: 52px;
   height: 52px;
-  /* black SVG → gold #f0d232 */
-  filter: invert(1) sepia(1) saturate(8) hue-rotate(5deg) drop-shadow(0 0 12px rgba(240, 210, 50, 0.8));
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 12px rgba(200, 215, 240, 0.75));
+  flex-shrink: 0;
 }
 
 #badmintonAnnounceTitle {
@@ -1433,8 +1585,8 @@ h1 span {
   letter-spacing: 4px;
   text-transform: uppercase;
   line-height: 1;
-  color: var(--silver);
-  text-shadow: none;
+  color: #d8e2f4;
+  text-shadow: 0 0 16px rgba(200, 215, 240, 0.40);
   margin-bottom: 20px;
 }
 

@@ -1514,6 +1514,10 @@ const SCHEDULE_DATA = {
           venue: "UDD Campus",
           isEvent: true,
           time: "9:00 AM",
+          entries: [
+            { name: "Angela" },
+            { name: "Iya" },
+          ],
           matches: [],
         },
         {
@@ -1566,4 +1570,12 @@ const TALLY_META = {
   "Badminton — Mixed Doubles": { result: "2nd Place" },
   "Mobile Legends": { result: "Champion" },
   "Call of Duty Mobile": { result: "Champion" },
+  "Binibining Universidad": { result: null },
+  "Pom Dance Competition": { result: null },
 };
+
+// ── OVERALL RESULT ──
+// Set to a string to show the result splash on load (e.g. "1st Runner-Up", "Champion").
+// Set to null to hide the popup.
+const OVERALL_RESULT = null;
+//const OVERALL_RESULT = "1st Runner-Up";
