@@ -7,6 +7,7 @@ const BADMINTON_HIGHLIGHT = false;
 // gmt: UTC offset as a number (e.g. 8 for PHT, -5 for EST, 0 for UTC)
 // Example: { date: '2026-03-21', time: '17:30', gmt: 8 }
 const TEST_DATE = null;
+//const TEST_DATE = { date: '2026-04-01', time: '17:30', gmt: 8 }
 
 
 // ── SCHEDULE DATA (loaded from schedule.json) ──
@@ -191,7 +192,7 @@ function buildCalGrid(activeFilter) {
   const month     = firstDate.getMonth();
   const startDow  = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const now       = new Date();
+  const now       = TEST_DATE ? new Date(`${TEST_DATE.date}T${TEST_DATE.time}`) : new Date();
   const todayNum  = now.getFullYear() === year && now.getMonth() === month ? now.getDate() : -1;
   let html = '';
 
@@ -217,7 +218,8 @@ function buildCalGrid(activeFilter) {
       // One chip per unique sport type
       const seen = new Set(), chips = [];
       for (const sec of secs) {
-        if (!seen.has(sec.sport)) { seen.add(sec.sport); chips.push(sec); }
+        const chipKey = sec.isEvent ? sec.label : sec.sport;
+        if (!seen.has(chipKey)) { seen.add(chipKey); chips.push(sec); }
       }
 
       html += '<div class="cal-chips">';
@@ -614,7 +616,6 @@ function startHintTimer() {
 requestAnimationFrame(() => requestAnimationFrame(() => {
   document.getElementById('floatingResults').classList.add('fab-visible');
   document.getElementById('floatingTheme').classList.add('fab-visible');
-  document.getElementById('floatingNavBtn').classList.add('fab-visible');
   floatHint.classList.add('hint-show');
 }));
 
@@ -876,7 +877,7 @@ document.getElementById('tallyRoot').addEventListener('click', e => {
     fabResults.classList.add('fab-visible');
     fabTheme.classList.add('fab-visible');
     const onSched = document.getElementById('tabSched').classList.contains('active');
-    if (!navTargetInView && onSched) fabNav.classList.add('fab-visible');
+    if (!navTargetInView && onSched && getNavTarget() !== null) fabNav.classList.add('fab-visible');
     if (fabTimer) clearTimeout(fabTimer);
     fabTimer = setTimeout(() => {
       fabResults.classList.remove('fab-visible');
@@ -936,15 +937,20 @@ document.getElementById('tallyRoot').addEventListener('click', e => {
       }
     }
 
-    // Fallback: no upcoming events found
-    return { day: new Date(phtNow.getTime() + 24 * 3600 * 1000).getUTCDate(), label: "Tomorrow's Events" };
+    // No upcoming events found — hide the button
+    return null;
   }
 
   const DOWN = `<line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>`;
   const UP   = `<line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>`;
 
   function syncNavPosition() {
-    const { day, label } = getNavTarget();
+    const target = getNavTarget();
+    if (!target) {
+      fabNav.classList.remove('fab-visible');
+      return;
+    }
+    const { day, label } = target;
     document.getElementById('floatingNavLabel').textContent = label;
 
     const navEl   = document.getElementById('floatingNav');
