@@ -1354,7 +1354,7 @@ const SCHEDULE_DATA = {
       sections: [
         {
           sport: "event",
-          icon: "ico-star",
+          icon: "ico-laronglahi",
           label: "Laro ng Lahi",
           venue: "Leisure Coast Resort",
           isEvent: true,

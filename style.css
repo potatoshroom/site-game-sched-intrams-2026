@@ -363,13 +363,10 @@ h1 span {
 .entry-crown {
   width: 13px;
   height: 13px;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  opacity: 0.75;
+  object-fit: contain;
+  opacity: 0.65;
   flex-shrink: 0;
+  filter: invert(1);
 }
 
 .entry-result {
@@ -1252,6 +1249,25 @@ h1 span {
 .splash-bg-win     { background: rgba(0,0,0,0.88); }
 .splash-bg-lose    { background: rgba(0,0,0,0.92); }
 .splash-bg-pending { background: rgba(0,0,0,0.85); }
+.splash-bg-event   { background: rgba(0,0,0,0.90); }
+
+.splash-event-bg {
+  width: 52vmin !important;
+  height: 52vmin !important;
+  opacity: 0.12 !important;
+}
+
+.splash-inner-event {
+  justify-content: center;
+}
+
+.splash-center-event::before { display: none; }
+
+.splash-event-result {
+  font-size: 28px;
+  letter-spacing: 3px;
+  color: var(--gold) !important;
+}
 
 .splash-sport-bg {
   position: absolute;
@@ -1613,12 +1629,8 @@ h1 span {
 .announce-result-icon {
   width: 52px;
   height: 52px;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  filter: drop-shadow(0 0 12px rgba(200, 215, 240, 0.75));
+  object-fit: contain;
+  filter: invert(1) drop-shadow(0 0 12px rgba(200, 215, 240, 0.75));
   flex-shrink: 0;
 }
 

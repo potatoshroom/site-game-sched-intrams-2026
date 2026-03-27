@@ -26,6 +26,10 @@ const SPORT_LOGO = {
   'ico-tabletennis':   'tabletennis.svg',
   'ico-mobilelegends': 'mlbb.svg',
   'ico-callofduty':    'codm.svg',
+  'ico-crown':         'bb.svg',
+  'ico-trophy':        'trophy.svg',
+  'ico-star':          'pompom.svg',
+  'ico-laronglahi':    'laronglahi.svg',
 };
 
 function sportIconHtml(iconId, extraCls = '') {
@@ -68,7 +72,9 @@ function renderSchedule(data) {
         </div>
         <div class="matches">`;
       if (sec.isEvent) {
-        html += `<div class="event-row"${bbLabelAttr}>
+        const evMeta = (typeof TALLY_META !== 'undefined' && TALLY_META[sec.label]) || {};
+        const evSplashAttr = ` data-event-splash="1" data-label="${esc(sec.label)}" data-icon="${esc(sec.icon || '')}" data-time="${esc(sec.time || '')}" data-venue="${esc(sec.venue || '')}" data-date="${esc(day.date || '')}" data-result="${esc(evMeta.result || '')}"`;
+        html += `<div class="event-row"${bbLabelAttr}${evSplashAttr}>
           <div class="match-time">${esc(sec.time)}</div>
           <div><span class="event-badge">${esc(sec.badge || 'Special Event')}</span></div>
         </div>`;
@@ -77,7 +83,7 @@ function renderSchedule(data) {
           for (const entry of sec.entries) {
             const eAttr = entry.img ? ` data-bb-img="${entry.img}" data-bb-name="${esc(entry.name)}" data-bb-result="${esc(entry.result || '')}"` : '';
             const rBadge = entry.result ? `<span class="entry-result">${esc(entry.result)}</span>` : '';
-            html += `<div class="event-entry"${eAttr}><svg class="entry-crown" viewBox="0 0 24 24"><use href="#ico-crown"/></svg><span class="event-entry-name">${esc(entry.name)}</span>${rBadge}</div>`;
+            html += `<div class="event-entry"${eAttr}><img class="entry-crown" src="public/images/sportslogos/bb.svg" alt=""><span class="event-entry-name">${esc(entry.name)}</span>${rBadge}</div>`;
           }
           html += `</div>`;
         }
@@ -290,8 +296,10 @@ function openAgenda(day) {
       </div>`;
     if (sec.isEvent) {
       const awardCls = sec.shimmer ? ' award-section' : '';
+      const agEvMeta = (typeof TALLY_META !== 'undefined' && TALLY_META[sec.label]) || {};
+      const agEvSplashAttr = ` data-event-splash="1" data-label="${esc(sec.label)}" data-icon="${esc(sec.icon || '')}" data-time="${esc(sec.time || '')}" data-venue="${esc(sec.venue || '')}" data-date="${esc(dayData.date || '')}" data-result="${esc(agEvMeta.result || '')}"`;
       html += `
-      <div class="agenda-match${awardCls}"${agBbHdAttr}>
+      <div class="agenda-match${awardCls}"${agBbHdAttr}${agEvSplashAttr}>
         <div class="agenda-time">${sec.time}</div>
         <div><span class="event-badge">${sec.badge || 'Special Event'}</span></div>
         <div></div>
@@ -301,7 +309,7 @@ function openAgenda(day) {
         for (const entry of sec.entries) {
           const eAttr = entry.img ? ` data-bb-img="${entry.img}" data-bb-name="${esc(entry.name)}" data-bb-result="${esc(entry.result || '')}"` : '';
           const rBadge = entry.result ? `<span class="entry-result">${esc(entry.result)}</span>` : '';
-          html += `<div class="event-entry"${eAttr}><svg class="entry-crown" viewBox="0 0 24 24"><use href="#ico-crown"/></svg><span class="event-entry-name">${esc(entry.name)}</span>${rBadge}</div>`;
+          html += `<div class="event-entry"${eAttr}><img class="entry-crown" src="public/images/sportslogos/bb.svg" alt=""><span class="event-entry-name">${esc(entry.name)}</span>${rBadge}</div>`;
         }
         html += `</div>`;
       }
@@ -393,7 +401,7 @@ function renderTally() {
     for (const sec of day.sections) {
       if (!sectionMap.has(sec.label)) {
         sectionOrder.push(sec.label);
-        sectionMap.set(sec.label, { icon: sec.icon, sport: sec.sport, isEvent: sec.isEvent || false, entries: sec.entries || [], matches: new Map(), stages: new Map() });
+        sectionMap.set(sec.label, { icon: sec.icon, sport: sec.sport, isEvent: sec.isEvent || false, entries: sec.entries || [], time: sec.time || null, venue: sec.venue || null, date: day.date || null, matches: new Map(), stages: new Map() });
       }
       const entry = sectionMap.get(sec.label);
       for (const m of sec.matches) {
@@ -536,7 +544,8 @@ function renderTally() {
       else if (resultLower.includes('runner') || resultLower.includes('2nd')) rowGlow = ' tally-glow-silver';
       else if (resultLower.includes('3rd')) rowGlow = ' tally-glow-bronze';
       const hasEntries = data.entries && data.entries.length > 0;
-      html += `<div class="tally-event-row${rowGlow}${hasEntries ? ' tally-event-has-entries' : ''}">`;
+      const evSplash = ` data-event-splash="1" data-label="${esc(label)}" data-icon="${esc(data.icon || '')}" data-time="${esc(data.time || '')}" data-venue="${esc(data.venue || '')}" data-date="${esc(data.date || '')}" data-result="${esc(meta.result || '')}"`;
+      html += `<div class="tally-event-row${rowGlow}${hasEntries ? ' tally-event-has-entries' : ''}"${hasEntries ? '' : evSplash}>`;
       html += `<div class="tally-event-name"><span class="sport-icon">${sportIconHtml(data.icon)}</span><span>${esc(label)}</span></div>`;
       if (!hasEntries) {
         html += `<div class="tally-event-result">${resultBadge(meta.result ?? null)}</div>`;
@@ -551,8 +560,9 @@ function renderTally() {
           else if (eResultLower.includes('runner') || eResultLower.includes('2nd')) eGlow = ' tally-glow-silver';
           else if (eResultLower.includes('3rd')) eGlow = ' tally-glow-bronze';
           const eAttr = entry.img ? ` data-bb-img="${entry.img}" data-bb-name="${esc(entry.name)}" data-bb-result="${esc(entry.result || '')}"` : '';
-          html += `<div class="tally-entry-row${eGlow}"${eAttr}>`;
-          html += `<svg class="entry-crown" viewBox="0 0 24 24"><use href="#ico-crown"/></svg>`;
+          const eEvSplash = ` data-event-splash="1" data-label="${esc(entry.name)}" data-icon="${esc(data.icon || '')}" data-time="${esc(data.time || '')}" data-venue="${esc(data.venue || '')}" data-date="${esc(data.date || '')}" data-result="${esc(entry.result || '')}"`;
+          html += `<div class="tally-entry-row${eGlow}"${eAttr}${eEvSplash}>`;
+          html += `<img class="entry-crown" src="public/images/sportslogos/bb.svg" alt="">`;
           html += `<span class="tally-entry-name">${esc(entry.name)}</span>`;
           html += `<div class="tally-event-result">${resultBadge(entry.result ?? null)}</div>`;
           html += `</div>`;
@@ -667,6 +677,30 @@ function sportLogoFromLabel(label) {
   return null;
 }
 
+function showEventSplash(ds) {
+  const logoFile = SPORT_LOGO[ds.icon] || sportLogoFromLabel(ds.label);
+  const sportBg = logoFile ? `<img class="splash-sport-bg splash-event-bg" src="public/images/sportslogos/${logoFile}" alt="">` : '';
+  const resHtml = ds.result ? `<div class="splash-result splash-event-result">${esc(ds.result)}</div>` : '';
+  const metaParts = [ds.date, ds.time, ds.venue].filter(Boolean);
+  const metaLine = metaParts.length ? `<div class="splash-meta-time">${metaParts.join(' \u00b7 ')}</div>` : '';
+
+  const overlay = document.createElement('div');
+  overlay.id = 'splashOverlay';
+  overlay.innerHTML = `
+    <div class="splash-bg splash-bg-event"></div>
+    ${sportBg}
+    <div class="splash-inner splash-inner-event">
+      <div class="splash-center splash-center-event">
+        ${resHtml}
+        <div class="splash-meta">${esc(ds.label)}</div>
+        ${metaLine}
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+  requestAnimationFrame(() => overlay.classList.add('splash-visible'));
+  overlay.addEventListener('click', closeResultSplash);
+}
+
 function showResultSplash(ds) {
   const isWin   = ds.result === 'win';
   const oppClr  = TEAM_COLORS[ds.opp] || '#888';
@@ -752,7 +786,22 @@ function showMatchSplash(ds) {
   overlay.addEventListener('click', closeResultSplash);
 }
 
+function eventSplashFromEl(el) {
+  return {
+    label:  el.dataset.label  || '',
+    icon:   el.dataset.icon   || '',
+    result: el.dataset.result || '',
+    time:   el.dataset.time   || '',
+    venue:  el.dataset.venue  || '',
+    date:   el.dataset.date   || '',
+  };
+}
+
 document.getElementById('scheduleRoot').addEventListener('click', e => {
+  const evRow = e.target.closest('[data-event-splash]');
+  if (evRow && !e.target.closest('[data-bb-img]') && !e.target.closest('[data-bb-imgs]')) {
+    showEventSplash(eventSplashFromEl(evRow)); return;
+  }
   const row = e.target.closest('.match-row');
   if (!row) return;
   const ds = {
@@ -776,7 +825,18 @@ document.getElementById('scheduleRoot').addEventListener('click', e => {
   }
 });
 
+document.getElementById('calAgenda').addEventListener('click', e => {
+  const evRow = e.target.closest('[data-event-splash]');
+  if (evRow && !e.target.closest('[data-bb-img]') && !e.target.closest('[data-bb-imgs]')) {
+    showEventSplash(eventSplashFromEl(evRow)); return;
+  }
+});
+
 document.getElementById('tallyRoot').addEventListener('click', e => {
+  const evRow = e.target.closest('[data-event-splash]');
+  if (evRow && !e.target.closest('[data-bb-img]')) {
+    showEventSplash(eventSplashFromEl(evRow)); return;
+  }
   const cell = e.target.closest('.tally-clickable');
   if (!cell) return;
   const ds = {
