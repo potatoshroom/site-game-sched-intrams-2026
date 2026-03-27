@@ -54,7 +54,7 @@ function renderSchedule(data) {
       </div>`;
     day.sections.forEach(sec => {
       const hlCls = (BADMINTON_HIGHLIGHT && sec.highlight) ? ' highlight-section' : '';
-      const evCls = sec.isEvent ? ' event-section' : '';
+      const evCls = sec.isEvent ? (sec.shimmer ? ' event-section award-section' : ' event-section') : '';
       html += `<div class="sport-section${hlCls}${evCls}" data-sport="${sec.sport}">
         <div class="sport-label">
           <span class="sport-icon">${sportIconHtml(sec.icon)}</span>
@@ -65,7 +65,7 @@ function renderSchedule(data) {
       if (sec.isEvent) {
         html += `<div class="event-row">
           <div class="match-time">${esc(sec.time)}</div>
-          <div><span class="event-badge">Special Event</span></div>
+          <div><span class="event-badge">${esc(sec.badge || 'Special Event')}</span></div>
         </div>`;
       }
       sec.matches.forEach(m => {
@@ -104,6 +104,8 @@ function buildCalData(data) {
           sport: sec.sport, icon: `#${sec.icon}`,
           label: sec.label, venue: sec.venue,
           isEvent: sec.isEvent || false,
+          shimmer: sec.shimmer || false,
+          badge: sec.badge || null,
           time: sec.time || null,
           matches: sec.matches.map(m => ({
             time: m.time, opp: m.opp, oCls: m.opp.toLowerCase(),
@@ -268,10 +270,11 @@ function openAgenda(day) {
         <span class="agenda-sport-venue">${sec.venue}</span>
       </div>`;
     if (sec.isEvent) {
+      const awardCls = sec.shimmer ? ' award-section' : '';
       html += `
-      <div class="agenda-match">
+      <div class="agenda-match${awardCls}">
         <div class="agenda-time">${sec.time}</div>
-        <div><span class="event-badge">Special Event</span></div>
+        <div><span class="event-badge">${sec.badge || 'Special Event'}</span></div>
         <div></div>
       </div>`;
     } else {

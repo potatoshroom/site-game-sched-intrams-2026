@@ -322,6 +322,66 @@ h1 span {
   display: inline-block;
 }
 
+/* ── AWARD SECTION — GOLD SHIMMER ── */
+.award-section .sport-name {
+  background: linear-gradient(90deg, #c9a84c 0%, #f5e080 40%, #fff8c0 50%, #f5e080 60%, #c9a84c 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: goldTextShimmer 2.5s linear infinite;
+}
+
+@keyframes goldTextShimmer {
+  from { background-position: 0% center; }
+  to   { background-position: 200% center; }
+}
+
+.award-section .sport-label {
+  border-left: 3px solid #c9a84c;
+  padding-left: 10px;
+  filter: drop-shadow(0 0 8px rgba(255, 200, 50, 0.55));
+}
+
+.award-section .event-row {
+  border-color: rgba(220, 170, 40, 0.5);
+  background: rgba(201, 168, 76, 0.07);
+}
+
+.award-section .event-row > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ::before is the left bar — use ::after for the nebula */
+.award-section .event-row::before {
+  background: linear-gradient(to bottom, #f5e080, #c9a84c);
+  box-shadow: 0 0 10px rgba(255, 200, 50, 0.7);
+  z-index: 2;
+}
+
+.award-section .event-row::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 55%, rgba(255, 200, 50,  0.60), transparent 60%),
+    radial-gradient(ellipse 65% 55% at 75% 30%, rgba(240, 160, 20,  0.50), transparent 58%),
+    radial-gradient(ellipse 55% 50% at 18% 70%, rgba(255, 220, 80,  0.42), transparent 56%),
+    radial-gradient(ellipse 50% 45% at 85% 78%, rgba(200, 130, 10,  0.35), transparent 55%),
+    radial-gradient(ellipse 70% 60% at 55% 45%, rgba(255, 240, 100, 0.28), transparent 65%);
+  filter: blur(18px);
+  animation: nebulaDrift 9s ease-in-out infinite, goldPulse 2.8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.award-section .event-badge {
+  color: #f5e080;
+  border-color: rgba(255, 215, 60, 0.75);
+  text-shadow: 0 0 8px rgba(255, 200, 50, 0.6);
+}
+
 .sport-label {
   display: flex;
   align-items: center;
