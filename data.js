@@ -16,7 +16,7 @@ const SCHEDULE_DATA = {
           sport: "basketball",
           icon: "ico-basketball",
           label: "Basketball — Men (5v5)",
-          venue: "Leisure Coast Gym",
+          venue: "Leisure Coast - Gym",
           highlight: null,
           matches: [
             {
@@ -34,7 +34,7 @@ const SCHEDULE_DATA = {
           sport: "volleyball",
           icon: "ico-volleyball",
           label: "Volleyball — Men",
-          venue: "Leisure Coast Court 1",
+          venue: "Leisure Coast - Outside Justin Hall",
           highlight: null,
           matches: [
             {
@@ -52,7 +52,7 @@ const SCHEDULE_DATA = {
           sport: "volleyball",
           icon: "ico-volleyball",
           label: "Volleyball — Women",
-          venue: "Leisure Coast Court 2",
+          venue: "Leisure Coast - Parking",
           highlight: null,
           matches: [
             {
@@ -70,7 +70,7 @@ const SCHEDULE_DATA = {
           sport: "beach",
           icon: "ico-beach",
           label: "Beach Volleyball — Men",
-          venue: "Sand Area",
+          venue: "Leisure Coast - Sandbox",
           highlight: null,
           matches: [
             {
@@ -104,7 +104,7 @@ const SCHEDULE_DATA = {
           sport: "basketball",
           icon: "ico-basketball",
           label: "Basketball — Men (5v5)",
-          venue: "UdD Quadrangle",
+          venue: "UdD - Quadrangle",
           highlight: null,
           matches: [
             {
@@ -131,7 +131,7 @@ const SCHEDULE_DATA = {
           sport: "basketball",
           icon: "ico-basketball",
           label: "Basketball — Women (3v3)",
-          venue: "LCR Gym Court #1",
+          venue: "Leisure Coast - Gym",
           highlight: null,
           matches: [
             {
@@ -203,7 +203,7 @@ const SCHEDULE_DATA = {
           sport: "volleyball",
           icon: "ico-volleyball",
           label: "Volleyball — Men",
-          venue: "Leisure Coast Court 1",
+          venue: "Leisure Coast - Outside Justin Hall",
           highlight: null,
           matches: [
             {
@@ -230,7 +230,7 @@ const SCHEDULE_DATA = {
           sport: "volleyball",
           icon: "ico-volleyball",
           label: "Volleyball — Women",
-          venue: "Leisure Coast Court 2",
+          venue: "Leisure Coast - Parking",
           highlight: null,
           matches: [
             {
@@ -257,7 +257,7 @@ const SCHEDULE_DATA = {
           sport: "beach",
           icon: "ico-beach",
           label: "Beach Volleyball — Women",
-          venue: "Sand Area",
+          venue: "Leisure Coast - Sandbox",
           highlight: null,
           matches: [
             {
@@ -284,7 +284,7 @@ const SCHEDULE_DATA = {
           sport: "beach",
           icon: "ico-beach",
           label: "Beach Volleyball — Men",
-          venue: "Sand Area",
+          venue: "Leisure Coast - Sandbox",
           highlight: null,
           matches: [
             {
@@ -311,7 +311,7 @@ const SCHEDULE_DATA = {
           sport: "chess",
           icon: "ico-chess",
           label: "Chess — Men (Individual)",
-          venue: "Library · VPA Building",
+          venue: "UdD - Library",
           highlight: null,
           matches: [
             {
@@ -383,7 +383,7 @@ const SCHEDULE_DATA = {
           sport: "chess",
           icon: "ico-chess",
           label: "Chess — Women (Individual)",
-          venue: "Library · VPA Building",
+          venue: "UdD - Library",
           highlight: null,
           matches: [
             {
@@ -462,7 +462,7 @@ const SCHEDULE_DATA = {
           sport: "basketball",
           icon: "ico-basketball",
           label: "Basketball — Men (5v5)",
-          venue: "UdD Quadrangle",
+          venue: "UdD - Quadrangle",
           highlight: null,
           matches: [
             {
@@ -489,7 +489,7 @@ const SCHEDULE_DATA = {
           sport: "volleyball",
           icon: "ico-volleyball",
           label: "Volleyball — Men",
-          venue: "Leisure Coast Court 1",
+          venue: "Leisure Coast - Outside Justin Hall",
           highlight: null,
           matches: [
             {
@@ -516,7 +516,7 @@ const SCHEDULE_DATA = {
           sport: "volleyball",
           icon: "ico-volleyball",
           label: "Volleyball — Women",
-          venue: "Leisure Coast Court 2",
+          venue: "Leisure Coast - Parking",
           highlight: null,
           matches: [
             {
@@ -543,7 +543,7 @@ const SCHEDULE_DATA = {
           sport: "beach",
           icon: "ico-beach",
           label: "Beach Volleyball — Women",
-          venue: "Sand Area",
+          venue: "Leisure Coast - Sandbox",
           highlight: null,
           matches: [
             {
@@ -579,7 +579,7 @@ const SCHEDULE_DATA = {
           sport: "beach",
           icon: "ico-beach",
           label: "Beach Volleyball — Men",
-          venue: "Sand Area",
+          venue: "Leisure Coast - Sandbox",
           highlight: null,
           matches: [
             {
@@ -597,7 +597,7 @@ const SCHEDULE_DATA = {
           sport: "scrabble",
           icon: "ico-scrabble",
           label: "Scrabble — Men (Singles)",
-          venue: "Library",
+          venue: "UdD - Library",
           highlight: null,
           matches: [
             {
@@ -651,7 +651,7 @@ const SCHEDULE_DATA = {
           sport: "scrabble",
           icon: "ico-scrabble",
           label: "Scrabble — Women (Singles)",
-          venue: "Library",
+          venue: "UdD - Library",
           highlight: null,
           matches: [
             {
@@ -705,7 +705,7 @@ const SCHEDULE_DATA = {
           sport: "scrabble",
           icon: "ico-scrabble",
           label: "Scrabble — Mixed Doubles",
-          venue: "Library",
+          venue: "UdD - Library",
           highlight: null,
           matches: [
             {
@@ -741,7 +741,7 @@ const SCHEDULE_DATA = {
           sport: "mobilelegends",
           icon: "ico-mobilelegends",
           label: "Mobile Legends",
-          venue: "L301 & L302",
+          venue: "UdD - L301 & L302",
           highlight: null,
           matches: [
             {
@@ -795,7 +795,7 @@ const SCHEDULE_DATA = {
           sport: "callofduty",
           icon: "ico-callofduty",
           label: "Call of Duty Mobile",
-          venue: "L301 & L302",
+          venue: "UdD - L301 & L302",
           highlight: null,
           matches: [
             {
@@ -856,7 +856,7 @@ const SCHEDULE_DATA = {
           sport: "volleyball",
           icon: "ico-volleyball",
           label: "Volleyball — Men",
-          venue: "UdD Quadrangle",
+          venue: "UdD - Quadrangle",
           highlight: null,
           matches: [
             {
@@ -874,7 +874,7 @@ const SCHEDULE_DATA = {
           sport: "scrabble",
           icon: "ico-scrabble",
           label: "Scrabble — Mixed Doubles",
-          venue: "Library",
+          venue: "UdD - Library",
           highlight: null,
           matches: [
             {
@@ -901,7 +901,7 @@ const SCHEDULE_DATA = {
           sport: "scrabble",
           icon: "ico-scrabble",
           label: "Scrabble — Men (Singles)",
-          venue: "Library",
+          venue: "UdD - Library",
           highlight: null,
           matches: [
             {
@@ -937,7 +937,7 @@ const SCHEDULE_DATA = {
           sport: "scrabble",
           icon: "ico-scrabble",
           label: "Scrabble — Women (Singles)",
-          venue: "Library",
+          venue: "UdD - Library",
           highlight: null,
           matches: [
             {
@@ -964,7 +964,7 @@ const SCHEDULE_DATA = {
           sport: "tabletennis",
           icon: "ico-tabletennis",
           label: "Table Tennis — Men",
-          venue: "Niki's Garden",
+          venue: "Leisure Coast - Niki's Garden",
           highlight: null,
           matches: [
             {
@@ -1036,7 +1036,7 @@ const SCHEDULE_DATA = {
           sport: "tabletennis",
           icon: "ico-tabletennis",
           label: "Table Tennis — Women",
-          venue: "Niki's Garden",
+          venue: "Leisure Coast - Niki's Garden",
           highlight: null,
           matches: [
             {
@@ -1108,7 +1108,7 @@ const SCHEDULE_DATA = {
           sport: "tabletennis",
           icon: "ico-tabletennis",
           label: "Table Tennis — Mixed Doubles",
-          venue: "Niki's Garden",
+          venue: "Leisure Coast - Niki's Garden",
           highlight: null,
           matches: [
             {
@@ -1180,7 +1180,7 @@ const SCHEDULE_DATA = {
           sport: "mobilelegends",
           icon: "ico-mobilelegends",
           label: "Mobile Legends",
-          venue: "Audio-Visual Theater",
+          venue: "UdD - Audio-Visual Theater",
           highlight: null,
           matches: [
             {
@@ -1207,7 +1207,7 @@ const SCHEDULE_DATA = {
           sport: "callofduty",
           icon: "ico-callofduty",
           label: "Call of Duty Mobile",
-          venue: "Audio-Visual Theater",
+          venue: "UdD - Audio-Visual Theater",
           highlight: null,
           matches: [
             {
@@ -1241,7 +1241,7 @@ const SCHEDULE_DATA = {
           sport: "badminton",
           icon: "ico-badminton",
           label: "Badminton — Men",
-          venue: "Niki's Garden",
+          venue: "Leisure Coast - Niki's Garden",
           highlight: true,
           matches: [
             {
@@ -1268,7 +1268,7 @@ const SCHEDULE_DATA = {
           sport: "badminton",
           icon: "ico-badminton",
           label: "Badminton — Women",
-          venue: "Niki's Garden",
+          venue: "Leisure Coast - Niki's Garden",
           highlight: true,
           matches: [
             {
@@ -1295,7 +1295,7 @@ const SCHEDULE_DATA = {
           sport: "badminton",
           icon: "ico-badminton",
           label: "Badminton — Mixed Doubles",
-          venue: "Niki's Garden",
+          venue: "Leisure Coast - Niki's Garden",
           highlight: true,
           matches: [
             {
@@ -1322,7 +1322,7 @@ const SCHEDULE_DATA = {
           sport: "basketball",
           icon: "ico-basketball",
           label: "Basketball — Men (5v5)",
-          venue: "UdD Quadrangle",
+          venue: "UdD - Quadrangle",
           highlight: null,
           matches: [
             {
@@ -1356,7 +1356,7 @@ const SCHEDULE_DATA = {
           sport: "event",
           icon: "ico-laronglahi",
           label: "Laro ng Lahi",
-          venue: "Leisure Coast Resort",
+          venue: "Leisure Coast",
           isEvent: true,
           time: "Whole Day",
           matches: [],
@@ -1520,7 +1520,7 @@ const SCHEDULE_DATA = {
           sport: "event",
           icon: "ico-crown",
           label: "Binibining Universidad",
-          venue: "UdD Campus",
+          venue: "Leisure Coast - Gym",
           isEvent: true,
           time: "9:00 AM",
           entries: [
@@ -1533,7 +1533,7 @@ const SCHEDULE_DATA = {
           sport: "event",
           icon: "ico-star",
           label: "Pom Dance Competition",
-          venue: "UdD Campus",
+          venue: "Leisure Coast - Gym",
           isEvent: true,
           time: "2:00 PM",
           matches: [],
@@ -1542,7 +1542,7 @@ const SCHEDULE_DATA = {
           sport: "event",
           icon: "ico-trophy",
           label: "Awarding of Winners",
-          venue: "UdD Campus",
+          venue: "Leisure Coast - Gym",
           isEvent: true,
           shimmer: true,
           badge: "Awarding Ceremony",
