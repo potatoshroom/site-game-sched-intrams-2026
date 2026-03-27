@@ -1581,11 +1581,11 @@ const TALLY_META = {
   "Call of Duty Mobile": { result: "Champion" },
   "Laro ng Lahi": { result: "5th Place" },
   "Binibining Universidad": { result: null },
-  "Pom Dance Competition": { result: null },
+  "Pom Dance Competition": { result: "3rd Place" },
 };
 
 // ── OVERALL RESULT ──
 // Set to a string to show the result splash on load (e.g. "1st Runner-Up", "Champion").
 // Set to null to hide the popup.
-const OVERALL_RESULT = null;
-//const OVERALL_RESULT = "1st Runner-Up";
+//const OVERALL_RESULT = null;
+const OVERALL_RESULT = "1st Runner-Up";
