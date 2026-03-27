@@ -1543,6 +1543,31 @@ const SCHEDULE_DATA = {
         },
       ],
     },
+    {
+      day: 27,
+      name: "Friday",
+      date: "March 27, 2026",
+      sections: [
+        {
+          sport: "event",
+          icon: "ico-crown",
+          label: "Binibining Universidad",
+          venue: "UDD Campus",
+          isEvent: true,
+          time: "9:00 AM",
+          matches: [],
+        },
+        {
+          sport: "event",
+          icon: "ico-star",
+          label: "Pom Dance Competition",
+          venue: "UDD Campus",
+          isEvent: true,
+          time: "2:00 PM",
+          matches: [],
+        },
+      ],
+    },
   ],
 };
 

@@ -54,13 +54,20 @@ function renderSchedule(data) {
       </div>`;
     day.sections.forEach(sec => {
       const hlCls = (BADMINTON_HIGHLIGHT && sec.highlight) ? ' highlight-section' : '';
-      html += `<div class="sport-section${hlCls}" data-sport="${sec.sport}">
+      const evCls = sec.isEvent ? ' event-section' : '';
+      html += `<div class="sport-section${hlCls}${evCls}" data-sport="${sec.sport}">
         <div class="sport-label">
           <span class="sport-icon">${sportIconHtml(sec.icon)}</span>
           <span class="sport-name">${esc(sec.label)}</span>
           <span class="sport-venue">${esc(sec.venue)}</span>
         </div>
         <div class="matches">`;
+      if (sec.isEvent) {
+        html += `<div class="event-row">
+          <div class="match-time">${esc(sec.time)}</div>
+          <div><span class="event-badge">Special Event</span></div>
+        </div>`;
+      }
       sec.matches.forEach(m => {
         const resultCls = m.result ? ` ${m.result}` : '';
         const tbdCls    = m.tbd ? ' tbd' : '';
@@ -96,6 +103,8 @@ function buildCalData(data) {
         return {
           sport: sec.sport, icon: `#${sec.icon}`,
           label: sec.label, venue: sec.venue,
+          isEvent: sec.isEvent || false,
+          time: sec.time || null,
           matches: sec.matches.map(m => ({
             time: m.time, opp: m.opp, oCls: m.opp.toLowerCase(),
             tbd: m.tbd || false, result: m.result || null, stage: m.stage || null
@@ -122,7 +131,7 @@ if (!BADMINTON_HIGHLIGHT) {
 
 // ── Stats strip
 (function() {
-  const allSections = SCHEDULE_DATA.days.flatMap(d => d.sections);
+  const allSections = SCHEDULE_DATA.days.flatMap(d => d.sections).filter(s => !s.isEvent);
   const allMatches  = allSections.flatMap(s => s.matches);
   const sports      = new Set(allSections.map(s => s.sport));
   const opponents   = new Set(allMatches.map(m => m.opp));
@@ -145,7 +154,8 @@ document.querySelectorAll('.sport-section').forEach(sec => {
 
 const SPORT_CHIP_CLR = {
   basketball:'#e8843a', volleyball:'#4a90d9', beach:'#3ab8c8',
-  chess:'#9b72cf', scrabble:'#4aba7a', tabletennis:'#e05555', badminton:'#d4a83a'
+  chess:'#9b72cf', scrabble:'#4aba7a', tabletennis:'#e05555', badminton:'#d4a83a',
+  event:'#c9a84c',
 };
 
 function buildCalGrid(activeFilter) {
@@ -228,7 +238,13 @@ function openAgenda(day) {
 
   const af = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
   const sections = af === 'all' ? dayData.sections : dayData.sections.filter(s => s.sport === af);
-  const total = sections.reduce((n, s) => n + s.matches.length, 0);
+  const matchCount = sections.reduce((n, s) => s.isEvent ? n : n + s.matches.length, 0);
+  const evCount = sections.filter(s => s.isEvent).length;
+  const countStr = matchCount > 0 && evCount > 0
+    ? `${matchCount} match${matchCount !== 1 ? 'es' : ''} · ${evCount} event${evCount !== 1 ? 's' : ''}`
+    : matchCount > 0
+      ? `${matchCount} match${matchCount !== 1 ? 'es' : ''}`
+      : `${evCount} event${evCount !== 1 ? 's' : ''}`;
 
   let html = `
     <div class="agenda-hd">
@@ -237,7 +253,7 @@ function openAgenda(day) {
         <div class="agenda-hd-name">${dayData.name}</div>
         <div class="agenda-hd-date">${dayData.date}</div>
       </div>
-      <div class="agenda-count">${total} match${total !== 1 ? 'es' : ''}</div>
+      <div class="agenda-count">${countStr}</div>
       <button class="agenda-close" onclick="closeAgenda()" aria-label="Close">
         <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
@@ -251,6 +267,14 @@ function openAgenda(day) {
         ${sec.label}
         <span class="agenda-sport-venue">${sec.venue}</span>
       </div>`;
+    if (sec.isEvent) {
+      html += `
+      <div class="agenda-match">
+        <div class="agenda-time">${sec.time}</div>
+        <div><span class="event-badge">Special Event</span></div>
+        <div></div>
+      </div>`;
+    } else {
     for (const m of sec.matches) {
       const isTbdOpp    = m.oCls === 'tbd';
       const isAgendaBracket = !!m.bracket;
@@ -269,6 +293,7 @@ function openAgenda(day) {
         </div>
         ${m.result ? `<div class="agenda-result ${m.result}">${m.result === 'win' ? 'WIN' : 'LOSE'}</div>` : '<div></div>'}
       </div>`;
+    }
     }
     html += `</div>`;
   }

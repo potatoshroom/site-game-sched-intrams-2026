@@ -284,6 +284,44 @@ h1 span {
   margin-bottom: 28px;
 }
 
+/* ── EVENT SECTION ── */
+.event-section .sport-name {
+  color: var(--gold);
+}
+
+.event-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 14px;
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  background: rgba(201, 168, 76, 0.04);
+  margin-left: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.event-row::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--gold);
+}
+
+.event-badge {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(201, 168, 76, 0.6);
+  padding: 2px 8px;
+  display: inline-block;
+}
+
 .sport-label {
   display: flex;
   align-items: center;
