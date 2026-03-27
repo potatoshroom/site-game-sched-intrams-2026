@@ -493,12 +493,7 @@ function renderTally() {
         for (const m of matchList) {
           if (m.result) {
             const cls = m.result === 'win' ? 'tally-win' : 'tally-lose';
-            let scoreStr;
-            if (m.score && m.score.site != null && m.score.opp != null) {
-              scoreStr = `${m.score.site} – ${m.score.opp}`;
-            } else {
-              scoreStr = m.result === 'win' ? 'WIN' : 'LOSE';
-            }
+            const scoreStr = m.result === 'win' ? 'WIN' : 'LOSE';
             cellHtml += `<div class="tally-score ${cls} tally-clickable" ${splashAttrs(opp.toLowerCase(), opp, m.result, label, m.time, m.date, m.venue, m.score)}>${scoreStr}</div>`;
           } else {
             cellHtml += `<div class="tally-score tally-pending tally-clickable" ${splashAttrs(opp.toLowerCase(), opp, '', label, m.time, m.date, m.venue, m.score)}>TBD</div>`;
@@ -698,7 +693,6 @@ function showResultSplash(ds) {
       </div>
       <div class="splash-center">
         ${stageLine}
-        ${ds.scoreSite != null && ds.scoreOpp != null ? `<div class="splash-score"><span class="splash-score-site">${ds.scoreSite}</span><span class="splash-score-sep">–</span><span class="splash-score-opp">${ds.scoreOpp}</span></div>` : ''}
         <div class="splash-result" style="color:${resClr}">${resText}</div>
         <div class="splash-meta">${ds.label}</div>
         <div class="splash-meta-time">${ds.date} &nbsp;·&nbsp; ${ds.time} &nbsp;·&nbsp; ${ds.venue}</div>
