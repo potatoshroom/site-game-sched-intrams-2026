@@ -144,6 +144,30 @@ function buildCalData(data) {
 
 CAL_DATA = buildCalData(SCHEDULE_DATA);
 renderSchedule(SCHEDULE_DATA);
+
+// ── DYNAMIC DATE RANGE ──
+(function() {
+  const days = SCHEDULE_DATA.days;
+  if (!days || !days.length) return;
+  const first = days[0].date;
+  const last = days[days.length - 1].date;
+  // Format: "March 18 – 27, 2026" (same year/month condensed)
+  const formatRange = (a, b) => {
+    const da = new Date(a), db = new Date(b);
+    const monthA = da.toLocaleString('en-US', { month: 'long' });
+    const monthB = db.toLocaleString('en-US', { month: 'long' });
+    const dayA = da.getDate(), dayB = db.getDate();
+    const yearB = db.getFullYear();
+    if (monthA === monthB) return `${monthA} ${dayA} \u2013 ${dayB}, ${yearB}`;
+    return `${monthA} ${dayA} \u2013 ${monthB} ${dayB}, ${yearB}`;
+  };
+  const range = formatRange(first, last);
+  const seasonTag = document.getElementById('seasonTag');
+  const footerRange = document.getElementById('footerDateRange');
+  if (seasonTag) seasonTag.textContent = range;
+  if (footerRange) footerRange.textContent = range;
+})();
+
 if (!BADMINTON_HIGHLIGHT) {
   document.querySelector('.filter-btn[data-filter="badminton"]')?.classList.add('no-highlight');
 }
